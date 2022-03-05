@@ -10,8 +10,8 @@ const s = p => {
   let world;
   let players = [];
   let playerDetails = [];
-  let objects = [];
-  let objectDetails = [];
+  let objects = [[], []];
+  let objectDetails = [[], []];
   let assets = {
     container: null,
     concretewall: null,
@@ -23,7 +23,6 @@ const s = p => {
     roof1: null,
     logotransparent: null,
     wettakis: null,
-    helmet: null,
   };
   let keys = [];
   let level = 0;
@@ -50,63 +49,63 @@ const s = p => {
     obstacles: [
       {
       main: Bodies.rectangle(600, 160, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p.radians(0)}),
-      details: {image: assets.concretewall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: 0, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
+      details: {image: assets.concretewall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
     },
       {
       main: Bodies.rectangle(600, 480, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p.radians(0)}),
-      details: {image: assets.concretewall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: 0, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
+      details: {image: assets.concretewall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
     },
       {
       main: Bodies.rectangle(600, 800, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p.radians(0)}),
-      details: {image: assets.concretewall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: 0, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
+      details: {image: assets.concretewall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
     },
       {
       main: Bodies.rectangle(600, 1120, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p.radians(0)}),
-      details: {image: assets.concretewall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: 0, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
+      details: {image: assets.concretewall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
     },
       {
       main: Bodies.rectangle(600, 1440, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p.radians(0)}),
-      details: {image: assets.concretewall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: 0, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
+      details: {image: assets.concretewall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
     },
       {
       main: Bodies.rectangle(480, 1635, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p.radians(90)}),
-      details: {image: assets.concretewall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: 0, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
+      details: {image: assets.concretewall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
     },
       {
       main: Bodies.rectangle(160, 1635, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p.radians(90)}),
-      details: {image: assets.concretewall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: 0, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
+      details: {image: assets.concretewall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
     },
       {
       main: Bodies.rectangle(420, 800, 190, 370, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p.radians(10)}),
-      details: {image: assets.container, imageWidth: 200, imageHeight: 400, tint: '#c83232', above: 0, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
+      details: {image: assets.container, imageWidth: 200, imageHeight: 400, tint: '#c83232', above: false, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
     },
       {
       main: Bodies.rectangle(250, 1490, 190, 370, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p.radians(90)}),
-      details: {image: assets.container, imageWidth: 200, imageHeight: 400, tint: '#40B5AD', above: 0, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
+      details: {image: assets.container, imageWidth: 200, imageHeight: 400, tint: '#40B5AD', above: false, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
     },
       {
       main: Bodies.rectangle(750, 1200, 190, 370, {isStatic: true, friction: 1, restitution: 0, density: 50}),
-      details: {image: assets.container, imageWidth: 200, imageHeight: 400, tint: '#484bab', above: 0, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
+      details: {image: assets.container, imageWidth: 200, imageHeight: 400, tint: '#484bab', above: false, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
     },
       {
       main: Bodies.circle(1000, 2200, 40, {isStatic: true, friction: 1, restitution: 0, density: 50}),
-      details: {image: assets.tree, imageWidth: 300, imageHeight: 300, tint: '#355E3B', above: 2, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
+      details: {image: assets.tree, imageWidth: 300, imageHeight: 300, tint: '#355E3B', above: true, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
     },
       {
       main: Bodies.circle(500, 1900, 40, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p.radians(120)}),
-      details: {image: assets.tree, imageWidth: 300, imageHeight: 300, tint: '#355E3B', above: 2, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
+      details: {image: assets.tree, imageWidth: 300, imageHeight: 300, tint: '#355E3B', above: true, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
     },
       {
       main: Bodies.polygon(1400, 2300, 7, 80, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p.radians(120)}),
-      details: {image: assets.rock, imageWidth: 160, imageHeight: 160, tint: '#696969', above: 0, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
+      details: {image: assets.rock, imageWidth: 160, imageHeight: 160, tint: '#696969', above: false, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
     },
       {
       main: Bodies.polygon(300, 2100, 7, 80, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p.radians(190)}),
-      details: {image: assets.rock, imageWidth: 160, imageHeight: 160, tint: '#696969', above: 0, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
+      details: {image: assets.rock, imageWidth: 160, imageHeight: 160, tint: '#696969', above: false, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
     },
       {
       main: Bodies.polygon(230, 400, 7, 80, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p.radians(190)}),
-      details: {image: assets.rock, imageWidth: 160, imageHeight: 160, tint: '#696969', above: 0, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
+      details: {image: assets.rock, imageWidth: 160, imageHeight: 160, tint: '#696969', above: false, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
     },
       {
       main: Bodies.fromVertices(2100, 2000, [[
@@ -139,7 +138,7 @@ const s = p => {
         {x: 299, y: -261}, 
         {x: 299, y: -399}, 
       ]], {isStatic: true, friction: 1, restitution: 0, density: 5,}),
-      details: {image: assets.house1, imageWidth: 650, imageHeight: 850, tint: '#FFFFFF', above: 0, xOffset: -21, yOffset: -18, imageMode: p.CENTER, roof: assets.roof1, roofWidth: 610, roofHeight: 810,},
+      details: {image: assets.house1, imageWidth: 650, imageHeight: 850, tint: '#FFFFFF', above: false, xOffset: -21, yOffset: -18, imageMode: p.CENTER, roof: assets.roof1, roofWidth: 610, roofHeight: 810,},
     },
     ],
     players: [
@@ -165,6 +164,17 @@ const s = p => {
         highlightcolour: '#7d8a35',
         loadout: [],
       },
+      {
+        x: 1000,
+        y: 1400,
+        angle: p.radians(90),
+        size: playerSize,
+        colour1: p.color(20, 20, 20),
+        colour2: p.color(50, 50, 50),
+        options: {friction: 1, restitution: 0, density: 100},
+        highlightcolour: p.color(70, 70, 70),
+        loadout: [],
+      },
     ],
     other: {
       world: {
@@ -179,7 +189,7 @@ const s = p => {
   p.drawPlayers = function() {
     for(i = 0; i < players.length; i++) {
       p.push();
-      p.translate(players[i].position.x, players[i].position.y, 1);
+      p.translate(players[i].position.x, players[i].position.y);
       p.rotate(playerDetails[i].angle - p.radians(90));
       p.fill(0);
       p.ellipse(0, 0, players[playerNum].circleRadius * 2, players[playerNum].circleRadius * 2);
@@ -197,30 +207,27 @@ const s = p => {
       p.pop();
     }
   };
-  p.drawObjects = function() {
-    for(i = 0; i < objects.length; i++) {
-      p.imageMode(objectDetails[i].imageMode);
+  p.drawObjects = function(layer) {
+    for(i = 0; i < objects[layer].length; i++) {
+      p.imageMode(objectDetails[layer][i].imageMode);
       p.push();
-      p.translate(objects[i].position.x + objectDetails[i].xOffset, objects[i].position.y + objectDetails[i].yOffset);
-      if(objectDetails[i].above) {
-        p.translate(0, 0, objectDetails[i].above);
+      p.translate(objects[layer][i].position.x + objectDetails[layer][i].xOffset, objects[layer][i].position.y + objectDetails[layer][i].yOffset);
+      p.rotate(objects[layer][i].angle);
+      p.tint(objectDetails[layer][i].tint);
+      if(objectDetails[layer][i].image) {
+        p.image(objectDetails[layer][i].image, 0, 0, objectDetails[layer][i].imageWidth, objectDetails[layer][i].imageHeight);
       }
-      p.rotate(objects[i].angle);
-      p.tint(objectDetails[i].tint);
-      if(objectDetails[i].image) {
-        p.image(objectDetails[i].image, 0, 0, objectDetails[i].imageWidth, objectDetails[i].imageHeight);
-      }
-      if(objectDetails[i].roof && p.dist(players[playerNum].position.x, players[playerNum].position.y, objects[i].position.x + objectDetails[i].xOffset, objects[i].position.y + objectDetails[i].yOffset) >= (objectDetails[i].roofWidth + objectDetails[i].roofHeight) / 3) {
+      if(objectDetails[layer][i].roof && p.dist(players[playerNum].position.x, players[playerNum].position.y, objects[layer][i].position.x + objectDetails[layer][i].xOffset, objects[layer][i].position.y + objectDetails[layer][i].yOffset) >= (objectDetails[layer][i].roofWidth + objectDetails[layer][i].roofHeight) / 3) {
         p.translate(0, 0, 5);
-        p.image(objectDetails[i].roof, 0, 0, objectDetails[i].roofWidth, objectDetails[i].roofHeight);
+        p.image(objectDetails[layer][i].roof, 0, 0, objectDetails[layer][i].roofWidth, objectDetails[layer][i].roofHeight);
       }
       p.noTint();
       p.pop();
       p.fill('red');
       //just for debugging 
       /*p.beginShape();
-      for(f = 0; f < objects[i].vertices.length; f++) {
-        p.vertex(objects[i].vertices[f].x, objects[i].vertices[f].y);
+      for(f = 0; f < objects[layer][i].vertices.length; f++) {
+        p.vertex(objects[layer][i].vertices[f].x, objects[layer][i].vertices[f].y);
       }
       p.endShape();*/
     }
@@ -237,13 +244,13 @@ const s = p => {
       Body.applyForce(players[playerNum], {x: players[playerNum].position.x, y: players[playerNum].position.y}, {x: 14, y: 14})
     }
     else if(keys[68] == true && keys[87] == true) {
-      Body.applyForce(players[playerNum], {x: players[playerNum].position.x, y: players[playerNum].position.y}, {x: 14, y: -14})
+      Body.applyForce(players[playerNum], {x: players[playerNum].position.x, y: players[playerNum].position.y}, {x: 15.2, y: -15.2})
     }
     else if(keys[65] == true && keys[87] == true) {
-      Body.applyForce(players[playerNum], {x: players[playerNum].position.x, y: players[playerNum].position.y}, {x: -14, y: -14})
+      Body.applyForce(players[playerNum], {x: players[playerNum].position.x, y: players[playerNum].position.y}, {x: -15.2, y: -15.2})
     }
     else if(keys[65] == true && keys[83] == true) {
-      Body.applyForce(players[playerNum], {x: players[playerNum].position.x, y: players[playerNum].position.y}, {x: -14, y: 14})
+      Body.applyForce(players[playerNum], {x: players[playerNum].position.x, y: players[playerNum].position.y}, {x: -15.2, y: 15.2})
     }
     else if(keys[87] == true) {
       Body.applyForce(players[playerNum], {x: players[playerNum].position.x, y: players[playerNum].position.y}, {x: 0, y: -20})
@@ -260,11 +267,19 @@ const s = p => {
   };
   p.addToWorld = function(l) {
     for(i = 0; i < levels[l].obstacles.length; i++) {
-      objectDetails[i] = (levels[l].obstacles[i].details);
-      objects[i] = (levels[l].obstacles[i].main);
-      Body.setCentre(objects[i], p.createVector(objects[i].position.x, objects[i].position.y), false);
+      switch(levels[l].obstacles[i].details.above) {
+        case false: 
+          objectDetails[0].push((levels[l].obstacles[i].details));
+          objects[0].push((levels[l].obstacles[i].main));
+        break;
+        case true: 
+          objectDetails[1].push((levels[l].obstacles[i].details));
+          objects[1].push((levels[l].obstacles[i].main));
+        break;
+      }
     }
-    World.add(world, objects);
+    World.add(world, objects[0]);
+    World.add(world, objects[1]);
     for(b = 0; b < levels[l].players.length; b++) {
       players[b] = Bodies.circle(levels[l].players[b].x, levels[l].players[b].y, levels[l].players[b].size, levels[l].players[b].options);
       playerDetails[b] = {angle: levels[l].players[b].angle, colour1: levels[l].players[b].colour1, colour2: levels[l].players[b].colour2, highlightcolour: levels[l].players[b].highlightcolour, loadout: levels[l].players[b].loadout, health: 100};
@@ -276,7 +291,7 @@ const s = p => {
     p.angleMode(p.RADIANS);
     if(p.frameCount == 6) {
       p.addToWorld(level);
-      console.log(objects[objects.length - 1]);
+      console.log(objectDetails[0][0]);
     }
     if(p.frameCount < 200) {
       p.background(40);
@@ -300,9 +315,9 @@ const s = p => {
       for(y = 1; y < p.ceil(levels[level].other.world.height / (playerSize * 8)); y++) {
         p.image(assets.blacksquare, levels[level].other.world.width / 2, y * playerSize * 8, levels[level].other.world.width, 8);
       }
+      p.drawObjects(0);
       p.drawPlayers();
-      p.drawObjects();
-      p.drawPlayers();
+      p.drawObjects(1);
       p.angleMode(p.DEGREES);
       p.playerMove();
       playerDetails[playerNum].angle = p.radians(90 + p.atan2(p.mouseY - p.height / 2, p.mouseX - p.width / 2));
