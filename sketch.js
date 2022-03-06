@@ -217,9 +217,11 @@ const s = p => {
       if(objectDetails[layer][i].image) {
         p.image(objectDetails[layer][i].image, 0, 0, objectDetails[layer][i].imageWidth, objectDetails[layer][i].imageHeight);
       }
-      if(objectDetails[layer][i].roof && p.dist(players[playerNum].position.x, players[playerNum].position.y, objects[layer][i].position.x + objectDetails[layer][i].xOffset, objects[layer][i].position.y + objectDetails[layer][i].yOffset) >= (objectDetails[layer][i].roofWidth + objectDetails[layer][i].roofHeight) / 3) {
-        p.translate(0, 0, 5);
-        p.image(objectDetails[layer][i].roof, 0, 0, objectDetails[layer][i].roofWidth, objectDetails[layer][i].roofHeight);
+      if(objectDetails[layer][i].roof) {
+        if(players[playerNum].position.x + playerSize * 2 <= objects[layer][i].position.x - objectDetails[layer][i].xOffset - objectDetails[layer][i].roofWidth / 2 || players[playerNum].position.x - playerSize * 2 >= objects[layer][i].position.x + objectDetails[layer][i].xOffset + objectDetails[layer][i].roofWidth / 2 || players[playerNum].position.y + playerSize * 2 <= objects[layer][i].position.y - objectDetails[layer][i].yOffset - objectDetails[layer][i].roofHeight / 2 || players[playerNum].position.y - playerSize * 2 >= objects[layer][i].position.y + objectDetails[layer][i].yOffset + objectDetails[layer][i].roofHeight / 2) {
+          p.translate(0, 0, 5);
+          p.image(objectDetails[layer][i].roof, 0, 0, objectDetails[layer][i].roofWidth, objectDetails[layer][i].roofHeight);
+        }
       }
       p.noTint();
       p.pop();
@@ -232,6 +234,14 @@ const s = p => {
       p.endShape();*/
     }
   };
+  p.drawGridLines = function() {
+    for(x = 1; x < p.ceil(levels[level].other.world.width / (playerSize * 8)); x++) {
+      p.image(assets.blacksquare, x * playerSize * 8, levels[level].other.world.height / 2, 8, levels[level].other.world.height);
+    }
+    for(y = 1; y < p.ceil(levels[level].other.world.height / (playerSize * 8)); y++) {
+      p.image(assets.blacksquare, levels[level].other.world.width / 2, y * playerSize * 8, levels[level].other.world.width, 8);
+    }
+  }
   p.keyPressed = function() {
     keys[p.keyCode] = true;
   };
@@ -309,12 +319,7 @@ const s = p => {
       p.fill(levels[level].other.world.colour);
       p.rect(0, 0, levels[level].other.world.width, levels[level].other.world.height);
       p.imageMode(p.CENTER);
-      for(x = 1; x < p.ceil(levels[level].other.world.width / (playerSize * 8)); x++) {
-        p.image(assets.blacksquare, x * playerSize * 8, levels[level].other.world.height / 2, 8, levels[level].other.world.height);
-      }
-      for(y = 1; y < p.ceil(levels[level].other.world.height / (playerSize * 8)); y++) {
-        p.image(assets.blacksquare, levels[level].other.world.width / 2, y * playerSize * 8, levels[level].other.world.width, 8);
-      }
+      p.drawGridLines();
       p.drawObjects(0);
       p.drawPlayers();
       p.drawObjects(1);
