@@ -1,3 +1,4 @@
+let debug = false;//go to console and say "debug = true;", then press enter to turn on. shows you hitboxes and logs collisions
 const s = p => {
   let Engine = Matter.Engine,
   World = Matter.World,
@@ -49,7 +50,7 @@ const s = p => {
     obstacles: [
       {
       main: Bodies.rectangle(600, 160, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p.radians(0)}),
-      details: {image: assets.concretewall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
+      details: {image: assets.concretewall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, imageMode: p.CENTER, special: 40},
     },
       {
       main: Bodies.rectangle(600, 480, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p.radians(0)}),
@@ -225,13 +226,14 @@ const s = p => {
       }
       p.noTint();
       p.pop();
-      p.fill('red');
-      //just for debugging 
-      /*p.beginShape();
-      for(let f = 0; f < objects[layer][i].vertices.length; f++) {
-        p.vertex(objects[layer][i].vertices[f].x, objects[layer][i].vertices[f].y);
+      if(debug == true) {
+        p.fill('red');
+        p.beginShape();
+        for(let f = 0; f < objects[layer][i].vertices.length; f++) {
+          p.vertex(objects[layer][i].vertices[f].x, objects[layer][i].vertices[f].y);
+        }
+        p.endShape();
       }
-      p.endShape();*/
     }
   };
   p.drawGridLines = function() {
@@ -288,11 +290,17 @@ const s = p => {
         break;
       }
     }
-    World.add(world, objects[0]);
-    World.add(world, objects[1]);
     for(let b = 0; b < levels[l].players.length; b++) {
       players[b] = Bodies.circle(levels[l].players[b].x, levels[l].players[b].y, levels[l].players[b].size, levels[l].players[b].options);
       playerDetails[b] = {angle: levels[l].players[b].angle, colour1: levels[l].players[b].colour1, colour2: levels[l].players[b].colour2, highlightcolour: levels[l].players[b].highlightcolour, loadout: levels[l].players[b].loadout, health: 100};
+    }
+    World.add(world, objects[0]);
+    World.add(world, objects[1]);
+    for(let c = 0; c < objects[0].length; c++) {
+      objects[0][c].restitution = c / 1000;
+    }
+    for(let d = 0; d < objects[1].length; d++) {
+      objects[1][d].restitution = d / 1000;
     }
     World.add(world, players);
   };
@@ -301,7 +309,7 @@ const s = p => {
     p.angleMode(p.RADIANS);
     if(p.frameCount == 6) {
       p.addToWorld(level);
-      console.log(objectDetails[0][0]);
+      console.log(objects[0][0]);
     }
     if(p.frameCount < 200) {
       p.background(40);
@@ -327,6 +335,22 @@ const s = p => {
       p.playerMove();
       playerDetails[playerNum].angle = p.radians(90 + p.atan2(p.mouseY - p.height / 2, p.mouseX - p.width / 2));
       document.title = 'Brutal League';
+      if(Matter.Query.collides(players[0], objects[0]).length > 0) {
+        if(debug == true) {
+          p.fill('green');
+          p.ellipse(Matter.Query.collides(players[0], objects[0])[0].bodyA.position.x, Matter.Query.collides(players[0], objects[0])[0].bodyA.position.y, 100, 100);
+          p.ellipse(Matter.Query.collides(players[0], objects[0])[0].bodyB.position.x, Matter.Query.collides(players[0], objects[0])[0].bodyB.position.y, 100, 100);
+          console.log('Colliding with body #' + Matter.Query.collides(players[0], objects[0])[0].bodyA.restitution * 1000);
+        }
+      }
+      if(Matter.Query.collides(players[0], objects[1]).length > 0) {
+        if(debug == true) {
+          p.fill('green');
+          p.ellipse(Matter.Query.collides(players[0], objects[1])[0].bodyA.position.x, Matter.Query.collides(players[0], objects[1])[0].bodyA.position.y, 100, 100);
+          p.ellipse(Matter.Query.collides(players[0], objects[1])[0].bodyB.position.x, Matter.Query.collides(players[0], objects[1])[0].bodyB.position.y, 100, 100);
+          console.log('Colliding with body #' + Matter.Query.collides(players[0], objects[1])[0].bodyA.restitution * 1000);
+        }
+      }
     }  
   };
 };
