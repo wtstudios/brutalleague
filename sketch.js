@@ -1,4 +1,5 @@
-let debug = false;//go to console and say "debug = true;", then press enter to turn on. shows you hitboxes and logs collisions
+let debug = false;
+//go to console and say "debug = true;", then press enter to turn on. shows you hitboxes and logs collisions
 const s = p => {
   let Engine = Matter.Engine,
   World = Matter.World,
@@ -178,6 +179,7 @@ const s = p => {
       },
     ],
     other: {
+      name: 'СЧЕТЧИК СПЕЦНАЗА',
       world: {
         width: 3000,
         height: 2500,
@@ -334,7 +336,7 @@ const s = p => {
       p.angleMode(p.DEGREES);
       p.playerMove();
       playerDetails[playerNum].angle = p.radians(90 + p.atan2(p.mouseY - p.height / 2, p.mouseX - p.width / 2));
-      document.title = 'Brutal League';
+      document.title = ('Brutal League (' + levels[level].other.name + ')');
       if(Matter.Query.collides(players[0], objects[0]).length > 0) {
         if(debug == true) {
           p.fill('green');
