@@ -4,4 +4,13 @@ html, body {
 }
 canvas {
   display: block;
+  top: 0;
+  left: 0;
+}
+input{
+  outline: none;
+  background-color: red;
+  border: 7px solid black;
+  border-radius: 6px;
+  width: 30%;
 }
