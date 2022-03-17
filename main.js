@@ -1,3 +1,4 @@
+let inGame = false;
 let debug = false;
 //go to console and say "debug = true;", then press enter to turn on. shows you hitboxes and logs collisions
 const s = p => {
@@ -5,7 +6,6 @@ const s = p => {
   World = Matter.World,
   Bodies = Matter.Bodies,
   Body = Matter.Body;
-  let decomp;
   const playerSize = 40;
   let playerNum = 0;
   let engine;
@@ -30,6 +30,7 @@ const s = p => {
   let level = 0;
   let levels;
   p.setup = function() {
+    document.addEventListener("contextmenu", (event) => event.preventDefault());
     assets.container = p.loadImage('container2.png');
     assets.concretewall = p.loadImage('concretewall.png');
     assets.tree = p.loadImage('tree.png');
@@ -38,9 +39,8 @@ const s = p => {
     assets.concreteblock = p.loadImage('concreteblock.png');
     assets.house1 = p.loadImage('house1.png');
     assets.roof1 = p.loadImage('roof1.png');
-    assets.logotransparent = p.loadImage('Brutal League-logos_transparent.png');
-    assets.wettakis = p.loadImage('Wet Takis Studios-logos_transparent.png');
-    p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
+    let canvas1 = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
+    canvas1.position(0, 0);
     engine = Engine.create();
     world = engine.world;
     World.add(world, players);
@@ -185,7 +185,6 @@ const s = p => {
         height: 2500,
         colour: '#D3D3D3',
       }
-
     },
   }];
   };
@@ -313,15 +312,7 @@ const s = p => {
       p.addToWorld(level);
       console.log(objects[0][0]);
     }
-    if(p.frameCount < 200) {
-      p.background(40);
-      p.image(assets.wettakis, 0, 0, p.width + p.frameCount / 2, p.width + p.frameCount / 2);
-    }
-    if(p.frameCount >= 200 && p.frameCount < 400) {
-      p.background(40);
-      p.image(assets.logotransparent, 0, 0, p.width + p.frameCount / 2 - 200, p.width + p.frameCount / 2 - 200);
-    }
-    if(p.frameCount >= 400) {
+    if(inGame && p.getItem('alpha') == true) {
       p.camera(players[playerNum].position.x, players[playerNum].position.y, 1700 - p.width / 2, players[playerNum].position.x, players[playerNum].position.y, 0);
       p.noStroke();
       p.background(0);
@@ -356,5 +347,4 @@ const s = p => {
     }  
   };
 };
-
 new p5(s);
