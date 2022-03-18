@@ -36,7 +36,7 @@ const zx = xz => {
     if(xz.frameCount >= 400 && xz.getItem('alpha') != true) {
       xz.background(255);
       xz.fill(0);
-      xz.textFont(fonts.menu, xz.width / 17);
+      xz.textFont(fonts.menu, xz.width / 25);
       xz.text('Alpha Tester? Copy+Paste the code given to you in this box.', xz.width / 10, xz.height / 3.2, xz.width / 1.2);
       elements[0].show();
       if(elements[0].value() == window.btoa('dbcakdjhcjsow')) {
