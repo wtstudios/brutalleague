@@ -17,7 +17,7 @@ const zx = xz => {
     xz.textAlign(xz.CENTER, xz.CENTER);
     cnv.position(0, 0, 'fixed');
     elements[0] = xz.createInput('');
-    elements[0].position(xz.width / 2 - xz.width * 0.15, xz.height / 2);
+    elements[0].position(xz.width / 2 - xz.width * 0.15, xz.height / 1.5);
     elements[0].hide();
   };
   xz.draw = function() {
