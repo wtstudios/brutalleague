@@ -29,11 +29,12 @@ const s = p => {
   let keys = [];
   let level = 0;
   let levels;
+  p.preload = function() {};
   p.setup = function() {
     document.addEventListener("contextmenu", (event) => event.preventDefault());
     assets.container = p.loadImage('container2.png');
     assets.concretewall = p.loadImage('concretewall.png');
-    assets.tree = p.loadImage('tree.png');
+    assets.tree = p.loadImage('tree2.png');
     assets.rock = p.loadImage('rock.png');
     assets.blacksquare = p.loadImage('blacksquare.png');
     assets.concreteblock = p.loadImage('concreteblock.png');
@@ -90,12 +91,12 @@ const s = p => {
       details: {image: assets.container, imageWidth: 200, imageHeight: 400, tint: '#484bab', above: true, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
     },
       {
-      main: Bodies.circle(1000, 2200, 40, {isStatic: true, friction: 1, restitution: 0, density: 50}),
-      details: {image: assets.tree, imageWidth: 300, imageHeight: 300, tint: '#355E3B', above: true, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
+      main: Bodies.circle(1000, 2200, 100, {isStatic: true, friction: 1, restitution: 0, density: 50}),
+      details: {image: assets.tree, imageWidth: 250, imageHeight: 250, tint: '#007000', above: true, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
     },
       {
-      main: Bodies.circle(500, 1900, 40, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p.radians(120)}),
-      details: {image: assets.tree, imageWidth: 300, imageHeight: 300, tint: '#355E3B', above: true, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
+      main: Bodies.circle(500, 1900, 100, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p.radians(120)}),
+      details: {image: assets.tree, imageWidth: 250, imageHeight: 250, tint: '#007000', above: true, xOffset: 0, yOffset: 0, imageMode: p.CENTER,},
     },
       {
       main: Bodies.polygon(1400, 2300, 7, 80, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p.radians(120)}),
