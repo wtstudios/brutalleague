@@ -1,16 +1,78 @@
-html, body {
+html {
+  height: 100%;
+}
+
+body {
   margin: 0;
   padding: 0;
+  height: 100%;
 }
+
 canvas {
   display: block;
   top: 0;
   left: 0;
 }
-input{
+
+input#alpha-code {
+  position: absolute;
   outline: none;
-  background-color: red;
+  background-color: hsl(0, 60%, 50%);
   border: 7px solid black;
+  color: white;
   border-radius: 6px;
   width: 30%;
+  font-family: "source-sans-pro";
+}
+
+input#alpha-code::placeholder {
+  color: white;
+  opacity: 0.7;
+}
+
+div#menu-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+button#play {
+  position: absolute;
+  width: 10%;
+  height: 5%;
+  cursor: pointer;
+  background-color: hsl(0, 0%, 100%);
+  color: rgb(0, 0, 0);
+  font-family: "source-sans-pro";
+  font-size: 150%;
+  border: none;
+  text-align: center;
+}
+
+p#loading {
+  font-family: "source-sans-pro";
+  font-size: larger;
+  font-weight: bold;
+}
+
+p#version {
+  position: absolute;
+  font-family: "source-sans-pro";
+  font-size: 14px;
+  left: 0;
+  bottom: 0;
+  margin: 0;
+}
+
+img#logo {
+  position: absolute;
+  width: 50%;
+  top: 30%;
+}
+
+@font-face {
+  font-family: "source-sans-pro";
+  src: url("SourceSansPro-Black.ttf");
 }
