@@ -32,7 +32,7 @@
 
   play.textContent = "PLAY";
   play.style.backgroundColor = "rgb(255, 255, 255)";
-  play.style.color = "rgb(170, 0, 0)";
+  play.style.color = "#cb332e";
   ver.textContent = `BRUTAL LEAGUE v0.0.1-alpha, running on p5.js v${p5.prototype.VERSION}, matter.js v${Matter.version} and poly-decomp.js v0.3.0`;
 
   document.body.appendChild(container).append(play, ver, img);
@@ -51,7 +51,7 @@
         input.focus();
         input.autocomplete = "off";
         play.disabled = true;
-        play.style.backgroundColor = "rgb(170, 0, 0)";
+        play.style.backgroundColor = "#cb332e";
         play.style.cursor = "default";
 
         function a(e) {
