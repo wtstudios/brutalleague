@@ -279,7 +279,7 @@
             world: {
               width: 3000,
               height: 2500,
-              colour: '#D3D3D3',
+              colour: '#d1d1d1',
             }
           },
         }];
@@ -356,12 +356,12 @@
 
       p5.drawGridLines = function () {
         p5.rectMode(p5.CENTER);
-        p5.fill(0, 0, 0, 80);
-        for (let x = 1; x < p5.ceil(levels[level].other.world.width / (playerSize * 8)); x++) {
-          p5.rect(x * playerSize * 8, levels[level].other.world.height / 2, 8, levels[level].other.world.height);
+        p5.fill(0, 0, 0, 50);
+        for (let x = 1; x < p5.ceil(levels[level].other.world.width / (playerSize * 6)); x++) {
+          p5.rect(x * playerSize * 6, levels[level].other.world.height / 2, 6, levels[level].other.world.height);
         }
-        for (let y = 1; y < p5.ceil(levels[level].other.world.height / (playerSize * 8)); y++) {
-          p5.rect(levels[level].other.world.width / 2, y * playerSize * 8, levels[level].other.world.width, 8);
+        for (let y = 1; y < p5.ceil(levels[level].other.world.height / (playerSize * 6)); y++) {
+          p5.rect(levels[level].other.world.width / 2, y * playerSize * 6, levels[level].other.world.width, 6);
         }
       };
 
