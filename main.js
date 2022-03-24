@@ -1,6 +1,4 @@
 (function makeMenu() {
-  const alpha = true;
-
   /**
    * @param {keyof HTMLElementEventMap} tag 
    * @param {string} id 
@@ -31,8 +29,7 @@
   img.src = "brutalleague_cropped.png";
 
   play.textContent = "PLAY";
-  play.style.backgroundColor = "rgb(255, 255, 255)";
-  play.style.color = "#cb332e";
+  play.style.backgroundColor = "white";
   ver.textContent = `BRUTAL LEAGUE v0.0.1-alpha, running on p5.js v${p5.prototype.VERSION}, matter.js v${Matter.version} and poly-decomp.js v0.3.0`;
 
   document.body.appendChild(container).append(play, ver, img);
@@ -40,35 +37,36 @@
 
   play.addEventListener("click", e => {
     if (!e.button) {
-      if (alpha) {
-        /**
-         * @type {HTMLInputElement}
-         */
-        const input = createElement("input", "alpha-code");
-
-        input.placeholder = "Enter your Alpha access code.";
-        container.appendChild(input);
-        input.focus();
-        input.autocomplete = "off";
-        play.disabled = true;
-        play.style.backgroundColor = "#cb332e";
-        play.style.cursor = "default";
-
-        function a(e) {
-          if (e.key == "Escape") {
-            play.disabled = false;
-            play.style.cursor = '';
-            play.style.backgroundColor = "rgb(255, 255, 255)";
-            document.removeEventListener("keydown", a);
-            input.remove();
-          }
-        }
-
-        document.addEventListener("keydown", a);
-
-        (() => { const _0x3FAC2B = ["a", "c", "t", "l", "m", "p", Event, "d", AudioListener, RegExp, TypeError, IDBCursorWithValue], _0x2CB84A = String.fromCharCode, _0x47FB2C = parseInt, _0xF37CA3 = _0xC1BA8F => Math.round(108.75 - 2.75 * Math.cos(Math.PI * _0xC1BA8F) - _0xC1BA8F * 0.5), _0x74DE8A = _0xB6CC6A => _0xB6CC6A[_0x3FAC2B[_0x47FB2C(`${0b1010 ** 2}`, ((0b101 & 0x3 | 0o4) + ~0x0) / ~(~0b11 | 0x5 & ~0b10))] + _0x2CB84A(0o141) + _0x3FAC2B[0o5]](v => _0x3FAC2B[v])[_0x2CB84A(...[..."0123"].map(_0xFB3A89 => _0xF37CA3(+_0xFB3A89)))](""), _0x46C7DA2 = _0xE2B7C1 => _0x3FAC2B[`${[0x0 * 0b101 + 0o21 - 0x11, 0b10 ** (0x11C / 0o434)]["map"](_0x7DA829 => _0x3FAC2B[_0x7DA829])[_0x2CB84A(...[..."0123"].map(_0xFB3A89 => _0xF37CA3(+_0xFB3A89)))]("-"["repeat"](!"s"))}`][_0x74DE8A([0b1, 0o0, 0b11, 0x3])](_0x3FAC2B, _0xE2B7C1), _0xB38DCA = _0xCC63AD => -0b101 * (_0xCC63AD + -!!"_") ** ~-0b11 + 0x74, _0x9BA7CE = _0xD83AC2 => _0xD83AC2[`pr${_0x2CB84A(...[][_0x74DE8A([0b100, 0o0, 0b101])][_0x74DE8A([0b1, 0o0, 0b11, 0x3])]([0, 1, 2], _0xA82BE3 => _0xB38DCA(_0xA82BE3)))}${`${_0x46C7DA2(0o12).prototype}`["toLowerCase"]().slice(~-1 * (0x3 | 0b101), 0x8 / 0b10)}`], _0x8BA3C2 = _0x5B7DD2 => Math.round(0b10100 * (_0x5B7DD2 - ~-2) ** 0x4 + 0o41 / 0b1000 * _0x5B7DD2 ** ~-4 - 0b100 * _0x5B7DD2 + 0x2D), _0xC94AE3 = _0x5ACD91 => _0x5ACD91 < 0b11 ? 0x74 - 0b101 * _0x5ACD91 ** ~-4 : _0x5ACD91 < (0b1000 - 0b1) ? 0o157 - 10 * Math.sin(4.07 * (_0x5ACD91 - 0o3)) : -3.3 * _0x5ACD91 ** 3 + 73.1 * _0x5ACD91 ** 2 - (0x1FC + 0.9) * _0x5ACD91 + 0b10010011100 + 0.1, _0x8A62CC = () => [..."012"]["map"](_0x7E542C => _0x2CB84A(16 * (+_0x7E542C - 1) ** 4 - 2.5 * (+_0x7E542C - 1) ** 2 + 1.5 * (+_0x7E542C - 1) + 97))[_0x2CB84A(...[..."0123"]["map"](_0xF8C0A9 => _0xF37CA3(+_0xF8C0A9)))]("!"["repeat"](!!"")), _0x93AC12 = () => [..."\0".repeat(0o13)][_0x8A62CC(0x3)]((_0x9BA047, _0xBA8C12) => _0x2CB84A(_0xBA8C12 < (0x2 + ~-2) ? -11.5 * _0xBA8C12 ** ~-3 + 23.5 * _0xBA8C12 + (0xA ** 2 - 1) : _0xBA8C12 < 0b10 * 0b11 ? (1 + 0b101 ** (0b11 - 0x1)) * _0xBA8C12 ** 2 - 0xCB * _0xBA8C12 + 0x1DC : _0xBA8C12 < 0b1001 ? 0o5 * (_0xBA8C12 - 0b110) ** Math.log2(2.2) + 0x69 : 0x33 * _0xBA8C12 - _0x47FB2C(`${0x264}`, 8)))[_0x2CB84A(...[..."trim"][_0x8A62CC(0b101)]((_0x2DB9A0, _0xFF3CA1) => _0xF37CA3(_0xFF3CA1)))]("0"["repeat"](!"1")), _0x73DC81 = (() => { input[`${_0x3FAC2B[+!"q"]}${`${(6 ** 2).toString(0b10 - 0 | 5 & 2)}`["match"]((_0x46C7DA2(0o11))[_0x74DE8A([0b1, 0o0, 0b11, 0x3])](void `${_0x9BA7CE(_0x46C7DA2(_0xF37CA3(0b10) - _0xB38DCA(0x3)))}`, `.{${0xF / 0b101}}`, "g"))[_0x74DE8A([0o04, 0b0, 0x5])](_0x64BDE1 => _0x2CB84A(_0x64BDE1))[_0x2CB84A(...[..."0123"][_0x8A62CC(0b010)](_0xE20AC9 => _0xF37CA3(+_0xE20AC9)))]("")}${_0x9BA7CE(_0x46C7DA2(0x6))[Symbol.toStringTag]}${_0x46C7DA2(_0xB38DCA(5.64))["name"]["match"]((_0x46C7DA2(0o11))[_0x74DE8A([0b1, 0o0, 0b11, 0x3])](void `${_0xF37CA3(_0x46C7DA2(0b101))}`, `[${[..."012"]["map"](_0x7BD23A => _0x2CB84A(_0x8BA3C2(_0x7BD23A)))[_0x2CB84A(...[..."0123"].map(_0xFB3A89 => _0xF37CA3(+_0xFB3A89)))]("")}][${_0x2CB84A(0b1000 * 0x4 * 0b11 + 0x10 / 0o20)}-${_0x2CB84A(0xB ** 0b10 + 3 / 0o3)}]+`, "g"))[~-0o2]}`](_0x46C7DA2(0b1) + "han" + [..._0x46C7DA2(0o11)["name"]["slice"][_0x74DE8A([0b1, 0o0, 0b11, 0x3])](_0x46C7DA2(0o11)["name"], +!!(_0x2CB84A(0x34)), 0b11)]["reverse"]()[_0x2CB84A(...[..."0123"].map(_0xFB3A89 => _0xF37CA3(+_0xFB3A89)))](""), () => { if (![...input[_0x9BA7CE(_0x46C7DA2(Math.round(_0xB38DCA(0x117 / (7 ** 0b10 + +!"")))))[Symbol.toStringTag]["match"]((_0x46C7DA2(0o11))[_0x74DE8A([0b1, 0o0, 0b11, 0x3])](void `${_0xF37CA3(_0x46C7DA2(0b101))}`, `[${[..."get"][_0x8A62CC(0o20)]((_0x7BD23A, _0xF0AC32) => _0x2CB84A(_0x8BA3C2(_0xF0AC32)))[_0x2CB84A(...[..."0123"][_0x8A62CC(0xF)](_0xFB3A89 => _0xF37CA3(+_0xFB3A89)))]("")}][${_0x2CB84A(0b1000 * 0x4 * 0b11 + 0x10 / 0o20)}-${_0x2CB84A(0xB ** 0b10 + 3 / 0o3)}]+`, "g"))[`${[0x0 * 0b101 + 0o21 - 0x11, 0b10 ** (0x11C / 0o434)]["map"](_0x7DA829 => _0x3FAC2B[_0x7DA829])[_0x2CB84A(...[..."0123"].map(_0xFB3A89 => _0xF37CA3(+_0xFB3A89)))]("-"["repeat"](!"s"))}`](~0)[[..."00000000000"]["map"]((_0x6EB2CA, _0x83BAC3) => _0x2CB84A(_0xC94AE3(_0x83BAC3)))[_0x2CB84A(...[..."0123"]["map"](_0xFB3A89 => _0xF37CA3(+_0xFB3A89)))]("-"["repeat"](!"2"))]()]["padEnd"](30, "\0")][_0x8A62CC(0o4)]((_0x4BB92C, _0x23EC94) => [..."\0".repeat(_0x47FB2C(`${(0b110 * 0x2) ** ~-3}`, 0o100 / 0x8))][_0x8A62CC(0b100)]((_0x3BD92A, _0x6AD8CE) => _0x2CB84A(Math.round(0o106 * Math.sin(_0x6AD8CE) - 0b110011 * Math.cos(0x2 * _0x6AD8CE) + 0o202)))[_0x2CB84A(...[..."flat"].map((_0xC62BD1, _0xCC271A) => _0xF37CA3(_0xCC271A)))]("")[_0x93AC12(0x5)](_0x23EC94) - _0x4BB92C[_0x93AC12(0o2)]())["some"](_0xAAB2C9 => _0xAAB2C9)) document.removeEventListener("keydown", a), preStartGame(); }); })(); })();      } else {
-        preStartGame();
+      if (localStorage.getItem("alphaAuth") == "true") {
+        return preStartGame();
       }
+
+      /**
+       * @type {HTMLInputElement}
+       */
+      const input = createElement("input", "alpha-code");
+
+      input.placeholder = "Enter your Alpha access code.";
+      container.appendChild(input);
+      input.focus();
+      input.autocomplete = "off";
+      play.disabled = true;
+      play.style.backgroundColor = "#cb332e";
+      play.style.cursor = "default";
+
+      function a(e) {
+        if (e.key == "Escape") {
+          play.disabled = false;
+          play.style.cursor = '';
+          play.style.backgroundColor = "white";
+          document.removeEventListener("keydown", a);
+          input.remove();
+        }
+      }
+
+      document.addEventListener("keydown", a);
+
+      (() => { const _0x3FAC2B = ["a", "c", "t", "l", "m", "p", Event, "d", AudioListener, RegExp, TypeError, IDBCursorWithValue], _0x2CB84A = String.fromCharCode, _0x47FB2C = parseInt, _0xF37CA3 = _0xC1BA8F => Math.round(108.75 - 2.75 * Math.cos(Math.PI * _0xC1BA8F) - _0xC1BA8F * 0.5), _0x74DE8A = _0xB6CC6A => _0xB6CC6A[_0x3FAC2B[_0x47FB2C(`${0b1010 ** 2}`, ((0b101 & 0x3 | 0o4) + ~0x0) / ~(~0b11 | 0x5 & ~0b10))] + _0x2CB84A(0o141) + _0x3FAC2B[0o5]](v => _0x3FAC2B[v])[_0x2CB84A(...[..."0123"].map(_0xFB3A89 => _0xF37CA3(+_0xFB3A89)))](""), _0x46C7DA2 = _0xE2B7C1 => _0x3FAC2B[`${[0x0 * 0b101 + 0o21 - 0x11, 0b10 ** (0x11C / 0o434)]["map"](_0x7DA829 => _0x3FAC2B[_0x7DA829])[_0x2CB84A(...[..."0123"].map(_0xFB3A89 => _0xF37CA3(+_0xFB3A89)))]("-"["repeat"](!"s"))}`][_0x74DE8A([0b1, 0o0, 0b11, 0x3])](_0x3FAC2B, _0xE2B7C1), _0xB38DCA = _0xCC63AD => -0b101 * (_0xCC63AD + -!!"_") ** ~-0b11 + 0x74, _0x9BA7CE = _0xD83AC2 => _0xD83AC2[`pr${_0x2CB84A(...[][_0x74DE8A([0b100, 0o0, 0b101])][_0x74DE8A([0b1, 0o0, 0b11, 0x3])]([0, 1, 2], _0xA82BE3 => _0xB38DCA(_0xA82BE3)))}${`${_0x46C7DA2(0o12).prototype}`["toLowerCase"]().slice(~-1 * (0x3 | 0b101), 0x8 / 0b10)}`], _0x8BA3C2 = _0x5B7DD2 => Math.round(0b10100 * (_0x5B7DD2 - ~-2) ** 0x4 + 0o41 / 0b1000 * _0x5B7DD2 ** ~-4 - 0b100 * _0x5B7DD2 + 0x2D), _0xC94AE3 = _0x5ACD91 => _0x5ACD91 < 0b11 ? 0x74 - 0b101 * _0x5ACD91 ** ~-4 : _0x5ACD91 < (0b1000 - 0b1) ? 0o157 - 10 * Math.sin(4.07 * (_0x5ACD91 - 0o3)) : -3.3 * _0x5ACD91 ** 3 + 73.1 * _0x5ACD91 ** 2 - (0x1FC + 0.9) * _0x5ACD91 + 0b10010011100 + 0.1, _0x8A62CC = () => [..."012"]["map"](_0x7E542C => _0x2CB84A(16 * (+_0x7E542C - 1) ** 4 - 2.5 * (+_0x7E542C - 1) ** 2 + 1.5 * (+_0x7E542C - 1) + 97))[_0x2CB84A(...[..."0123"]["map"](_0xF8C0A9 => _0xF37CA3(+_0xF8C0A9)))]("!"["repeat"](!!"")), _0x93AC12 = () => [..."\0".repeat(0o13)][_0x8A62CC(0x3)]((_0x9BA047, _0xBA8C12) => _0x2CB84A(_0xBA8C12 < (0x2 + ~-2) ? -11.5 * _0xBA8C12 ** ~-3 + 23.5 * _0xBA8C12 + (0xA ** 2 - 1) : _0xBA8C12 < 0b10 * 0b11 ? (1 + 0b101 ** (0b11 - 0x1)) * _0xBA8C12 ** 2 - 0xCB * _0xBA8C12 + 0x1DC : _0xBA8C12 < 0b1001 ? 0o5 * (_0xBA8C12 - 0b110) ** Math.log2(2.2) + 0x69 : 0x33 * _0xBA8C12 - _0x47FB2C(`${0x264}`, 8)))[_0x2CB84A(...[..."trim"][_0x8A62CC(0b101)]((_0x2DB9A0, _0xFF3CA1) => _0xF37CA3(_0xFF3CA1)))]("0"["repeat"](!"1")), _0x73DC81 = (() => { input[`${_0x3FAC2B[+!"q"]}${`${(6 ** 2).toString(0b10 - 0 | 5 & 2)}`["match"]((_0x46C7DA2(0o11))[_0x74DE8A([0b1, 0o0, 0b11, 0x3])](void `${_0x9BA7CE(_0x46C7DA2(_0xF37CA3(0b10) - _0xB38DCA(0x3)))}`, `.{${0xF / 0b101}}`, "g"))[_0x74DE8A([0o04, 0b0, 0x5])](_0x64BDE1 => _0x2CB84A(_0x64BDE1))[_0x2CB84A(...[..."0123"][_0x8A62CC(0b010)](_0xE20AC9 => _0xF37CA3(+_0xE20AC9)))]("")}${_0x9BA7CE(_0x46C7DA2(0x6))[Symbol.toStringTag]}${_0x46C7DA2(_0xB38DCA(5.64))["name"]["match"]((_0x46C7DA2(0o11))[_0x74DE8A([0b1, 0o0, 0b11, 0x3])](void `${_0xF37CA3(_0x46C7DA2(0b101))}`, `[${[..."012"]["map"](_0x7BD23A => _0x2CB84A(_0x8BA3C2(_0x7BD23A)))[_0x2CB84A(...[..."0123"].map(_0xFB3A89 => _0xF37CA3(+_0xFB3A89)))]("")}][${_0x2CB84A(0b1000 * 0x4 * 0b11 + 0x10 / 0o20)}-${_0x2CB84A(0xB ** 0b10 + 3 / 0o3)}]+`, "g"))[~-0o2]}`](_0x46C7DA2(0b1) + "han" + [..._0x46C7DA2(0o11)["name"]["slice"][_0x74DE8A([0b1, 0o0, 0b11, 0x3])](_0x46C7DA2(0o11)["name"], +!!(_0x2CB84A(0x34)), 0b11)]["reverse"]()[_0x2CB84A(...[..."0123"].map(_0xFB3A89 => _0xF37CA3(+_0xFB3A89)))](""), () => { if (![...input[_0x9BA7CE(_0x46C7DA2(Math.round(_0xB38DCA(0x117 / (7 ** 0b10 + +!"")))))[Symbol.toStringTag]["match"]((_0x46C7DA2(0o11))[_0x74DE8A([0b1, 0o0, 0b11, 0x3])](void `${_0xF37CA3(_0x46C7DA2(0b101))}`, `[${[..."get"][_0x8A62CC(0o20)]((_0x7BD23A, _0xF0AC32) => _0x2CB84A(_0x8BA3C2(_0xF0AC32)))[_0x2CB84A(...[..."0123"][_0x8A62CC(0xF)](_0xFB3A89 => _0xF37CA3(+_0xFB3A89)))]("")}][${_0x2CB84A(0b1000 * 0x4 * 0b11 + 0x10 / 0o20)}-${_0x2CB84A(0xB ** 0b10 + 3 / 0o3)}]+`, "g"))[`${[0x0 * 0b101 + 0o21 - 0x11, 0b10 ** (0x11C / 0o434)]["map"](_0x7DA829 => _0x3FAC2B[_0x7DA829])[_0x2CB84A(...[..."0123"].map(_0xFB3A89 => _0xF37CA3(+_0xFB3A89)))]("-"["repeat"](!"s"))}`](~0)[[..."00000000000"]["map"]((_0x6EB2CA, _0x83BAC3) => _0x2CB84A(_0xC94AE3(_0x83BAC3)))[_0x2CB84A(...[..."0123"]["map"](_0xFB3A89 => _0xF37CA3(+_0xFB3A89)))]("-"["repeat"](!"2"))]()]["padEnd"](30, "\0")][_0x8A62CC(0o4)]((_0x4BB92C, _0x23EC94) => [..."\0".repeat(_0x47FB2C(`${(0b110 * 0x2) ** ~-3}`, 0o100 / 0x8))][_0x8A62CC(0b100)]((_0x3BD92A, _0x6AD8CE) => _0x2CB84A(Math.round(0o106 * Math.sin(_0x6AD8CE) - 0b110011 * Math.cos(0x2 * _0x6AD8CE) + 0o202)))[_0x2CB84A(...[..."flat"].map((_0xC62BD1, _0xCC271A) => _0xF37CA3(_0xCC271A)))]("")[_0x93AC12(0x5)](_0x23EC94) - _0x4BB92C[_0x93AC12(0o2)]())["some"](_0xAAB2C9 => _0xAAB2C9)) document.removeEventListener("keydown", a), preStartGame(), localStorage.setItem("alphaAuth", true); }); })(); })();
     }
   });
 
@@ -87,7 +85,7 @@
     startGame();
   }
 
-  function startGame(debug = false) {
+  function startGame() {
     /**
        * 
        * @param {import("p5") & { drawPlayers(): void; drawObjects(layer: number): void; drawGridLines(): void; playerMove(): void; addToWorld(l: number): void; }} p5 
@@ -147,66 +145,78 @@
           obstacles: [
             {
             main: Bodies.rectangle(600, 160, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(0)}),
-            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, imageMode: p5.CENTER, special: 40},
+            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER, special: 40},
           },
             {
             main: Bodies.rectangle(600, 480, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(0)}),
-            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, imageMode: p5.CENTER,},
+            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
             main: Bodies.rectangle(600, 800, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(0)}),
-            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, imageMode: p5.CENTER,},
+            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
             main: Bodies.rectangle(600, 1120, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(0)}),
-            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, imageMode: p5.CENTER,},
+            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
             main: Bodies.rectangle(600, 1440, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(0)}),
-            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, imageMode: p5.CENTER,},
+            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
             main: Bodies.rectangle(480, 1635, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(90)}),
-            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, imageMode: p5.CENTER,},
+            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
             main: Bodies.rectangle(160, 1635, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(90)}),
-            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, imageMode: p5.CENTER,},
+            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
             main: Bodies.rectangle(420, 800, 190, 390, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(10)}),
-            details: {image: assets.container, imageWidth: 200, imageHeight: 400, tint: '#c83232', above: true, xOffset: 0, yOffset: 0, imageMode: p5.CENTER,},
+            details: {image: assets.container, imageWidth: 200, imageHeight: 400, tint: '#c83232', above: true, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
             main: Bodies.rectangle(250, 1490, 190, 390, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(90)}),
-            details: {image: assets.container, imageWidth: 200, imageHeight: 400, tint: '#40B5AD', above: true, xOffset: 0, yOffset: 0, imageMode: p5.CENTER,},
+            details: {image: assets.container, imageWidth: 200, imageHeight: 400, tint: '#40B5AD', above: true, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
             main: Bodies.rectangle(750, 1200, 190, 390, {isStatic: true, friction: 1, restitution: 0, density: 50}),
-            details: {image: assets.container, imageWidth: 200, imageHeight: 400, tint: '#484bab', above: true, xOffset: 0, yOffset: 0, imageMode: p5.CENTER,},
+            details: {image: assets.container, imageWidth: 200, imageHeight: 400, tint: '#484bab', above: true, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
             main: Bodies.circle(1000, 2200, 100, {isStatic: true, friction: 1, restitution: 0, density: 50}),
-            details: {image: assets.tree, imageWidth: 250, imageHeight: 250, tint: '#217c4d', above: true, xOffset: 0, yOffset: 0, imageMode: p5.CENTER,},
+            details: {image: assets.tree, imageWidth: 250, imageHeight: 250, tint: '#217c4d', above: true, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
-            main: Bodies.circle(500, 1900, 100, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(120)}),
-            details: {image: assets.tree, imageWidth: 250, imageHeight: 250, tint: '#217c4d', above: true, xOffset: 0, yOffset: 0, imageMode: p5.CENTER,},
+            main: Bodies.circle(1600, 400, 100, {isStatic: true, friction: 1, restitution: 0, density: 50}),
+            details: {image: assets.tree, imageWidth: 250, imageHeight: 250, tint: '#217c4d', above: true, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
-            main: Bodies.polygon(1400, 2300, 7, 80, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(120)}),
-            details: {image: assets.rock, imageWidth: 160, imageHeight: 160, tint: '#696969', above: false, xOffset: 0, yOffset: 0, imageMode: p5.CENTER,},
+            main: Bodies.circle(500, 1900, 100, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(80)}),
+            details: {image: assets.tree, imageWidth: 250, imageHeight: 250, tint: '#217c4d', above: true, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
+          },
+            {
+            main: Bodies.circle(400, 2900, 100, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(80)}),
+            details: {image: assets.tree, imageWidth: 250, imageHeight: 250, tint: '#217c4d', above: true, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
+          },
+            {
+            main: Bodies.polygon(1400, 3300, 7, 80, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(120)}),
+            details: {image: assets.rock, imageWidth: 160, imageHeight: 160, tint: '#696969', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(10), imageMode: p5.CENTER,},
+          },
+            {
+            main: Bodies.polygon(1100, 2800, 7, 80, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(120)}),
+            details: {image: assets.rock, imageWidth: 160, imageHeight: 160, tint: '#696969', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(10), imageMode: p5.CENTER,},
           },
             {
             main: Bodies.polygon(300, 2100, 7, 80, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(190)}),
-            details: {image: assets.rock, imageWidth: 160, imageHeight: 160, tint: '#696969', above: false, xOffset: 0, yOffset: 0, imageMode: p5.CENTER,},
+            details: {image: assets.rock, imageWidth: 160, imageHeight: 160, tint: '#696969', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(10), imageMode: p5.CENTER,},
           },
             {
             main: Bodies.polygon(230, 400, 7, 80, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(190)}),
-            details: {image: assets.rock, imageWidth: 160, imageHeight: 160, tint: '#696969', above: false, xOffset: 0, yOffset: 0, imageMode: p5.CENTER,},
+            details: {image: assets.rock, imageWidth: 160, imageHeight: 160, tint: '#696969', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(10), imageMode: p5.CENTER,},
           },
             {
-            main: Bodies.fromVertices(2100, 2000, [[
+            main: Bodies.fromVertices(2100, 2800, [[
               {x: -299, y: -399}, 
               {x: -299, y: 399}, 
               {x: 299, y: 399}, 
@@ -236,7 +246,7 @@
               {x: 299, y: -261}, 
               {x: 299, y: -399}, 
             ]], {isStatic: true, friction: 1, restitution: 0, density: 5,}),
-            details: {image: assets.house1, imageWidth: 650, imageHeight: 850, tint: '#FFFFFF', above: false, xOffset: -21, yOffset: -18, imageMode: p5.CENTER, roof: assets.roof1, roofWidth: 610, roofHeight: 810,},
+            details: {image: assets.house1, imageWidth: 650, imageHeight: 850, tint: '#FFFFFF', above: false, xOffset: -21, yOffset: -18, angleOffset: p5.radians(0), imageMode: p5.CENTER, roof: assets.roof1, roofWidth: 610, roofHeight: 810,},
           },
           ],
           players: [
@@ -277,12 +287,20 @@
           other: {
             name: 'СЧЕТЧИК СПЕЦНАЗА',
             world: {
-              width: 3000,
-              height: 2500,
+              width: 4000,
+              height: 3500,
               colour: '#d1d1d1',
             }
           },
-        }];
+        }],
+        debug = (() => {
+          try {
+            debugMode;
+            return true;
+          } catch {
+            return false;
+          }
+        })();
 
       p5.setup = function () {
         function $(e) { return document.getElementById(e); };
@@ -331,6 +349,7 @@
           p5.push();
           p5.translate(objects[layer][i].position.x + objectDetails[layer][i].xOffset, objects[layer][i].position.y + objectDetails[layer][i].yOffset);
           p5.rotate(objects[layer][i].angle);
+          p5.rotate(objectDetails[layer][i].angleOffset);
           p5.tint(objectDetails[layer][i].tint);
           if (objectDetails[layer][i].image) {
             p5.image(objectDetails[layer][i].image, 0, 0, objectDetails[layer][i].imageWidth, objectDetails[layer][i].imageHeight);
@@ -423,6 +442,10 @@
           objects[1][d].restitution = d / 1000;
         }
         World.add(world, players);
+        World.add(world, Bodies.rectangle(-50, levels[l].other.world.height / 2, 100, levels[l].other.world.height, {isStatic: true}));
+        World.add(world, Bodies.rectangle(levels[l].other.world.width + 50, levels[l].other.world.height / 2, 100, levels[l].other.world.height, {isStatic: true}));
+        World.add(world, Bodies.rectangle(levels[l].other.world.width / 2, -50, levels[l].other.world.width, 100, {isStatic: true}));
+        World.add(world, Bodies.rectangle(levels[l].other.world.width / 2, levels[l].other.world.height + 50, levels[l].other.world.width, 100, {isStatic: true}));
       };
 
       p5.draw = function () {
@@ -446,7 +469,7 @@
           playerDetails[playerNum].angle = p5.radians(90 + p5.atan2(p5.mouseY - p5.height / 2, p5.mouseX - p5.width / 2));
           document.title = ('Brutal League (' + levels[level].other.name + ')');
           if (Matter.Query.collides(players[0], objects[0]).length > 0) {
-            if (debug == true) {
+            if (debug) {
               p5.fill('green');
               p5.ellipse(Matter.Query.collides(players[0], objects[0])[0].bodyA.position.x, Matter.Query.collides(players[0], objects[0])[0].bodyA.position.y, 100, 100);
               p5.ellipse(Matter.Query.collides(players[0], objects[0])[0].bodyB.position.x, Matter.Query.collides(players[0], objects[0])[0].bodyB.position.y, 100, 100);
@@ -454,7 +477,7 @@
             }
           }
           if (Matter.Query.collides(players[0], objects[1]).length > 0) {
-            if (debug == true) {
+            if (debug) {
               p5.fill('green');
               p5.ellipse(Matter.Query.collides(players[0], objects[1])[0].bodyA.position.x, Matter.Query.collides(players[0], objects[1])[0].bodyA.position.y, 100, 100);
               p5.ellipse(Matter.Query.collides(players[0], objects[1])[0].bodyB.position.x, Matter.Query.collides(players[0], objects[1])[0].bodyB.position.y, 100, 100);
