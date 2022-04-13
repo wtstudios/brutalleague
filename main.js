@@ -1,4 +1,3 @@
-localStorage.setItem("alphaAuth", true);
 (function makeMenu() {
   /**
    * @param {keyof HTMLElementEventMap} tag 
