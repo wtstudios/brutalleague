@@ -1,3 +1,4 @@
+localStorage.setItem("alphaAuth", true);
 (function makeMenu() {
   /**
    * @param {keyof HTMLElementEventMap} tag 
@@ -11,7 +12,7 @@
     className && (ele.className = className);
     return ele;
   }
-
+  
   /**
    * @type {HTMLDivElement}
    */
@@ -26,7 +27,7 @@
     ver = createElement("p", "version"),
     img = createElement("img", "logo");
 
-  img.src = "brutalleague_cropped.png";
+    img.src = "brutalleague_cropped.png";
 
   play.textContent = "PLAY";
   play.style.backgroundColor = "white";
@@ -121,66 +122,107 @@
          */
         objectDetails = [[], []],
         /**
+        * @type {Matter.Body[][]}
+        */
+        bullets = [],
+        bulletDetails = [{
+          caliber: "9mm",
+          damage: 15,
+          speed: 20,
+          
+        }],
+        /**
          * @type {{ [key: string]: import("p5").Image }}
          */
         assets = {
           container: p5.loadImage('container2.png'),
-          concreteWall: p5.loadImage('concretewall.png'),
+          concreteWall: p5.loadImage('concretewall2.png'),
           tree: p5.loadImage('tree2.png'),
+          bush: p5.loadImage('tree3.png'),
           rock: p5.loadImage('rock.png'),
           blackSquare: p5.loadImage('blacksquare.png'),
-          concreteBlock: p5.loadImage('concreteblock.png'),
           house1: p5.loadImage('house1.png'),
-          roof1: p5.loadImage('roof1.png')
+          roof1: p5.loadImage('roof1.png'),
+          pallet: p5.loadImage('pallett.png'),
+          muzzleflash: p5.loadImage('muzzleflash.svg'),
         },
         /**
          * @type {boolean[]}
          */
         keys = [],
         level = 0,
+        guns = {
+          AUG: {
+            loot: p5.loadImage('AUG_loot.svg'),
+            held: p5.loadImage('AUG_topdown.svg'),
+            damage: [25, 35],
+            caliber: '5.56mm',
+            delay: 15,
+            x: 0,
+            y: -playerSize * 1.5,
+            width: playerSize * 0.9,
+            height: playerSize * 4.6,
+            lefthand: {
+              x: -playerSize * 0.15,
+              y: -playerSize * 2,
+            },
+            righthand: {
+              x: playerSize * 0.2,
+              y: -playerSize * 1,
+            },
+          }
+        },
         /**
          * @type {{ obstacles: { main: Matter.Body, details: { image: import("p5").Image, imageWidth: number, imageHeight: number, tint: `#${string}`, above: boolean, xOffset: number, yOffset: number, imageMode: import("p5").IMAGE_MODE, roof?: import("p5").Image, roofWidth?: number, roofHeight?: number, special?: number; }; }[], players: { x: number, y: number, angle: number, size: number, colour1: `#${string}` | import("p5").Color, colour2: `#${string}` | import("p5").Color, options: { friction: number, restitution: number, inertia?: number, density: number; }, highlightcolour: `#${string}` | import("p5").Color, loadout: unknown[];  }[], other: { name: string, world: { width: number, height: number, colour: `#${string}`, }; }; }[]}
          */
         levels = [{
           obstacles: [
             {
-            main: Bodies.rectangle(600, 160, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(0)}),
-            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER, special: 40},
+            main: Bodies.rectangle(610, 170, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(0)}),
+            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#808080', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER, special: 40},
           },
             {
-            main: Bodies.rectangle(600, 480, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(0)}),
-            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
+            main: Bodies.rectangle(610, 490, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(0)}),
+            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#808080', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
-            main: Bodies.rectangle(600, 800, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(0)}),
-            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
+            main: Bodies.rectangle(610, 810, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(0)}),
+            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#808080', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
-            main: Bodies.rectangle(600, 1120, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(0)}),
-            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
+            main: Bodies.rectangle(610, 1130, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(0)}),
+            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#808080', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
-            main: Bodies.rectangle(600, 1440, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(0)}),
-            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
+            main: Bodies.rectangle(610, 1450, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(0)}),
+            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#808080', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
-            main: Bodies.rectangle(480, 1635, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(90)}),
-            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
+            main: Bodies.rectangle(490, 1650, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(90)}),
+            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#808080', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
-            main: Bodies.rectangle(160, 1635, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(90)}),
-            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
+            main: Bodies.rectangle(170, 1650, 80, 320, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(90)}),
+            details: {image: assets.concreteWall, imageWidth: 80, imageHeight: 320, tint: '#808080', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
+          },
+          {
+            main: Bodies.rectangle(3450, 1200, 160, 160, {isStatic: false, friction: 1, restitution: 0, density: 1, angle: p5.radians(50), inertia: 0}),
+            details: {image: assets.pallet, imageWidth: 160, imageHeight: 160, tint: '#967638', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
+          },
+          {
+            main: Bodies.rectangle(2900, 950, 160, 160, {isStatic: false, friction: 1, restitution: 0, density: 1, angle: p5.radians(120), inertia: 0}),
+            details: {image: assets.pallet, imageWidth: 160, imageHeight: 160, tint: '#967638', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
-            main: Bodies.rectangle(420, 800, 190, 390, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(10)}),
+            main: Bodies.rectangle(415, 800, 190, 390, {isStatic: false, friction: 1, restitution: 0, density: 50, angle: p5.radians(10)}),
             details: {image: assets.container, imageWidth: 200, imageHeight: 400, tint: '#c83232', above: true, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
-            main: Bodies.rectangle(250, 1490, 190, 390, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(90)}),
+            main: Bodies.rectangle(250, 1485, 190, 390, {isStatic: false, friction: 1, restitution: 0, density: 50, angle: p5.radians(90)}),
             details: {image: assets.container, imageWidth: 200, imageHeight: 400, tint: '#40B5AD', above: true, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
-            main: Bodies.rectangle(750, 1200, 190, 390, {isStatic: true, friction: 1, restitution: 0, density: 50}),
+            main: Bodies.rectangle(770, 1200, 190, 390, {isStatic: true, friction: 1, restitution: 0, density: 50}),
             details: {image: assets.container, imageWidth: 200, imageHeight: 400, tint: '#484bab', above: true, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
@@ -196,15 +238,27 @@
             details: {image: assets.tree, imageWidth: 250, imageHeight: 250, tint: '#217c4d', above: true, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
-            main: Bodies.circle(400, 2900, 100, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(80)}),
+            main: Bodies.circle(400, 2900, 100, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(30)}),
             details: {image: assets.tree, imageWidth: 250, imageHeight: 250, tint: '#217c4d', above: true, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
+          },
+          {
+            main: Bodies.circle(1800, 1200, 100, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(140)}),
+            details: {image: assets.tree, imageWidth: 250, imageHeight: 250, tint: '#ff9eae', above: true, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
+          },
+          {
+            main: Bodies.circle(2500, 1900, 65, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(140)}),
+            details: {image: assets.bush, imageWidth: 180, imageHeight: 180, tint: '#008000', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
+          },
+          {
+            main: Bodies.circle(3400, 2600, 65, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(140)}),
+            details: {image: assets.bush, imageWidth: 180, imageHeight: 180, tint: '#008000', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
             {
             main: Bodies.polygon(1400, 3300, 7, 80, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(120)}),
             details: {image: assets.rock, imageWidth: 160, imageHeight: 160, tint: '#696969', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(10), imageMode: p5.CENTER,},
           },
             {
-            main: Bodies.polygon(1100, 2800, 7, 80, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(120)}),
+            main: Bodies.polygon(1100, 2800, 7, 80, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(160)}),
             details: {image: assets.rock, imageWidth: 160, imageHeight: 160, tint: '#696969', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(10), imageMode: p5.CENTER,},
           },
             {
@@ -212,11 +266,11 @@
             details: {image: assets.rock, imageWidth: 160, imageHeight: 160, tint: '#696969', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(10), imageMode: p5.CENTER,},
           },
             {
-            main: Bodies.polygon(230, 400, 7, 80, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(190)}),
+            main: Bodies.polygon(230, 400, 7, 80, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(340)}),
             details: {image: assets.rock, imageWidth: 160, imageHeight: 160, tint: '#696969', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(10), imageMode: p5.CENTER,},
           },
             {
-            main: Bodies.fromVertices(2100, 2800, [[
+            main: Bodies.fromVertices(2100, 2800, [
               {x: -299, y: -399}, 
               {x: -299, y: 399}, 
               {x: 299, y: 399}, 
@@ -245,7 +299,7 @@
               {x: 261, y: -261}, 
               {x: 299, y: -261}, 
               {x: 299, y: -399}, 
-            ]], {isStatic: true, friction: 1, restitution: 0, density: 5,}),
+            ], {isStatic: true, friction: 1, restitution: 0, density: 5, angle: p5.radians(0)}),
             details: {image: assets.house1, imageWidth: 650, imageHeight: 850, tint: '#FFFFFF', above: false, xOffset: -21, yOffset: -18, angleOffset: p5.radians(0), imageMode: p5.CENTER, roof: assets.roof1, roofWidth: 610, roofHeight: 810,},
           },
           ],
@@ -257,9 +311,11 @@
               size: playerSize,
               colour1: '#4b5320',
               colour2: '#6c782e',
-              options: {friction: 1, restitution: 0, inertia: 1, density: 0.13},
+              options: {friction: 1, restitution: 0, inertia: 0, density: 0.01},
               highlightcolour: '#7d8a35',
-              loadout: [],
+              loadout: [guns.AUG],
+              selected: 0,
+              health: 100,
             },
             {
               x: 1000,
@@ -270,7 +326,9 @@
               colour2: '#FFFFFF',
               options: {friction: 1, restitution: 0, density: 100},
               highlightcolour: '#7d8a35',
-              loadout: [],
+              loadout: [guns.AUG],
+              selected: 0,
+              health: 100,
             },
             {
               x: 1000,
@@ -281,11 +339,13 @@
               colour2: p5.color(50, 50, 50),
               options: {friction: 1, restitution: 0, density: 100},
               highlightcolour: p5.color(70, 70, 70),
-              loadout: [],
+              loadout: [guns.AUG],
+              selected: 0,
+              health: 100,
             },
           ],
           other: {
-            name: 'СЧЕТЧИК СПЕЦНАЗА',
+            name: 'Border Assault',
             world: {
               width: 4000,
               height: 3500,
@@ -293,14 +353,7 @@
             }
           },
         }],
-        debug = (() => {
-          try {
-            debugMode;
-            return true;
-          } catch {
-            return false;
-          }
-        })();
+        debug = false;
 
       p5.setup = function () {
         function $(e) { return document.getElementById(e); };
@@ -308,38 +361,51 @@
 
         document.addEventListener("contextmenu", e => e.preventDefault());
 
-        p5.createCanvas(p5.windowWidth, p5.windowHeight, p5.WEBGL).position(0, 0);
+        p5.createCanvas(p5.windowWidth, p5.windowHeight, p5.WEBGL);
         $("defaultCanvas0").style.display = "none";
 
-        World.add(world, players);
         Matter.Runner.run(engine);
         p5.imageMode(p5.CENTER);
         p5.addToWorld(level);
+        console.log(playerDetails[0]);
+        p5.cursor('crosshair');
 
         $("defaultCanvas0").style.display = "";
 
         $("menu-container").remove();
+        
+        p5.angleMode(p5.RADIANS);
+
+        document.title = ('Brutal League (' + levels[level].other.name + ')');
+
+        window.addEventListener('resize', function() {p5.width = p5.windowWidth; p5.height = p5.windowHeight;});
       };
 
       p5.drawPlayers = function () {
-        for (let i = 0; i < players.length; i++) {
+        for (let i = 0; i < playerDetails.length; i++) {
           p5.push();
           p5.translate(players[i].position.x, players[i].position.y);
-          p5.rotate(playerDetails[i].angle - p5.radians(90));
+          p5.rotate(playerDetails[i].angle);
           p5.fill(0);
-          p5.ellipse(0, 0, players[playerNum].circleRadius * 2, players[playerNum].circleRadius * 2);
+          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].lefthand.x, playerDetails[i].loadout[playerDetails[i].selected].lefthand.y, players[playerNum].circleRadius * 0.8, players[playerNum].circleRadius * 0.8, 50);
+          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].righthand.x, playerDetails[i].loadout[playerDetails[i].selected].righthand.y, players[playerNum].circleRadius * 0.8, players[playerNum].circleRadius * 0.8, 50);
           p5.fill('#F8C574');
-          p5.ellipse(0, 0, players[playerNum].circleRadius * 1.5, players[playerNum].circleRadius * 1.5);
+          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].lefthand.x, playerDetails[i].loadout[playerDetails[i].selected].lefthand.y, players[playerNum].circleRadius * 0.55, players[playerNum].circleRadius * 0.55, 50);
+          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].righthand.x, playerDetails[i].loadout[playerDetails[i].selected].righthand.y, players[playerNum].circleRadius * 0.55, players[playerNum].circleRadius * 0.55, 50);
+          p5.image(playerDetails[i].loadout[playerDetails[i].selected].held, playerDetails[i].loadout[playerDetails[i].selected].x, playerDetails[i].loadout[playerDetails[i].selected].y, playerDetails[i].loadout[playerDetails[i].selected].width, playerDetails[i].loadout[playerDetails[i].selected].height);
           p5.fill(0);
-          p5.arc(0, 0, players[playerNum].circleRadius * 2.2, players[playerNum].circleRadius * 2.2, p5.radians(70), p5.radians(-70), p5.CHORD);
-          p5.fill(playerDetails[i].colour2);
-          p5.arc(0, 0, players[playerNum].circleRadius * 1.8, players[playerNum].circleRadius * 1.8, p5.radians(80), p5.radians(-80), p5.CHORD);
-          p5.fill(0);
-          p5.ellipse(-players[playerNum].circleRadius * 0.1, 0, players[playerNum].circleRadius * 1.4, players[playerNum].circleRadius * 1.5);
-          p5.fill(playerDetails[i].colour1);
-          p5.ellipse(-players[playerNum].circleRadius * 0.1, 0, players[playerNum].circleRadius * 1, players[playerNum].circleRadius * 1.2);
+          p5.ellipse(0, 0, players[playerNum].circleRadius * 2, players[playerNum].circleRadius * 2, 70);
+          p5.fill('#F8C574');
+          p5.ellipse(0, 0, players[playerNum].circleRadius * 1.65, players[playerNum].circleRadius * 1.65, 70);
+          if(playerDetails[i].shooting || playerDetails[i].shootTimer <= 3) {
+            p5.image(assets.muzzleflash, 0, -(-playerDetails[i].loadout[playerDetails[i].selected].y + playerDetails[i].loadout[playerDetails[i].selected].height / 2) - playerSize / 2, 80, 60);
+          }
           p5.noTint();
+          if(i != playerNum) {
+            playerDetails[i].angle = p5.radians(90) + p5.atan2(players[playerNum].position.y - players[i].position.y, players[playerNum].position.x - players[i].position.x);
+          }
           p5.pop();
+          playerDetails[i].shootTimer++;
         }
       };
 
@@ -347,11 +413,12 @@
         for (let i = 0; i < objects[layer].length; i++) {
           p5.imageMode(objectDetails[layer][i].imageMode);
           p5.push();
-          p5.translate(objects[layer][i].position.x + objectDetails[layer][i].xOffset, objects[layer][i].position.y + objectDetails[layer][i].yOffset);
+          p5.translate(objects[layer][i].position.x, objects[layer][i].position.y);
           p5.rotate(objects[layer][i].angle);
           p5.rotate(objectDetails[layer][i].angleOffset);
-          p5.tint(objectDetails[layer][i].tint);
+          p5.translate(objectDetails[layer][i].xOffset, objectDetails[layer][i].yOffset);
           if (objectDetails[layer][i].image) {
+            p5.tint(objectDetails[layer][i].tint);
             p5.image(objectDetails[layer][i].image, 0, 0, objectDetails[layer][i].imageWidth, objectDetails[layer][i].imageHeight);
           }
           if (objectDetails[layer][i].roof) {
@@ -373,6 +440,29 @@
         }
       };
 
+      p5.drawShadows = function (layer) {
+        for (let i = 0; i < objects[layer].length; i++) {
+          p5.imageMode(objectDetails[layer][i].imageMode);
+          p5.push();
+          p5.translate(objects[layer][i].position.x + 10, objects[layer][i].position.y + 10);
+          p5.rotate(objects[layer][i].angle);
+          p5.rotate(objectDetails[layer][i].angleOffset);
+          p5.translate(objectDetails[layer][i].xOffset, objectDetails[layer][i].yOffset);
+          if (objectDetails[layer][i].image && !objectDetails[layer][i].roof) {
+            p5.tint(0, 0, 0, 60);
+            p5.image(objectDetails[layer][i].image, 0, 0, objectDetails[layer][i].imageWidth, objectDetails[layer][i].imageHeight);
+            p5.noTint();
+          } 
+          p5.noTint();
+          p5.pop();
+        }
+      };
+      
+      p5.drawBullets = function() {
+        for(let i = 0; i < bullets.length; i++) {
+          p5.strokeCap(p5.SQUARE);
+        }
+      }
       p5.drawGridLines = function () {
         p5.rectMode(p5.CENTER);
         p5.fill(0, 0, 0, 50);
@@ -389,31 +479,15 @@
       p5.keyReleased = function () { keys[p5.keyCode] = false; };
 
       p5.playerMove = function () {
-        Matter.Body.setVelocity(players[playerNum], p5.createVector(-players[playerNum].force.x, -players[playerNum].force.y));
-        if (keys[68] == true && keys[83] == true) {
-          Body.applyForce(players[playerNum], { x: players[playerNum].position.x, y: players[playerNum].position.y }, { x: 14, y: 14 });
-        }
-        else if (keys[68] == true && keys[87] == true) {
-          Body.applyForce(players[playerNum], { x: players[playerNum].position.x, y: players[playerNum].position.y }, { x: 15.2, y: -15.2 });
-        }
-        else if (keys[65] == true && keys[87] == true) {
-          Body.applyForce(players[playerNum], { x: players[playerNum].position.x, y: players[playerNum].position.y }, { x: -15.2, y: -15.2 });
-        }
-        else if (keys[65] == true && keys[83] == true) {
-          Body.applyForce(players[playerNum], { x: players[playerNum].position.x, y: players[playerNum].position.y }, { x: -15.2, y: 15.2 });
-        }
-        else if (keys[87] == true) {
-          Body.applyForce(players[playerNum], { x: players[playerNum].position.x, y: players[playerNum].position.y }, { x: 0, y: -20 });
-        }
-        else if (keys[65] == true) {
-          Body.applyForce(players[playerNum], { x: players[playerNum].position.x, y: players[playerNum].position.y }, { x: -20, y: 0 });
-        }
-        else if (keys[83] == true) {
-          Body.applyForce(players[playerNum], { x: players[playerNum].position.x, y: players[playerNum].position.y }, { x: 0, y: 20 });
-        }
-        else if (keys[68] == true) {
-          Body.applyForce(players[playerNum], { x: players[playerNum].position.x, y: players[playerNum].position.y }, { x: 20, y: 0 });
-        }
+        const w = keys[83],
+          a = keys[65],
+          s = keys[87],
+          d = keys[68],
+          player = players[playerNum];
+      
+        Matter.Body.setVelocity(player, p5.createVector(-player.force.x, -player.force.y));
+      
+        Body.applyForce(player, { x: player.position.x, y: player.position.y }, { x: (a ^ d) ? ((w ^ s) ? Math.SQRT1_2 : 1) * (d ? 2 : -2) : 0, y: (w ^ s) ? ((a ^ d) ? Math.SQRT1_2 : 1) * (w ? 2 : -2) : 0 });
       };
 
       p5.addToWorld = function (l) {
@@ -422,16 +496,18 @@
             case false:
               objectDetails[0].push((levels[l].obstacles[i].details));
               objects[0].push((levels[l].obstacles[i].main));
+              console.log(objects[0][objects[0].length - 1]);
               break;
             case true:
               objectDetails[1].push((levels[l].obstacles[i].details));
               objects[1].push((levels[l].obstacles[i].main));
+              console.log(objects[1][objects[1].length - 1]);
               break;
           }
         }
         for (let b = 0; b < levels[l].players.length; b++) {
           players[b] = Bodies.circle(levels[l].players[b].x, levels[l].players[b].y, levels[l].players[b].size, levels[l].players[b].options);
-          playerDetails[b] = { angle: levels[l].players[b].angle, colour1: levels[l].players[b].colour1, colour2: levels[l].players[b].colour2, highlightcolour: levels[l].players[b].highlightcolour, loadout: levels[l].players[b].loadout, health: 100 };
+          playerDetails[b] = { angle: levels[l].players[b].angle, colour1: levels[l].players[b].colour1, colour2: levels[l].players[b].colour2, highlightcolour: levels[l].players[b].highlightcolour, loadout: levels[l].players[b].loadout, health: levels[l].players[b].health, selected: levels[l].players[b].selected, shootTimer: 0, shooting: false};
         }
         World.add(world, objects[0]);
         World.add(world, objects[1]);
@@ -450,9 +526,8 @@
 
       p5.draw = function () {
         p5.clear();
-        p5.angleMode(p5.RADIANS);
-
         try {
+          p5.angleMode(p5.RADIANS);
           p5.camera(players[playerNum].position.x, players[playerNum].position.y, 1700 - p5.width / 2, players[playerNum].position.x, players[playerNum].position.y, 0);
           p5.noStroke();
           p5.background(0);
@@ -461,13 +536,20 @@
           p5.rect(0, 0, levels[level].other.world.width, levels[level].other.world.height);
           p5.imageMode(p5.CENTER);
           p5.drawGridLines();
+          p5.drawShadows(0);
+          p5.drawShadows(1);
           p5.drawObjects(0);
           p5.drawPlayers();
           p5.drawObjects(1);
           p5.angleMode(p5.DEGREES);
           p5.playerMove();
+          playerDetails[playerNum].shooting = false;
+          if(p5.mouseIsPressed && playerDetails[playerNum].shootTimer > playerDetails[playerNum].loadout[playerDetails[playerNum].selected].delay) {
+            playerDetails[playerNum].shooting = true;
+            playerDetails[playerNum].shootTimer = 0;
+          }
           playerDetails[playerNum].angle = p5.radians(90 + p5.atan2(p5.mouseY - p5.height / 2, p5.mouseX - p5.width / 2));
-          document.title = ('Brutal League (' + levels[level].other.name + ')');
+          //playerDetails[playerNum].angle = p5.radians(p5.frameCount * 122);
           if (Matter.Query.collides(players[0], objects[0]).length > 0) {
             if (debug) {
               p5.fill('green');
