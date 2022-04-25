@@ -754,7 +754,6 @@
           p5.drawPlayers();
           p5.drawShadows(0);
           p5.drawShadows(1);
-          p5.image(assets.hut1, 3800, 1300, 550, 550);
           p5.drawObjects(0);
           p5.drawPlayers();
           p5.drawObjects(1);
