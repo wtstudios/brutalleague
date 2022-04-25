@@ -38,17 +38,47 @@ div#menu-container {
   height: 100%;
 }
 
-button#play {
-  position: absolute;
-  width: 10%;
-  height: 5%;
-  cursor: pointer;
+button {
   background-color: hsl(0, 0%, 100%);
   color: #CB332E;
   font-family: "source-sans-pro";
-  font-size: 150%;
+  font-size: 130%;
   border: none;
   text-align: center;
+  cursor: pointer;
+  width: 10%;
+  height: 5%;
+}
+
+button#play {
+  position: absolute;
+}
+
+button#quality1 {
+  position: absolute;
+  top: 80%;
+  right: 24%;
+  font-size: 80%;
+  width: 4%;
+  height: 5%;
+}
+
+button#quality2 {
+  position: absolute;
+  top: 80%;
+  right: 17%;
+  font-size: 80%;
+  width: 4%;
+  height: 5%;
+}
+
+button#quality3 {
+  position: absolute;
+  top: 80%;
+  right: 10%;
+  font-size: 80%;
+  width: 4%;
+  height: 5%;
 }
 
 p#loading {
@@ -64,6 +94,15 @@ p#version {
   left: 0;
   bottom: 0;
   margin: 0;
+}
+
+p#qualityTitle {
+  position: absolute;
+  font-family: "source-sans-pro";
+  font-size: 180%;
+  color:hsl(0, 0%, 100%);
+  top: 65%;
+  left: 72%;
 }
 
 img#logo {
