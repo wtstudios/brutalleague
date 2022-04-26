@@ -111,6 +111,11 @@ img#logo {
   top: 30%;
 }
 
+button.graphic-quality-option:hover {
+  background-color: #EEE;
+  color: #A62A26
+}
+
 @font-face {
   font-family: "source-sans-pro";
   src: url("SourceSansPro-Black.ttf");
