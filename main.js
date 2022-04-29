@@ -1,3 +1,266 @@
+/**
+ * An object for displaying and keeping track of performance
+ */
+ const perf = {
+  /**
+   * @private A reference to all three possible timers in order to stop said timers when appropriate
+   * @type {{ a: void | number, b: void | number, c: void | number }}
+   */
+  _timers: {
+      a: void 0,
+      b: void 0,
+      c: void 0
+  },
+  /**
+   * @private Self-explanatory, keeps all the relevant data in one spot for ease of access
+   * @type {{ ticks: number, tps: number[], frames: number, fps: number[] }}
+   */
+  _data: {
+      ticks: 0,
+      tps: [],
+      frames: 0,
+      fps: []
+  },
+  /**
+   * An object for controlling the graphing aspect of the monitor
+   * @type {{ history: number, critical_tickrate: number, critical_framerate: number }}
+   */
+  config: {
+      /**
+       * How many entries to keep in memory; directly corresponds to how many seconds' worth of data is kept
+       */
+      history: 60,
+      /**
+       * The tickrate considered alarmingly low; makes the line denoting TPS red
+       */
+      critical_tickrate: 100,
+      /**
+       * The framerate considered alarmingly low; makes the line denoting TPS red
+       */
+      critical_framerate: 30
+  },
+  /**
+   * The respective modes for tickrate and framerate; 0 is off, 1 is only number, 2 is number and graph
+   */
+  mode: {
+      tps: 0,
+      fps: 0
+  },
+  /**
+   * Modify the performance monitor
+   * @param {0 | 1 | 2 | void} tpsMode The tickrate mode to adopt
+   * @param {0 | 1 | 2 | void} fpsMode The framerate mode to adopt
+   * @param {{ history: number, critical_tickrate: number, critical_framerate: number } | void} config An optional way to update the monitor's configuration
+   */
+  showMeters(tpsMode, fpsMode, config) {
+      function createDiv(id = "", className = "") {
+          const div = document.createElement("div");
+
+          id && (div.id = id);
+          className && (div.className = className);
+          return div;
+      }
+
+      function $(ele) { return document.getElementById(ele); }
+
+      function average(...args) {
+          for (var i = 0, sum = 0; i < args.length; sum += +args[i++]);
+
+          return sum / args.length;
+      }
+
+      function stdDev(arr) {
+          const avg = average(...arr),
+              a = arr.map(e => Math.abs(+e - +avg));
+
+          return average(...a);
+      }
+
+      perf.config = {
+          history: config?.history ?? 60,
+          critical_tickrate: config?.critical_tickrate ?? 100,
+          critical_framerate: config?.critical_framerate ?? 30
+      };
+
+      switch (tpsMode) {
+          case 0:
+          case 1:
+          case 2:
+              break;
+          default:
+              tpsMode = 0;
+      }
+
+      switch (fpsMode) {
+          case 0:
+          case 1:
+          case 2:
+              break;
+          default:
+              fpsMode = 0;
+      }
+
+      if (!$("debug-div")) {
+          const d = createDiv("debug-div");
+
+          document.body.appendChild(d);
+      }
+
+      function createPElement() {
+          const logger = document.createElement("p");
+
+          logger.id = "perf";
+
+          logger.style.textShadow = "calc(-5vw / 72) calc(-1vh / 9) 0 #000, calc(5vw / 72) calc(-1vh / 9) 0 #000, calc(-5vw / 72) calc(1vh / 9) 0 #000, calc(5vw / 72) calc(1vh / 9) 0 #000";
+          logger.style.fontSize = "1.6vmin monospace";
+          logger.style.color = "#C7C770";
+          logger.style.pointerEvents = "none";
+          logger.style.left = "87.5%";
+          logger.style.top = "12.5%";
+          logger.style.margin = "0";
+          logger.style.zIndex = "50";
+          logger.style.position = "absolute";
+
+          logger.innerHTML = `${`<span style="background-color: #00F2">TPS: 0<br>AVG: 0 ± 0</span>`.repeat(+!!tpsMode)}${"<br><br>".repeat(+!!(tpsMode + fpsMode))}${`<span style="background-color: #FF02">FPS: 0<br>AVG: 0 ± 0</span>`.repeat(+!!fpsMode)}`;
+          $("debug-div").appendChild(logger);
+          return logger;
+      }
+
+      function createGraph(div) {
+          const g = document.createElement("canvas"),
+              gx = g.getContext("2d");
+
+          g.style.pointerEvents = "none";
+          g.style.position = "absolute";
+          g.style.left = "87.5%";
+          g.style.width = "10%";
+          g.style.top = "1%";
+          g.style.height = "10%";
+          g.style.zIndex = "50";
+
+          g.id = "perf-graph";
+          g.width = g.height = 200;
+          gx.lineWidth = 3;
+          gx.strokeStyle = "#FFFFFF";
+          gx.beginPath();
+          gx.moveTo(0, 0);
+          gx.lineTo(0, g.height);
+          gx.lineTo(g.width, g.height);
+          gx.stroke();
+          div.appendChild(g);
+      }
+
+      function setTimers(logging) {
+          if (tpsMode && !perf._timers.a) {
+              perf._timers.a ??= setInterval(() => { ++perf._data.ticks; }, 0);
+          }
+          if (fpsMode && !perf._timers.b) {
+              (function loop() { perf._timers.b = window.requestAnimationFrame(() => { ++perf._data.frames, loop(); }); })();
+          }
+          perf._timers.c ??= setInterval(() => {
+              perf._data.tps.push(perf._data.ticks);
+              perf._data.fps.push(perf._data.frames);
+
+              if (perf._data.tps.length > perf.config.history) {
+                  perf._data.tps.shift();
+              }
+              if (perf._data.fps.length > perf.config.history) {
+                  perf._data.fps.shift();
+              }
+
+              const crt = +(perf._data.ticks < perf.config.critical_tickrate),
+                  crf = +(perf._data.frames < perf.config.critical_framerate),
+                  tickrate = `<span style="background-color: #00F2">TPS: ${`<span class="critical">`.repeat(crt)}${perf._data.ticks}${"</span>".repeat(crt)}`,
+                  avgT = `AVG: ${Math.round(100 * +average(...perf._data.tps)) / 100} ± ${Math.round(100 * +stdDev(perf._data.tps)) / 100}</span>`,
+                  framerate = `<span style="background-color: #FF02">FPS: ${`<span class="critical">`.repeat(crf)}${perf._data.frames}${"</span>".repeat(crf)}`,
+                  avgF = `AVG: ${Math.round(100 * +average(...perf._data.fps)) / 100} ± ${Math.round(100 * +stdDev(perf._data.fps)) / 100}</span>`;
+
+              logging.innerHTML = `${`${tickrate}<br>${avgT}`.repeat(+!!perf.mode.tps)}${"<br>".repeat(2 * +!!(perf.mode.tps * perf.mode.fps))}${`${framerate}<br>${avgF}`.repeat(+!!perf.mode.fps)}`;
+              if (perf.mode.tps == 2 || perf.mode.fps == 2) {
+                  const g = $("perf-graph"),
+                      gx = g.getContext("2d"),
+                      max = Math.max(...perf._data.tps, ...perf._data.fps),
+                      lt = perf._data.tps.length,
+                      lf = perf._data.fps.length,
+                      grdt = perf.mode.tps == 2 ? gx.createLinearGradient(0, g.height - (g.height * 2 * (perf.config.critical_tickrate / (1.5 * (max || 1)))), 0, g.height - (g.height * (perf.config.critical_tickrate / (1.5 * (max || 1))))) : void 0,
+                      grdf = perf.mode.fps == 2 ? gx.createLinearGradient(0, g.height - (g.height * 2 * (perf.config.critical_framerate / (1.5 * (max || 1)))), 0, g.height - (g.height * (perf.config.critical_framerate / (1.5 * (max || 1))))) : void 0;
+
+                  gx.clearRect(0, 0, g.width, g.height);
+                  gx.strokeStyle = "#FFF";
+                  gx.beginPath();
+                  gx.moveTo(0, 0);
+                  gx.lineTo(0, g.height);
+                  gx.lineTo(g.width, g.height);
+                  gx.stroke();
+
+                  if (perf.mode.tps == 2) {
+                      grdt.addColorStop(0, "#00F");
+                      grdt.addColorStop(1, "#F00");
+                      gx.strokeStyle = grdt;
+                      perf._data.tps.forEach((t, i) => {
+                          gx.beginPath();
+                          gx.moveTo(i * g.width / lt, g.height - (g.height * ((i ? perf._data.tps[i - 1] : t) / (1.5 * max))));
+                          gx.lineTo((i + 1) * g.width / lt, g.height - (g.height * (t / (1.5 * max))));
+                          gx.stroke();
+                      });
+                  }
+
+                  if (perf.mode.fps == 2) {
+                      grdf.addColorStop(0, "#FF0");
+                      grdf.addColorStop(1, "#F00");
+                      gx.strokeStyle = grdf;
+                      perf._data.fps.forEach((f, i) => {
+                          gx.beginPath();
+                          gx.moveTo(i * g.width / lf, g.height - (g.height * ((i ? perf._data.fps[i - 1] : f) / (1.5 * max))));
+                          gx.lineTo((i + 1) * g.width / lf, g.height - (g.height * (f / (1.5 * max))));
+                          gx.stroke();
+                      });
+                  }
+              }
+              perf._data.frames = perf._data.ticks = 0;
+          }, 1000);
+      }
+
+      if ((tpsMode || fpsMode) && !$("perf")) {
+          createPElement();
+      }
+
+      perf._timers = {
+          a: tpsMode ? perf._timers.a : (perf._data.tps.length = perf._data.frames = 0, perf._timers.a && clearInterval(perf._timers.a)),
+          b: fpsMode ? perf._timers.b : (perf._data.fps.length = perf._data.ticks = 0, perf._timers.b && cancelAnimationFrame(perf._timers.b)),
+          c: (tpsMode || fpsMode) ? perf._timers.c : perf._timers.c && clearInterval(perf._timers.c)
+      };
+
+      const p = $("perf");
+
+      if (!$("perf-graph") && (fpsMode == 2 || tpsMode == 2)) {
+          p.style.top = "12.5%";
+          createGraph($("debug-div"));
+      } else if (fpsMode < 2 && tpsMode < 2) {
+          $("perf-graph")?.remove?.();
+          p && (p.style.top = "1%");
+      }
+
+      if (fpsMode || tpsMode) {
+          setTimers(p);
+      } else {
+          p?.remove?.();
+      }
+
+      perf.mode = { tps: tpsMode, fps: fpsMode };
+  }
+};
+
+let count = 0;
+let dt = 1;
+let timeBetweenFrames = 0;
+
+let lastTime = new Date();
+
+let runner = null;
+
+
+
 (function makeMenu() {
   /**
    * @param {keyof HTMLElementEventMap} tag 
@@ -16,45 +279,72 @@
    * @type {HTMLDivElement}
    */
   const container = createElement("div", "menu-container"),
-  /**
-   * @type {HTMLButtonElement}
-   */
-  play = createElement("button", "play"),
-  /**
-   * @type {HTMLParagraphElement}
-  */
-  ver = createElement("p", "version"),
-  lowQuality = createElement('button', 'quality1'),
-  normalQuality = createElement('button', 'quality2'),
-  highQuality = createElement('button', 'quality3'),
-  graphicsQualityText = createElement("p", "qualityTitle"),
-  img = createElement("img", "logo");
+    /**
+     * @type {HTMLButtonElement}
+     */
+    play = createElement("button", "play"),
+    /**
+     * @type {HTMLParagraphElement}
+    */
+    ver = createElement("p", "version"),
+    /**
+     * @type {{ [key: string]: { button: HTMLButtonElement, active: boolean, pixelDensity: number } }}
+     */
+    graphics = {
+      low: {
+        button: createElement('button', 'quality1', "graphic-quality-option"),
+        active: false,
+        pixelDensity: 0.5
+      },
+      normal: {
+        button: createElement('button', 'quality2', "graphic-quality-option"),
+        active: true,
+        pixelDensity: 1
+      },
+      high: {
+        button: createElement('button', 'quality3', "graphic-quality-option"),
+        active: false,
+        pixelDensity: 2
+      }
+    },
+    graphicsQualityText = createElement("p", "qualityTitle"),
+    img = createElement("img", "logo");
 
   graphicsQualityText.textContent = "GRAPHICS QUALITY:";
   img.src = "brutalleague_cropped.png";
-  lowQuality.textContent = "LOW",
-  normalQuality.textContent = "MID",
-  highQuality.textContent = "HIGH",
-  play.textContent = "PLAY";
-  ver.textContent = `BRUTAL LEAGUE v0.0.1-alpha, running on p5.js v${p5.prototype.VERSION}, matter.js v${Matter.version} and poly-decomp.js v0.3.0`;
 
-  document.body.appendChild(container).append(play, ver, img, lowQuality, normalQuality, highQuality, graphicsQualityText);
+  for (const option in graphics) {
+    const opt = graphics[option];
+
+    opt.button.textContent = option.toUpperCase();
+    opt.button.addEventListener("click", e => {
+      if (!e.button) {
+        // Reset styling on all buttons...
+        for (const o in graphics) {
+          const b = graphics[o].button;
+          b.style.backgroundColor = b.style.color = "";
+        }
+
+        // ... then style this one
+        opt.button.style.backgroundColor = "#a62a26";
+        opt.button.style.color = "#ffffff";
+        quality = opt.pixelDensity;
+      }
+    });
+
+    if (opt.active) {
+      opt.button.style.backgroundColor = "#a62a26";
+      opt.button.style.color = "#ffffff";
+    }
+  }
+
+  play.textContent = "PLAY";
+
+  ver.textContent = `BRUTAL LEAGUE v0.0.2-alpha, running on p5.js v${p5.prototype.VERSION}, matter.js v${Matter.version} and poly-decomp.js v0.3.0`;
+
+  document.body.appendChild(container).append(play, ver, img, graphicsQualityText, /* Alright yeah, this is a little silly, but the buttons have to get in somehow! */ ...(() => { const a = []; for (const o in graphics) { a.push(graphics[o].button); } return a; })());
   document.body.style.backgroundColor = "#cb332e";
-  lowQuality.addEventListener("click", e => {
-    if(!e.button) {
-      quality = 0.5;
-    }
-  });
-  normalQuality.addEventListener("click", e => {
-    if(!e.button) {
-      quality = 1;
-    }
-  });
-  highQuality.addEventListener("click", e => {
-    if(!e.button) {
-      quality = 2;
-    }
-  });
+
   play.addEventListener("click", e => {
     if (!e.button) {
       if (localStorage.getItem("alphaAuth") == "true") {
@@ -97,13 +387,14 @@
     const load = createElement("p", "loading");
 
     load.textContent = "Loading...";
-
+    load.style.color = '#FFFFFF';
     Array.from(container.children).forEach(e => e.remove());
     document.body.style.backgroundColor = "";
     container.appendChild(load);
 
     startGame();
   }
+
 
   function startGame() {
     /**
@@ -184,16 +475,16 @@
             caliber: '5.56mm',
             delay: 20,
             x: 0,
-            y: -playerSize * 1.5,
-            width: playerSize * 0.9,
-            height: playerSize * 4.6,
+            y: -1.5,
+            width: 0.9,
+            height: 4.6,
             lefthand: {
-              x: -playerSize * 0.15,
-              y: -playerSize * 2,
+              x: -0.15,
+              y: -2,
             },
             righthand: {
-              x: playerSize * 0.2,
-              y: -playerSize * 1,
+              x: 0.2,
+              y: -1,
             },
           }
         },
@@ -416,7 +707,7 @@
               size: playerSize,
               colour1: '#4b5320',
               colour2: '#6c782e',
-              options: {friction: 1, restitution: 0, inertia: 0, density: 0.01},
+              options: {friction: 1, restitution: 0, inertia: 0, density: playerSize / 4000},
               highlightcolour: '#7d8a35',
               loadout: [guns.AUG],
               selected: 0,
@@ -429,7 +720,7 @@
               size: playerSize,
               colour1: '#D3D3D3',
               colour2: '#FFFFFF',
-              options: {friction: 1, restitution: 0, density: 0.01},
+              options: {friction: 1, restitution: 0, density: playerSize / 4000},
               highlightcolour: '#7d8a35',
               loadout: [guns.AUG],
               selected: 0,
@@ -439,10 +730,10 @@
               x: 1000,
               y: 1400,
               angle: p5.radians(90),
-              size: playerSize,
+              size: playerSize * 3,
               colour1: p5.color(20, 20, 20),
               colour2: p5.color(50, 50, 50),
-              options: {friction: 1, restitution: 0, density: 0.01},
+              options: {friction: 1, restitution: 0, density: playerSize / 4000},
               highlightcolour: p5.color(70, 70, 70),
               loadout: [guns.AUG],
               selected: 0,
@@ -491,7 +782,7 @@
               size: playerSize,
               colour1: '#4b5320',
               colour2: '#6c782e',
-              options: {friction: 1, restitution: 0, inertia: 0, density: 0.01},
+              options: {friction: 1, restitution: 0, inertia: 0, density: playerSize / 4000},
               highlightcolour: '#7d8a35',
               loadout: [guns.AUG],
               selected: 0,
@@ -504,7 +795,7 @@
               size: playerSize,
               colour1: '#D3D3D3',
               colour2: '#FFFFFF',
-              options: {friction: 1, restitution: 0, density: 0.01},
+              options: {friction: 1, restitution: 0, density: playerSize / 4000},
               highlightcolour: '#7d8a35',
               loadout: [guns.AUG],
               selected: 0,
@@ -516,7 +807,7 @@
             world: {
               width: 4000,
               height: 3500,
-              colour: '#dfa757',
+              colour: '#a97f42',
               gridColour: p5.color(0, 0, 0, 30),
             }
           },
@@ -532,7 +823,17 @@
         p5.createCanvas(p5.windowWidth, p5.windowHeight, p5.WEBGL);
         $("defaultCanvas0").style.display = "none";
 
-        Matter.Runner.run(engine);
+
+        const delta = 1000 / 30;
+        const subSteps = 3;
+        const subDelta = delta / subSteps;
+
+        (function run() {
+            window.requestAnimationFrame(run);
+            for (let i = 0; i < subSteps; i += 1) {
+              Engine.update(engine, subDelta);
+            }
+        })();
         p5.imageMode(p5.CENTER);
         p5.addToWorld(level);
         console.log(playerDetails[0]);
@@ -558,25 +859,25 @@
           p5.translate(players[i].position.x, players[i].position.y);
           p5.rotate(playerDetails[i].angle);
           p5.fill(0);
-          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].lefthand.x, playerDetails[i].loadout[playerDetails[i].selected].lefthand.y, players[playerNum].circleRadius * 0.8, players[playerNum].circleRadius * 0.8, 50);
-          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].righthand.x, playerDetails[i].loadout[playerDetails[i].selected].righthand.y, players[playerNum].circleRadius * 0.8, players[playerNum].circleRadius * 0.8, 50);
+          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].lefthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].lefthand.y * players[i].circleRadius, players[i].circleRadius * 0.8, players[i].circleRadius * 0.8, 50);
+          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].righthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].righthand.y * players[i].circleRadius, players[i].circleRadius * 0.8, players[i].circleRadius * 0.8, 50);
           p5.fill('#F8C574');
-          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].lefthand.x, playerDetails[i].loadout[playerDetails[i].selected].lefthand.y, players[playerNum].circleRadius * 0.55, players[playerNum].circleRadius * 0.55, 50);
-          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].righthand.x, playerDetails[i].loadout[playerDetails[i].selected].righthand.y, players[playerNum].circleRadius * 0.55, players[playerNum].circleRadius * 0.55, 50);
-          p5.image(playerDetails[i].loadout[playerDetails[i].selected].held, playerDetails[i].loadout[playerDetails[i].selected].x, playerDetails[i].loadout[playerDetails[i].selected].y, playerDetails[i].loadout[playerDetails[i].selected].width, playerDetails[i].loadout[playerDetails[i].selected].height);
+          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].lefthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].lefthand.y * players[i].circleRadius, players[i].circleRadius * 0.55, players[i].circleRadius * 0.55, 50);
+          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].righthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].righthand.y * players[i].circleRadius, players[i].circleRadius * 0.55, players[i].circleRadius * 0.55, 50);
+          p5.image(playerDetails[i].loadout[playerDetails[i].selected].held, playerDetails[i].loadout[playerDetails[i].selected].x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].y * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].width * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].height * players[i].circleRadius);
           p5.fill(0);
-          p5.ellipse(0, 0, players[playerNum].circleRadius * 2, players[playerNum].circleRadius * 2, 70);
+          p5.ellipse(0, 0, players[i].circleRadius * 2, players[i].circleRadius * 2, 70);
           p5.fill('#F8C574');
-          p5.ellipse(0, 0, players[playerNum].circleRadius * 1.65, players[playerNum].circleRadius * 1.65, 70);
-          if(playerDetails[i].shooting || playerDetails[i].shootTimer <= 6) {
-            p5.image(assets.muzzleflash, 0, -(-playerDetails[i].loadout[playerDetails[i].selected].y + playerDetails[i].loadout[playerDetails[i].selected].height / 2) - playerSize / 2, 80, 60);
+          p5.ellipse(0, 0, players[i].circleRadius * 1.65, players[i].circleRadius * 1.65, 70);
+          if(playerDetails[i].shooting || playerDetails[i].shootTimer <= 4) {
+            p5.image(assets.muzzleflash, 0, -(-playerDetails[i].loadout[playerDetails[i].selected].y * players[i].circleRadius + playerDetails[i].loadout[playerDetails[i].selected].height / 2 * players[i].circleRadius) - playerSize / 2, 2 * players[i].circleRadius, 1.5 * players[i].circleRadius);
           }
           p5.noTint();
           if(i != playerNum) {
             playerDetails[i].angle = p5.radians(90) + p5.atan2(players[playerNum].position.y - players[i].position.y, players[playerNum].position.x - players[i].position.x);
           }
           p5.pop();
-          playerDetails[i].shootTimer++;
+          playerDetails[i].shootTimer += 3 * dt;
         }
       };
 
@@ -587,10 +888,10 @@
           p5.rotate(playerDetails[i].angle);
           p5.fill(0, 0, 0, 60);
           p5.tint(0, 0, 0, 60);
-          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].lefthand.x, playerDetails[i].loadout[playerDetails[i].selected].lefthand.y, players[playerNum].circleRadius * 1.2, players[playerNum].circleRadius * 1.2, 50);
-          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].righthand.x, playerDetails[i].loadout[playerDetails[i].selected].righthand.y, players[playerNum].circleRadius * 1.2, players[playerNum].circleRadius * 1.2, 50);
-          p5.ellipse(0, 0, players[playerNum].circleRadius * 2.4, players[playerNum].circleRadius * 2.4, 70);
-          p5.image(playerDetails[i].loadout[playerDetails[i].selected].held, playerDetails[i].loadout[playerDetails[i].selected].x, playerDetails[i].loadout[playerDetails[i].selected].y, playerDetails[i].loadout[playerDetails[i].selected].width + 20, playerDetails[i].loadout[playerDetails[i].selected].height + 20);
+          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].lefthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].lefthand.y * players[i].circleRadius, players[i].circleRadius + 10, players[i].circleRadius + 10, 50);
+          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].righthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].righthand.y * players[i].circleRadius, players[i].circleRadius + 10, players[i].circleRadius + 10, 50);
+          p5.ellipse(0, 0, players[i].circleRadius * 2.4 + 10, players[i].circleRadius * 2.4 + 10, 70);
+          p5.image(playerDetails[i].loadout[playerDetails[i].selected].held, playerDetails[i].loadout[playerDetails[i].selected].x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].y * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].width * players[i].circleRadius + 30, playerDetails[i].loadout[playerDetails[i].selected].height * players[i].circleRadius + 30);
           p5.tint(255);
           p5.pop();
         }
@@ -633,7 +934,7 @@
           if (objectDetails[layer][i].roof) {
             if (players[playerNum].position.x + (playerSize * 4) <= objects[layer][i].position.x - objectDetails[layer][i].xOffset - objectDetails[layer][i].roofWidth / 2 || players[playerNum].position.x - (playerSize * 4) >= objects[layer][i].position.x + objectDetails[layer][i].xOffset + objectDetails[layer][i].roofWidth / 2 || players[playerNum].position.y + (playerSize * 4) <= objects[layer][i].position.y - objectDetails[layer][i].yOffset - objectDetails[layer][i].roofHeight / 2 || players[playerNum].position.y - (playerSize * 4) >= objects[layer][i].position.y + objectDetails[layer][i].yOffset + objectDetails[layer][i].roofHeight / 2) {
               if(objectDetails[layer][i].roofOpacity < 255) {
-                objectDetails[layer][i].roofOpacity += 10;
+                objectDetails[layer][i].roofOpacity += p5.round(30 * dt);
               }
               if(playerDetails[playerNum].view != playerDetails[playerNum].loadout[playerDetails[playerNum].selected].view) {
                 playerDetails[playerNum].view += (playerDetails[playerNum].loadout[playerDetails[playerNum].selected].view - playerDetails[playerNum].view) / 4;
@@ -641,10 +942,10 @@
             }
             else {
               if(objectDetails[layer][i].roofOpacity > 0) {
-                objectDetails[layer][i].roofOpacity -= 10;
+                objectDetails[layer][i].roofOpacity -= p5.round(30 * dt);
               }
               if(playerDetails[playerNum].view != 1700) {
-                playerDetails[playerNum].view -= (playerDetails[playerNum].view - 1700) / 4;
+                playerDetails[playerNum].view -= (playerDetails[playerNum].view - 1700) / 2 * dt;
               }
             } 
             p5.tint(255, 255, 255, objectDetails[layer][i].roofOpacity);
@@ -692,14 +993,14 @@
       p5.keyPressed = function () { keys[p5.keyCode] = true; if(p5.key.toLowerCase() == 'q') {if(playerNum < players.length - 1) {playerNum++;} else {playerNum = 0;}}};
 
       p5.keyReleased = function () { keys[p5.keyCode] = false;};
-
+            
       p5.playerMove = function () {
         const w = keys[83],
           a = keys[65],
           s = keys[87],
           d = keys[68],
           player = players[playerNum];
-        Body.applyForce(player, { x: player.position.x, y: player.position.y }, { x: (a ^ d) ? ((w ^ s) ? Math.SQRT1_2 : 1) * (d ? 2 : -2) : 0, y: (w ^ s) ? ((a ^ d) ? Math.SQRT1_2 : 1) * (w ? 2 : -2) : 0 });
+        Body.applyForce(player, { x: player.position.x, y: player.position.y }, { x: (a ^ d) ? ((w ^ s) ? Math.SQRT1_2 * dt : 1 * dt) * (d ? playerSize / 8 : -playerSize / 8) : 0, y: (w ^ s) ? ((a ^ d) ? Math.SQRT1_2 * dt : 1 * dt) * (w ? playerSize / 8 : -playerSize / 8) : 0 });
       };
 
       p5.addToWorld = function (l) {
@@ -738,20 +1039,23 @@
       };
 
       p5.draw = function () {
+        count ++;
+
+        dt = (new Date().getTime() - lastTime.getTime()) / (1000/30)
         p5.clear();
         try {
           p5.angleMode(p5.RADIANS);
           //p5.camera(players[playerNum].position.x + p5.sin(p5.frameCount * 10) * 5, players[playerNum].position.y - p5.sin(p5.frameCount - 90 * 10) * 5, playerDetails[playerNum].view - p5.width / 2, players[playerNum].position.x + p5.sin(p5.frameCount * 10) * 5, players[playerNum].position.y - p5.sin(p5.frameCount - 90 * 10) * 5, 0);
-          p5.camera(players[playerNum].position.x, players[playerNum].position.y, playerDetails[playerNum].view - p5.width / 2, players[playerNum].position.x, players[playerNum].position.y, 0);
+          p5.camera(p5.round(players[playerNum].position.x), p5.round(players[playerNum].position.y), playerDetails[playerNum].view - p5.width / 2, p5.round(players[playerNum].position.x), p5.round(players[playerNum].position.y), 0);
           p5.noStroke();
-          p5.background(20);
+          //p5.background(20);
           p5.rectMode(p5.CORNER);
           p5.fill(levels[level].other.world.colour);
           p5.rect(0, 0, levels[level].other.world.width, levels[level].other.world.height);
           p5.imageMode(p5.CENTER);
           p5.drawGridLines();
           p5.drawPlayerShadows();
-          p5.drawPlayers();
+          //p5.drawPlayers();
           p5.drawShadows(0);
           p5.drawShadows(1);
           p5.drawObjects(0);
@@ -766,7 +1070,9 @@
             playerDetails[playerNum].shooting = true;
             playerDetails[playerNum].shootTimer = 0;
           }
-          playerDetails[playerNum].angle = p5.radians(90 + p5.atan2(p5.mouseY - p5.height / 2, p5.mouseX - p5.width / 2));
+          if(p5.mouseX != p5.pmouseX || p5.mouseY != p5.pmouseY) {
+            playerDetails[playerNum].angle = p5.radians(90 + p5.atan2(p5.mouseY - p5.height / 2, p5.mouseX - p5.width / 2));
+          }
           //playerDetails[playerNum].angle = p5.radians(p5.frameCount * 122);
           if (Matter.Query.collides(players[0], objects[0]).length > 0) {
             if (debug) {
@@ -787,6 +1093,7 @@
         } catch (e) {
           console.error(`Draw callback at ${Date.now()} failed with error ${e}`);
         }
+      lastTime = new Date();
       };
     };
 
