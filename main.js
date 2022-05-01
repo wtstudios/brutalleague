@@ -470,7 +470,7 @@ let runner = null;
           AUG: {
             loot: p5.loadImage('AUG_loot.svg'),
             held: p5.loadImage('AUG_topdown.svg'),
-            view: 5000,
+            view: 1900,
             damage: [25, 35],
             caliber: '5.56mm', // none of that "medium ammo" bullshit
             delay: 20,
