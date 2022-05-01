@@ -340,7 +340,7 @@ let runner = null;
 
   play.textContent = "PLAY";
 
-  ver.textContent = `BRUTAL LEAGUE v0.0.2-alpha, running on p5.js v${p5.prototype.VERSION}, matter.js v${Matter.version} and poly-decomp.js v0.3.0`;
+  ver.textContent = `BRUTAL LEAGUE v0.0.3-alpha, running on p5.js v${p5.prototype.VERSION}, matter.js v${Matter.version} and poly-decomp.js v0.3.0`;
 
   document.body.appendChild(container).append(play, ver, img, graphicsQualityText, /* Alright yeah, this is a little silly, but the buttons have to get in somehow! */ ...(() => { const a = []; for (const o in graphics) { a.push(graphics[o].button); } return a; })());
   document.body.style.backgroundColor = "#cb332e";
@@ -470,9 +470,9 @@ let runner = null;
           AUG: {
             loot: p5.loadImage('AUG_loot.svg'),
             held: p5.loadImage('AUG_topdown.svg'),
-            view: 2500,
+            view: 5000,
             damage: [25, 35],
-            caliber: '5.56mm',
+            caliber: '5.56mm', // none of that "medium ammo" bullshit
             delay: 20,
             x: 0,
             y: -1.5,
@@ -707,7 +707,7 @@ let runner = null;
               size: playerSize,
               colour1: '#4b5320',
               colour2: '#6c782e',
-              options: {friction: 1, restitution: 0, inertia: 0, density: playerSize / 4000},
+              options: {friction: 1, restitution: 0, inertia: 0, density: playerSize - 39.99},
               highlightcolour: '#7d8a35',
               loadout: [guns.AUG],
               selected: 0,
@@ -720,7 +720,7 @@ let runner = null;
               size: playerSize,
               colour1: '#D3D3D3',
               colour2: '#FFFFFF',
-              options: {friction: 1, restitution: 0, density: playerSize / 4000},
+              options: {friction: 1, restitution: 0, density: playerSize - 39.99},
               highlightcolour: '#7d8a35',
               loadout: [guns.AUG],
               selected: 0,
@@ -730,10 +730,10 @@ let runner = null;
               x: 1000,
               y: 1400,
               angle: p5.radians(90),
-              size: playerSize * 3,
+              size: playerSize,
               colour1: p5.color(20, 20, 20),
               colour2: p5.color(50, 50, 50),
-              options: {friction: 1, restitution: 0, density: playerSize / 4000},
+              options: {friction: 1, restitution: 0, density: playerSize - 39.99},
               highlightcolour: p5.color(70, 70, 70),
               loadout: [guns.AUG],
               selected: 0,
@@ -782,7 +782,7 @@ let runner = null;
               size: playerSize,
               colour1: '#4b5320',
               colour2: '#6c782e',
-              options: {friction: 1, restitution: 0, inertia: 0, density: playerSize / 4000},
+              options: {friction: 1, restitution: 0, inertia: 0, density: playerSize - 39.99},
               highlightcolour: '#7d8a35',
               loadout: [guns.AUG],
               selected: 0,
@@ -795,7 +795,7 @@ let runner = null;
               size: playerSize,
               colour1: '#D3D3D3',
               colour2: '#FFFFFF',
-              options: {friction: 1, restitution: 0, density: playerSize / 4000},
+              options: {friction: 1, restitution: 0, density: playerSize - 39.99},
               highlightcolour: '#7d8a35',
               loadout: [guns.AUG],
               selected: 0,
@@ -888,10 +888,10 @@ let runner = null;
           p5.rotate(playerDetails[i].angle);
           p5.fill(0, 0, 0, 60);
           p5.tint(0, 0, 0, 60);
-          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].lefthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].lefthand.y * players[i].circleRadius, players[i].circleRadius + 10, players[i].circleRadius + 10, 50);
-          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].righthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].righthand.y * players[i].circleRadius, players[i].circleRadius + 10, players[i].circleRadius + 10, 50);
-          p5.ellipse(0, 0, players[i].circleRadius * 2.4 + 10, players[i].circleRadius * 2.4 + 10, 70);
-          p5.image(playerDetails[i].loadout[playerDetails[i].selected].held, playerDetails[i].loadout[playerDetails[i].selected].x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].y * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].width * players[i].circleRadius + 30, playerDetails[i].loadout[playerDetails[i].selected].height * players[i].circleRadius + 30);
+          p5.ellipse(0, 0, players[i].circleRadius * 2.1 + 10, players[i].circleRadius * 2.1 + 10, 70);
+          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].lefthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].lefthand.y * players[i].circleRadius, players[i].circleRadius + 5, players[i].circleRadius + 5, 50);
+          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].righthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].righthand.y * players[i].circleRadius, players[i].circleRadius + 5, players[i].circleRadius + 5, 50);
+          p5.image(playerDetails[i].loadout[playerDetails[i].selected].held, playerDetails[i].loadout[playerDetails[i].selected].x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].y * players[i].circleRadius - 10, playerDetails[i].loadout[playerDetails[i].selected].width * players[i].circleRadius + 30, playerDetails[i].loadout[playerDetails[i].selected].height * players[i].circleRadius + 5);
           p5.tint(255);
           p5.pop();
         }
@@ -906,7 +906,7 @@ let runner = null;
           p5.rotate(objects[layer][i].angle);
           p5.rotate(objectDetails[layer][i].angleOffset);
           p5.translate(objectDetails[layer][i].xOffset, objectDetails[layer][i].yOffset);
-          if (objectDetails[layer][i].image) {
+          if (objectDetails[layer][i].image && p5.dist(players[playerNum].position.x, players[playerNum].position.y, objects[layer][i].position.x, objects[layer][i].position.y) <= (p5.width + p5.height) * 1.4) {
             p5.tint(objectDetails[layer][i].tint);
             p5.image(objectDetails[layer][i].image, 0, 0, objectDetails[layer][i].imageWidth, objectDetails[layer][i].imageHeight);
           }
@@ -931,7 +931,7 @@ let runner = null;
           p5.rotate(objects[layer][i].angle);
           p5.rotate(objectDetails[layer][i].angleOffset);
           p5.translate(objectDetails[layer][i].xOffset, objectDetails[layer][i].yOffset);
-          if (objectDetails[layer][i].roof) {
+          if (objectDetails[layer][i].roof && p5.dist(players[playerNum].position.x, players[playerNum].position.y, objects[layer][i].position.x, objects[layer][i].position.y) <= (p5.width + p5.height) * 1.4) {
             if (players[playerNum].position.x + (playerSize * 4) <= objects[layer][i].position.x - objectDetails[layer][i].xOffset - objectDetails[layer][i].roofWidth / 2 || players[playerNum].position.x - (playerSize * 4) >= objects[layer][i].position.x + objectDetails[layer][i].xOffset + objectDetails[layer][i].roofWidth / 2 || players[playerNum].position.y + (playerSize * 4) <= objects[layer][i].position.y - objectDetails[layer][i].yOffset - objectDetails[layer][i].roofHeight / 2 || players[playerNum].position.y - (playerSize * 4) >= objects[layer][i].position.y + objectDetails[layer][i].yOffset + objectDetails[layer][i].roofHeight / 2) {
               if(objectDetails[layer][i].roofOpacity < 255) {
                 objectDetails[layer][i].roofOpacity += p5.round(30 * dt);
@@ -964,7 +964,7 @@ let runner = null;
           p5.rotate(objects[layer][i].angle);
           p5.rotate(objectDetails[layer][i].angleOffset);
           p5.translate(objectDetails[layer][i].xOffset, objectDetails[layer][i].yOffset);
-          if (objectDetails[layer][i].image && !objectDetails[layer][i].roof) {
+          if (objectDetails[layer][i].image && !objectDetails[layer][i].roof && p5.dist(players[playerNum].position.x, players[playerNum].position.y, objects[layer][i].position.x, objects[layer][i].position.y) <= (p5.width + p5.height) * 1.4) {
             p5.tint(0, 0, 0, 60);
             p5.image(objectDetails[layer][i].image, 0, 0, objectDetails[layer][i].imageWidth, objectDetails[layer][i].imageHeight);
             p5.noTint();
