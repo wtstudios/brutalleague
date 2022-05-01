@@ -995,7 +995,7 @@ let runner = null;
           }
           Matter.Body.setPosition(bullets[i], {x: bullets[i].position.x + p5.cos(bullets[i].angle - p5.radians(90)) * 190 * dt, y: bullets[i].position.y + p5.sin(bullets[i].angle - p5.radians(90)) * 190 * dt});
           if(p5.dist(bullets[i].position.x, bullets[i].position.y, players[playerNum].position.x, players[playerNum].position.y) <= 200) {
-            Matter.Body.setPosition(bullets[i], {x: players[playerNum].position.x + p5.cos(playerDetails[playerNum].angle - p5.radians(90)) * p5.dist(bullets[i].position.x, bullets[i].position.y, players[playerNum].position.x, players[playerNum].position.y), y: players[playerNum].position.y + p5.sin(playerDetails[playerNum].angle - p5.radians(90)) * p5.dist(bullets[i].position.x, bullets[i].position.y, players[playerNum].position.x, players[playerNum].position.y)});
+            //Matter.Body.setPosition(bullets[i], {x: players[playerNum].position.x + p5.cos(playerDetails[playerNum].angle - p5.radians(90)) * p5.dist(bullets[i].position.x, bullets[i].position.y, players[playerNum].position.x, players[playerNum].position.y), y: players[playerNum].position.y + p5.sin(playerDetails[playerNum].angle - p5.radians(90)) * p5.dist(bullets[i].position.x, bullets[i].position.y, players[playerNum].position.x, players[playerNum].position.y)});
           }
           if (Matter.Query.collides(bullets[i], objects[0]).length > 0) {
             World.remove(world, bullets[i]);
