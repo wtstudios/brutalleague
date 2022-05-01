@@ -340,7 +340,7 @@ let runner = null;
 
   play.textContent = "PLAY";
 
-  ver.textContent = `BRUTAL LEAGUE v0.0.3-alpha, running on p5.js v${p5.prototype.VERSION}, matter.js v${Matter.version} and poly-decomp.js v0.3.0`;
+  ver.textContent = `BRUTAL LEAGUE v0.0.4-alpha, running on p5.js v${p5.prototype.VERSION}, matter.js v${Matter.version} and poly-decomp.js v0.3.0`;
 
   document.body.appendChild(container).append(play, ver, img, graphicsQualityText, /* Alright yeah, this is a little silly, but the buttons have to get in somehow! */ ...(() => { const a = []; for (const o in graphics) { a.push(graphics[o].button); } return a; })());
   document.body.style.backgroundColor = "#cb332e";
@@ -435,16 +435,12 @@ let runner = null;
         * @type {Matter.Body[][]}
         */
         bullets = [],
-        bulletDetails = [{
-          caliber: "9mm",
-          damage: 15,
-          speed: 20,
-          
-        }],
+        bulletDetails = [],
         /**
          * @type {{ [key: string]: import("p5").Image }}
          */
         assets = {
+          blank: p5.loadImage('blank.png'),
           container: p5.loadImage('container2.png'),
           concreteWall: p5.loadImage('concretewall2.png'),
           tree: p5.loadImage('tree2.png'),
@@ -460,6 +456,9 @@ let runner = null;
           roof2: p5.loadImage('roof2.png'),
           fence1: p5.loadImage('fence1.png'),
           hut1: p5.loadImage('hut1.png'),
+          full762: p5.loadImage('762mm_full.svg'),
+          full556: p5.loadImage('556mm_full.svg'),
+          full9mm: p5.loadImage('9mm_full.svg'),
         },
         /**
          * @type {boolean[]}
@@ -472,8 +471,9 @@ let runner = null;
             held: p5.loadImage('AUG_topdown.svg'),
             view: 2500,
             damage: [25, 35],
-            caliber: '5.56mm', // none of that "medium ammo" bullshit
-            delay: 20,
+            caliber: '5.56mm',
+            delay: 10,
+            accuracy: 1,
             x: 0,
             y: -1.5,
             width: 0.9,
@@ -726,7 +726,7 @@ let runner = null;
               selected: 0,
               health: 100,
             },
-            {
+            /*{
               x: 1000,
               y: 1400,
               angle: p5.radians(90),
@@ -738,7 +738,7 @@ let runner = null;
               loadout: [guns.AUG],
               selected: 0,
               health: 100,
-            },
+            },*/
           ],
           other: {
             name: 'Border Assault',
@@ -891,7 +891,7 @@ let runner = null;
           p5.ellipse(0, 0, players[i].circleRadius * 2.1 + 10, players[i].circleRadius * 2.1 + 10, 70);
           p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].lefthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].lefthand.y * players[i].circleRadius, players[i].circleRadius + 5, players[i].circleRadius + 5, 50);
           p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].righthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].righthand.y * players[i].circleRadius, players[i].circleRadius + 5, players[i].circleRadius + 5, 50);
-          p5.image(playerDetails[i].loadout[playerDetails[i].selected].held, playerDetails[i].loadout[playerDetails[i].selected].x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].y * players[i].circleRadius - 10, playerDetails[i].loadout[playerDetails[i].selected].width * players[i].circleRadius + 30, playerDetails[i].loadout[playerDetails[i].selected].height * players[i].circleRadius + 5);
+          p5.image(playerDetails[i].loadout[playerDetails[i].selected].held, playerDetails[i].loadout[playerDetails[i].selected].x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].y * players[i].circleRadius - 10, playerDetails[i].loadout[playerDetails[i].selected].width * players[i].circleRadius + 15, playerDetails[i].loadout[playerDetails[i].selected].height * players[i].circleRadius + 10);
           p5.tint(255);
           p5.pop();
         }
@@ -975,8 +975,46 @@ let runner = null;
       };
       
       p5.drawBullets = function() {
-        for(let i = 0; i < bullets.length; i++) {
-          p5.strokeCap(p5.SQUARE);
+        for(let i = 0; i < bulletDetails.length; i++) {
+          if(p5.dist(bullets[i].position.x, bullets[i].position.y, players[playerNum].position.x, players[playerNum].position.y) <= (p5.width + p5.height) * 1.4) {
+            p5.push();
+            p5.translate(bullets[i].position.x, bullets[i].position.y);
+            p5.rotate(bullets[i].angle);
+            switch(bulletDetails[i].caliber) {
+              case '7.62mm' :
+                p5.image(assets.full762, 0, 0, 15, 50);
+              break;
+              case '5.56mm' :
+                p5.image(assets.full556, 0, 0, 15, 50);
+              break;
+              case '9mm' :
+                p5.image(assets.full9mm, 0, 0, 15, 50);
+              break;
+            }
+            p5.pop();
+          }
+          Matter.Body.setPosition(bullets[i], {x: bullets[i].position.x + p5.cos(bullets[i].angle - p5.radians(90)) * 190 * dt, y: bullets[i].position.y + p5.sin(bullets[i].angle - p5.radians(90)) * 190 * dt});
+          if(p5.dist(bullets[i].position.x, bullets[i].position.y, players[playerNum].position.x, players[playerNum].position.y) <= 200) {
+            Matter.Body.setPosition(bullets[i], {x: players[playerNum].position.x + p5.cos(playerDetails[playerNum].angle - p5.radians(90)) * p5.dist(bullets[i].position.x, bullets[i].position.y, players[playerNum].position.x, players[playerNum].position.y), y: players[playerNum].position.y + p5.sin(playerDetails[playerNum].angle - p5.radians(90)) * p5.dist(bullets[i].position.x, bullets[i].position.y, players[playerNum].position.x, players[playerNum].position.y)});
+          }
+          if (Matter.Query.collides(bullets[i], objects[0]).length > 0) {
+            World.remove(world, bullets[i]);
+            bullets.splice(i, 1);
+            bulletDetails.splice(i, 1);
+            console.log('Bullet Absorbed by Object');
+          }
+          else if (Matter.Query.collides(bullets[i], objects[1]).length > 0) {
+            World.remove(world, bullets[i]);
+            bullets.splice(i, 1);
+            bulletDetails.splice(i, 1);
+            console.log('Bullet Absorbed by Object');
+          }
+          else if (Matter.Query.collides(bullets[i], players).length > 0 && Matter.Query.collides(bullets[i], players)[0].bodyA.restitution * 1000 != bulletDetails[i].emitter) {
+            World.remove(world, bullets[i]);
+            bullets.splice(i, 1);
+            bulletDetails.splice(i, 1);
+            console.log('Bullet Absorbed by Player');
+          }
         }
       }
       p5.drawGridLines = function () {
@@ -1000,7 +1038,7 @@ let runner = null;
           s = keys[87],
           d = keys[68],
           player = players[playerNum];
-        Body.applyForce(player, { x: player.position.x, y: player.position.y }, { x: (a ^ d) ? ((w ^ s) ? Math.SQRT1_2 * dt : 1 * dt) * (d ? playerSize / 8 : -playerSize / 8) : 0, y: (w ^ s) ? ((a ^ d) ? Math.SQRT1_2 * dt : 1 * dt) * (w ? playerSize / 8 : -playerSize / 8) : 0 });
+        Body.applyForce(player, { x: player.position.x, y: player.position.y }, { x: (a ^ d) ? ((w ^ s) ? Math.SQRT1_2 * dt : 1 * dt) * (d ? players[playerNum].circleRadius / 6 - 2 : -players[playerNum].circleRadius / 6 + 2) : 0, y: (w ^ s) ? ((a ^ d) ? Math.SQRT1_2 * dt : 1 * dt) * (w ? players[playerNum].circleRadius / 6 - 2 : -players[playerNum].circleRadius / 6 + 2) : 0 });
       };
 
       p5.addToWorld = function (l) {
@@ -1022,20 +1060,27 @@ let runner = null;
           players[b] = Bodies.circle(levels[l].players[b].x, levels[l].players[b].y, levels[l].players[b].size, levels[l].players[b].options);
           playerDetails[b] = { angle: levels[l].players[b].angle, colour1: levels[l].players[b].colour1, colour2: levels[l].players[b].colour2, highlightcolour: levels[l].players[b].highlightcolour, loadout: levels[l].players[b].loadout, health: levels[l].players[b].health, selected: levels[l].players[b].selected, shootTimer: 100, shooting: false, view: null,};
           playerDetails[b].view = playerDetails[b].loadout[playerDetails[playerNum].selected].view;
+          players[b].restitution = b / 1000;
         }
+        World.add(world, players);
+        objects[0].push(Bodies.rectangle(-50, levels[l].other.world.height / 2, 100, levels[l].other.world.height, {isStatic: true}));
+        objectDetails[0].push({image: assets.blank, imageWidth: 1, imageHeight: 1, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,});
+        objects[0].push(Bodies.rectangle(levels[l].other.world.width + 50, levels[l].other.world.height / 2, 100, levels[l].other.world.height, {isStatic: true}));
+        objectDetails[0].push({image: assets.blank, imageWidth: 1, imageHeight: 1, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,});
+        objects[0].push(Bodies.rectangle(levels[l].other.world.width / 2, -50, levels[l].other.world.width, 100, {isStatic: true}));
+        objectDetails[0].push({image: assets.blank, imageWidth: 1, imageHeight: 1, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,});
+        objects[0].push(Bodies.rectangle(levels[l].other.world.width / 2, levels[l].other.world.height + 50, levels[l].other.world.width, 100, {isStatic: true}));
+        objectDetails[0].push({image: assets.blank, imageWidth: 1, imageHeight: 1, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,});
+
         World.add(world, objects[0]);
         World.add(world, objects[1]);
+        
         for (let c = 0; c < objects[0].length; c++) {
           objects[0][c].restitution = c / 1000;
         }
         for (let d = 0; d < objects[1].length; d++) {
           objects[1][d].restitution = d / 1000;
         }
-        World.add(world, players);
-        World.add(world, Bodies.rectangle(-50, levels[l].other.world.height / 2, 100, levels[l].other.world.height, {isStatic: true}));
-        World.add(world, Bodies.rectangle(levels[l].other.world.width + 50, levels[l].other.world.height / 2, 100, levels[l].other.world.height, {isStatic: true}));
-        World.add(world, Bodies.rectangle(levels[l].other.world.width / 2, -50, levels[l].other.world.width, 100, {isStatic: true}));
-        World.add(world, Bodies.rectangle(levels[l].other.world.width / 2, levels[l].other.world.height + 50, levels[l].other.world.width, 100, {isStatic: true}));
       };
 
       p5.draw = function () {
@@ -1048,27 +1093,35 @@ let runner = null;
           //p5.camera(players[playerNum].position.x + p5.sin(p5.frameCount * 10) * 5, players[playerNum].position.y - p5.sin(p5.frameCount - 90 * 10) * 5, playerDetails[playerNum].view - p5.width / 2, players[playerNum].position.x + p5.sin(p5.frameCount * 10) * 5, players[playerNum].position.y - p5.sin(p5.frameCount - 90 * 10) * 5, 0);
           p5.camera(p5.round(players[playerNum].position.x), p5.round(players[playerNum].position.y), playerDetails[playerNum].view - p5.width / 2, p5.round(players[playerNum].position.x), p5.round(players[playerNum].position.y), 0);
           p5.noStroke();
-          //p5.background(20);
           p5.rectMode(p5.CORNER);
           p5.fill(levels[level].other.world.colour);
           p5.rect(0, 0, levels[level].other.world.width, levels[level].other.world.height);
           p5.imageMode(p5.CENTER);
           p5.drawGridLines();
           p5.drawPlayerShadows();
-          //p5.drawPlayers();
           p5.drawShadows(0);
           p5.drawShadows(1);
           p5.drawObjects(0);
+          p5.drawBullets();
           p5.drawPlayers();
           p5.drawObjects(1);
           p5.drawRoofs(0);
           p5.drawRoofs(1);
+          p5.fill(255, 0, 0, 50);
           p5.angleMode(p5.DEGREES);
           p5.playerMove();
           playerDetails[playerNum].shooting = false;
           if(p5.mouseIsPressed && playerDetails[playerNum].shootTimer > playerDetails[playerNum].loadout[playerDetails[playerNum].selected].delay) {
             playerDetails[playerNum].shooting = true;
             playerDetails[playerNum].shootTimer = 0;
+            bullets.push(Bodies.rectangle(players[playerNum].position.x, players[playerNum].position.y, 10, 40, {angle: playerDetails[playerNum].angle + p5.random(p5.radians(-playerDetails[playerNum].loadout[playerDetails[playerNum].selected].accuracy), p5.radians(playerDetails[playerNum].loadout[playerDetails[playerNum].selected].accuracy))}));
+            bulletDetails.push(
+              {
+                caliber: playerDetails[playerNum].loadout[playerDetails[playerNum].selected].caliber, 
+                damage: p5.round(p5.random(playerDetails[playerNum].loadout[playerDetails[playerNum].selected].damage[0], playerDetails[playerNum].loadout[playerDetails[playerNum].selected].damage[1])), 
+                emitter: playerNum, 
+              }
+              );
           }
           if(p5.mouseX != p5.pmouseX || p5.mouseY != p5.pmouseY) {
             playerDetails[playerNum].angle = p5.radians(90 + p5.atan2(p5.mouseY - p5.height / 2, p5.mouseX - p5.width / 2));
