@@ -876,7 +876,7 @@ let runner = null;
       p5.drawPlayers = function () {
         for (let i = 0; i < playerDetails.length; i++) {
           Matter.Body.setVelocity(players[i], p5.createVector(-players[i].force.x, -players[i].force.y));
-          if(playerDetails[i].health > 0 && p5.dist(players[playerNum].position.x, players[playerNum].position.y, players[i].position.x, players[i].position.y) <= p5.width * 1.4) {
+          if(playerDetails[i].health > 0 && p5.dist(players[playerNum].position.x, players[playerNum].position.y, players[i].position.x, players[i].position.y) <= (p5.width + p5.height)) {
             p5.push();
             p5.translate(players[i].position.x, players[i].position.y);
             p5.rotate(playerDetails[i].angle);
@@ -909,7 +909,7 @@ let runner = null;
 
       p5.drawPlayerShadows = function() {
         for(let i = 0; i < playerDetails.length; i++) {
-          if(playerDetails[i].health > 0) {
+          if(playerDetails[i].health > 0 && p5.dist(players[playerNum].position.x, players[playerNum].position.y, players[i].position.x, players[i].position.y) <= (p5.width + p5.height)) {
             p5.push();
             p5.translate(players[i].position.x, players[i].position.y);
             p5.rotate(playerDetails[i].angle);
@@ -943,7 +943,7 @@ let runner = null;
           p5.rotate(objects[layer][i].angle);
           p5.rotate(objectDetails[layer][i].angleOffset);
           p5.translate(objectDetails[layer][i].xOffset, objectDetails[layer][i].yOffset);
-          if (objectDetails[layer][i].image && p5.dist(players[playerNum].position.x, players[playerNum].position.y, objects[layer][i].position.x, objects[layer][i].position.y) <= (p5.width + p5.height) * 1.4) {
+          if (objectDetails[layer][i].image && p5.dist(players[playerNum].position.x, players[playerNum].position.y, objects[layer][i].position.x, objects[layer][i].position.y) <= (p5.width + p5.height)) {
             p5.tint(objectDetails[layer][i].tint);
             p5.image(objectDetails[layer][i].image, 0, 0, objectDetails[layer][i].imageWidth, objectDetails[layer][i].imageHeight);
           }
@@ -968,7 +968,7 @@ let runner = null;
           p5.rotate(objects[layer][i].angle);
           p5.rotate(objectDetails[layer][i].angleOffset);
           p5.translate(objectDetails[layer][i].xOffset, objectDetails[layer][i].yOffset);
-          if (objectDetails[layer][i].roof && p5.dist(players[playerNum].position.x, players[playerNum].position.y, objects[layer][i].position.x, objects[layer][i].position.y) <= (p5.width + p5.height) * 1.4) {
+          if (objectDetails[layer][i].roof && p5.dist(players[playerNum].position.x, players[playerNum].position.y, objects[layer][i].position.x, objects[layer][i].position.y) <= (p5.width + p5.height)) {
             if (players[playerNum].position.x + (playerSize * 4) <= objects[layer][i].position.x - objectDetails[layer][i].xOffset - objectDetails[layer][i].roofWidth / 2 || players[playerNum].position.x - (playerSize * 4) >= objects[layer][i].position.x + objectDetails[layer][i].xOffset + objectDetails[layer][i].roofWidth / 2 || players[playerNum].position.y + (playerSize * 4) <= objects[layer][i].position.y - objectDetails[layer][i].yOffset - objectDetails[layer][i].roofHeight / 2 || players[playerNum].position.y - (playerSize * 4) >= objects[layer][i].position.y + objectDetails[layer][i].yOffset + objectDetails[layer][i].roofHeight / 2) {
               if(objectDetails[layer][i].roofOpacity < 255) {
                 objectDetails[layer][i].roofOpacity += p5.round(30 * dt);
@@ -1001,7 +1001,7 @@ let runner = null;
           p5.rotate(objects[layer][i].angle);
           p5.rotate(objectDetails[layer][i].angleOffset);
           p5.translate(objectDetails[layer][i].xOffset, objectDetails[layer][i].yOffset);
-          if (objectDetails[layer][i].image && !objectDetails[layer][i].roof && p5.dist(players[playerNum].position.x, players[playerNum].position.y, objects[layer][i].position.x, objects[layer][i].position.y) <= (p5.width + p5.height) * 1.4) {
+          if (objectDetails[layer][i].image && !objectDetails[layer][i].roof && p5.dist(players[playerNum].position.x, players[playerNum].position.y, objects[layer][i].position.x, objects[layer][i].position.y) <= (p5.width + p5.height)) {
             p5.tint(0, 0, 0, 60);
             p5.image(objectDetails[layer][i].image, 0, 0, objectDetails[layer][i].imageWidth, objectDetails[layer][i].imageHeight);
             p5.noTint();
@@ -1013,7 +1013,7 @@ let runner = null;
       
       p5.drawBullets = function() {
         for(let i = 0; i < bulletDetails.length; i++) {
-          if(p5.dist(bullets[i].position.x, bullets[i].position.y, players[playerNum].position.x, players[playerNum].position.y) <= (p5.width + p5.height) * 1.4) {
+          if(p5.dist(bullets[i].position.x, bullets[i].position.y, players[playerNum].position.x, players[playerNum].position.y) <= (p5.width + p5.height)) {
             p5.push();
             p5.translate(bullets[i].position.x, bullets[i].position.y);
             p5.rotate(bullets[i].angle);
