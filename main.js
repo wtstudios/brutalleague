@@ -340,7 +340,7 @@ let runner = null;
 
   play.textContent = "PLAY";
 
-  ver.textContent = `BRUTAL LEAGUE v0.0.4-alpha, running on p5.js v${p5.prototype.VERSION}, matter.js v${Matter.version} and poly-decomp.js v0.3.0`;
+  ver.textContent = `BRUTAL LEAGUE v0.0.5-alpha, running on p5.js v${p5.prototype.VERSION}, matter.js v${Matter.version} and poly-decomp.js v0.3.0`;
 
   document.body.appendChild(container).append(play, ver, img, graphicsQualityText, /* Alright yeah, this is a little silly, but the buttons have to get in somehow! */ ...(() => { const a = []; for (const o in graphics) { a.push(graphics[o].button); } return a; })());
   document.body.style.backgroundColor = "#cb332e";
@@ -456,6 +456,7 @@ let runner = null;
           roof2: p5.loadImage('roof2.png'),
           fence1: p5.loadImage('fence1.png'),
           hut1: p5.loadImage('hut1.png'),
+          table1: p5.loadImage('table1.png'),
           full762: p5.loadImage('762mm_full.svg'),
           full556: p5.loadImage('556mm_full.svg'),
           full9mm: p5.loadImage('9mm_full.svg'),
@@ -601,6 +602,10 @@ let runner = null;
             main: Bodies.circle(1000, 2200, 65, {isStatic: true, friction: 1, restitution: 0, density: 50}),
             details: {image: assets.bush, imageWidth: 180, imageHeight: 180, tint: '#008000', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
+          {
+            main: Bodies.rectangle(2000, 2580, 0, 0, {isStatic: true, friction: 1, restitution: 0, density: 1}),
+            details: {image: assets.table1, imageWidth: 300, imageHeight: 120, tint: '#FFFFFF', above: true, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
+          },
             {
             main: Bodies.circle(500, 1900, 100, {isStatic: true, friction: 1, restitution: 0, density: 50, angle: p5.radians(80)}),
             details: {image: assets.tree, imageWidth: 250, imageHeight: 250, tint: '#217c4d', above: true, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
@@ -675,11 +680,11 @@ let runner = null;
             details: {image: assets.house1, imageWidth: 650, imageHeight: 850, tint: '#FFFFFF', above: false, xOffset: -21, yOffset: -18, angleOffset: p5.radians(0), imageMode: p5.CENTER, roof: assets.roof1, roofWidth: 600, roofHeight: 800, roofOpacity: 255,},
           },
           {
-            main: Bodies.rectangle(1900, 2470, 100, 80, {isStatic: false, friction: 1, restitution: 0, density: 1, angle: p5.radians(0)}),
+            main: Bodies.rectangle(2261, 3090, 100, 80, {isStatic: false, friction: 1, restitution: 0, density: 1, angle: p5.radians(180)}),
             details: {image: assets.drawer1, imageWidth: 100, imageHeight: 100, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
           {
-            main: Bodies.rectangle(2261, 3090, 100, 80, {isStatic: false, friction: 1, restitution: 0, density: 1, angle: p5.radians(180)}),
+            main: Bodies.rectangle(1900, 3090, 100, 80, {isStatic: false, friction: 1, restitution: 0, density: 1, angle: p5.radians(180)}),
             details: {image: assets.drawer1, imageWidth: 100, imageHeight: 100, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,},
           },
           {
@@ -726,19 +731,32 @@ let runner = null;
               selected: 0,
               health: 100,
             },
-            /*{
+            {
               x: 1000,
               y: 1400,
-              angle: p5.radians(90),
+              angle: p5.radians(180),
               size: playerSize,
-              colour1: p5.color(20, 20, 20),
-              colour2: p5.color(50, 50, 50),
+              colour1: '#D3D3D3',
+              colour2: '#FFFFFF',
               options: {friction: 1, restitution: 0, density: playerSize - 39.99},
-              highlightcolour: p5.color(70, 70, 70),
+              highlightcolour: '#7d8a35',
               loadout: [guns.AUG],
               selected: 0,
               health: 100,
-            },*/
+            },
+            {
+              x: 1000,
+              y: 1400,
+              angle: p5.radians(180),
+              size: playerSize,
+              colour1: '#D3D3D3',
+              colour2: '#FFFFFF',
+              options: {friction: 1, restitution: 0, density: playerSize - 39.99},
+              highlightcolour: '#7d8a35',
+              loadout: [guns.AUG],
+              selected: 0,
+              health: 100,
+            },
           ],
           other: {
             name: 'Border Assault',
@@ -813,7 +831,7 @@ let runner = null;
           },
         }],
         debug = false;
-
+        let sourceSansPro;
       p5.setup = function () {
         function $(e) { return document.getElementById(e); };
         engine.gravity.y = 0;
@@ -850,50 +868,69 @@ let runner = null;
         window.addEventListener('resize', function() {p5.resizeCanvas(p5.windowWidth, p5.windowHeight);});
 
         p5.pixelDensity(quality);
+
+        sourceSansPro = p5.loadFont('SourceSansPro-Black.ttf');
+        p5.textAlign(p5.CENTER, p5.CENTER);
       };
 
       p5.drawPlayers = function () {
         for (let i = 0; i < playerDetails.length; i++) {
           Matter.Body.setVelocity(players[i], p5.createVector(-players[i].force.x, -players[i].force.y));
-          p5.push();
-          p5.translate(players[i].position.x, players[i].position.y);
-          p5.rotate(playerDetails[i].angle);
-          p5.fill(0);
-          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].lefthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].lefthand.y * players[i].circleRadius, players[i].circleRadius * 0.8, players[i].circleRadius * 0.8, 50);
-          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].righthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].righthand.y * players[i].circleRadius, players[i].circleRadius * 0.8, players[i].circleRadius * 0.8, 50);
-          p5.fill('#F8C574');
-          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].lefthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].lefthand.y * players[i].circleRadius, players[i].circleRadius * 0.55, players[i].circleRadius * 0.55, 50);
-          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].righthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].righthand.y * players[i].circleRadius, players[i].circleRadius * 0.55, players[i].circleRadius * 0.55, 50);
-          p5.image(playerDetails[i].loadout[playerDetails[i].selected].held, playerDetails[i].loadout[playerDetails[i].selected].x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].y * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].width * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].height * players[i].circleRadius);
-          p5.fill(0);
-          p5.ellipse(0, 0, players[i].circleRadius * 2, players[i].circleRadius * 2, 70);
-          p5.fill('#F8C574');
-          p5.ellipse(0, 0, players[i].circleRadius * 1.65, players[i].circleRadius * 1.65, 70);
-          if(playerDetails[i].shooting || playerDetails[i].shootTimer <= 4) {
-            p5.image(assets.muzzleflash, 0, -(-playerDetails[i].loadout[playerDetails[i].selected].y * players[i].circleRadius + playerDetails[i].loadout[playerDetails[i].selected].height / 2 * players[i].circleRadius) - playerSize / 2, 2 * players[i].circleRadius, 1.5 * players[i].circleRadius);
-          }
-          p5.noTint();
-          if(i != playerNum) {
-            playerDetails[i].angle = p5.radians(90) + p5.atan2(players[playerNum].position.y - players[i].position.y, players[playerNum].position.x - players[i].position.x);
-          }
-          p5.pop();
+          if(playerDetails[i].health > 0 && p5.dist(players[playerNum].position.x, players[playerNum].position.y, players[i].position.x, players[i].position.y) <= p5.width * 1.4) {
+            p5.push();
+            p5.translate(players[i].position.x, players[i].position.y);
+            p5.rotate(playerDetails[i].angle);
+            p5.fill(0);
+            p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].lefthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].lefthand.y * players[i].circleRadius, players[i].circleRadius * 0.8, players[i].circleRadius * 0.8, 50);
+            p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].righthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].righthand.y * players[i].circleRadius, players[i].circleRadius * 0.8, players[i].circleRadius * 0.8, 50);
+            p5.fill('#F8C574');
+            p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].lefthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].lefthand.y * players[i].circleRadius, players[i].circleRadius * 0.55, players[i].circleRadius * 0.55, 50);
+            p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].righthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].righthand.y * players[i].circleRadius, players[i].circleRadius * 0.55, players[i].circleRadius * 0.55, 50);
+            p5.image(playerDetails[i].loadout[playerDetails[i].selected].held, playerDetails[i].loadout[playerDetails[i].selected].x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].y * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].width * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].height * players[i].circleRadius);
+            p5.fill(0);
+            p5.ellipse(0, 0, players[i].circleRadius * 2, players[i].circleRadius * 2, 70);
+            p5.fill('#F8C574');
+            p5.ellipse(0, 0, players[i].circleRadius * 1.65, players[i].circleRadius * 1.65, 70);
+            if(playerDetails[i].shooting || playerDetails[i].shootTimer <= 4) {
+              p5.image(assets.muzzleflash, 0, -(-playerDetails[i].loadout[playerDetails[i].selected].y * players[i].circleRadius + playerDetails[i].loadout[playerDetails[i].selected].height / 2 * players[i].circleRadius) - playerSize / 2, 2 * players[i].circleRadius, 1.5 * players[i].circleRadius);
+            }
+            p5.noTint();
+            if(i != playerNum) {
+              playerDetails[i].angle = p5.radians(90) + p5.atan2(players[playerNum].position.y - players[i].position.y, players[playerNum].position.x - players[i].position.x);
+            }
+            p5.fill(0);
+            p5.rotate(-playerDetails[i].angle);
+            //p5.text(i, 0, -20);
+            p5.pop();
+          } 
           playerDetails[i].shootTimer += 3 * dt;
         }
       };
 
       p5.drawPlayerShadows = function() {
         for(let i = 0; i < playerDetails.length; i++) {
-          p5.push();
-          p5.translate(players[i].position.x, players[i].position.y);
-          p5.rotate(playerDetails[i].angle);
-          p5.fill(0, 0, 0, 60);
-          p5.tint(0, 0, 0, 60);
-          p5.ellipse(0, 0, players[i].circleRadius * 2.1 + 10, players[i].circleRadius * 2.1 + 10, 70);
-          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].lefthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].lefthand.y * players[i].circleRadius, players[i].circleRadius + 5, players[i].circleRadius + 5, 50);
-          p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].righthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].righthand.y * players[i].circleRadius, players[i].circleRadius + 5, players[i].circleRadius + 5, 50);
-          p5.image(playerDetails[i].loadout[playerDetails[i].selected].held, playerDetails[i].loadout[playerDetails[i].selected].x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].y * players[i].circleRadius - 10, playerDetails[i].loadout[playerDetails[i].selected].width * players[i].circleRadius + 15, playerDetails[i].loadout[playerDetails[i].selected].height * players[i].circleRadius + 10);
-          p5.tint(255);
-          p5.pop();
+          if(playerDetails[i].health > 0) {
+            p5.push();
+            p5.translate(players[i].position.x, players[i].position.y);
+            p5.rotate(playerDetails[i].angle);
+            p5.fill(0, 0, 0, 60);
+            p5.tint(0, 0, 0, 60);
+            p5.ellipse(0, 0, players[i].circleRadius * 2.1 + 10, players[i].circleRadius * 2.1 + 10, 70);
+            p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].lefthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].lefthand.y * players[i].circleRadius, players[i].circleRadius + 5, players[i].circleRadius + 5, 50);
+            p5.ellipse(playerDetails[i].loadout[playerDetails[i].selected].righthand.x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].righthand.y * players[i].circleRadius, players[i].circleRadius + 5, players[i].circleRadius + 5, 50);
+            p5.image(playerDetails[i].loadout[playerDetails[i].selected].held, playerDetails[i].loadout[playerDetails[i].selected].x * players[i].circleRadius, playerDetails[i].loadout[playerDetails[i].selected].y * players[i].circleRadius - 10, playerDetails[i].loadout[playerDetails[i].selected].width * players[i].circleRadius + 15, playerDetails[i].loadout[playerDetails[i].selected].height * players[i].circleRadius + 10);
+            p5.tint(255);
+            p5.pop();
+          }
+          if(playerDetails[i].health <= 0) {
+            console.log(players);
+            World.remove(world, players[i]);
+            players.splice(i, 1);
+            playerDetails.splice(i, 1);
+            for(let c = 0; c < players.length; c++) {
+              players[c].restitution = c / 1000;
+            }
+          }
         }
       };
 
@@ -980,6 +1017,7 @@ let runner = null;
             p5.push();
             p5.translate(bullets[i].position.x, bullets[i].position.y);
             p5.rotate(bullets[i].angle);
+            p5.fill(0, 0, 0, 120);
             switch(bulletDetails[i].caliber) {
               case '7.62mm' :
                 p5.image(assets.full762, 0, 0, 15, 50);
@@ -993,10 +1031,7 @@ let runner = null;
             }
             p5.pop();
           }
-          Matter.Body.setPosition(bullets[i], {x: bullets[i].position.x + p5.cos(bullets[i].angle - p5.radians(90)) * 190 * dt, y: bullets[i].position.y + p5.sin(bullets[i].angle - p5.radians(90)) * 190 * dt});
-          if(p5.dist(bullets[i].position.x, bullets[i].position.y, players[playerNum].position.x, players[playerNum].position.y) <= 200) {
-            //Matter.Body.setPosition(bullets[i], {x: players[playerNum].position.x + p5.cos(playerDetails[playerNum].angle - p5.radians(90)) * p5.dist(bullets[i].position.x, bullets[i].position.y, players[playerNum].position.x, players[playerNum].position.y), y: players[playerNum].position.y + p5.sin(playerDetails[playerNum].angle - p5.radians(90)) * p5.dist(bullets[i].position.x, bullets[i].position.y, players[playerNum].position.x, players[playerNum].position.y)});
-          }
+          Matter.Body.setPosition(bullets[i], {x: bullets[i].position.x + p5.cos(bullets[i].angle - p5.radians(90)) * 150 * dt, y: bullets[i].position.y + p5.sin(bullets[i].angle - p5.radians(90)) * 150 * dt});
           if (Matter.Query.collides(bullets[i], objects[0]).length > 0) {
             World.remove(world, bullets[i]);
             bullets.splice(i, 1);
@@ -1010,6 +1045,8 @@ let runner = null;
             console.log('Bullet Absorbed by Object');
           }
           else if (Matter.Query.collides(bullets[i], players).length > 0 && Matter.Query.collides(bullets[i], players)[0].bodyA.restitution * 1000 != bulletDetails[i].emitter) {
+            playerDetails[Matter.Query.collides(bullets[i], players)[0].bodyA.restitution * 1000].health -= bulletDetails[i].damage;
+            console.log(Matter.Query.collides(bullets[i], players)[0].bodyA.restitution * 1000);
             World.remove(world, bullets[i]);
             bullets.splice(i, 1);
             bulletDetails.splice(i, 1);
@@ -1047,12 +1084,12 @@ let runner = null;
             case false:
               objectDetails[0].push((levels[l].obstacles[i].details));
               objects[0].push((levels[l].obstacles[i].main));
-              console.log(objects[0][objects[0].length - 1]);
+              //console.log(objects[0][objects[0].length - 1]);
               break;
             case true:
               objectDetails[1].push((levels[l].obstacles[i].details));
               objects[1].push((levels[l].obstacles[i].main));
-              console.log(objects[1][objects[1].length - 1]);
+              //console.log(objects[1][objects[1].length - 1]);
               break;
           }
         }
@@ -1062,6 +1099,7 @@ let runner = null;
           playerDetails[b].view = playerDetails[b].loadout[playerDetails[playerNum].selected].view;
           players[b].restitution = b / 1000;
         }
+        console.log(players);
         World.add(world, players);
         objects[0].push(Bodies.rectangle(-50, levels[l].other.world.height / 2, 100, levels[l].other.world.height, {isStatic: true}));
         objectDetails[0].push({image: assets.blank, imageWidth: 1, imageHeight: 1, tint: '#FFFFFF', above: false, xOffset: 0, yOffset: 0, angleOffset: p5.radians(0), imageMode: p5.CENTER,});
@@ -1085,10 +1123,10 @@ let runner = null;
 
       p5.draw = function () {
         count ++;
-
         dt = (new Date().getTime() - lastTime.getTime()) / (1000/30)
         p5.clear();
         try {
+          p5.textFont(sourceSansPro, 60);
           p5.angleMode(p5.RADIANS);
           //p5.camera(players[playerNum].position.x + p5.sin(p5.frameCount * 10) * 5, players[playerNum].position.y - p5.sin(p5.frameCount - 90 * 10) * 5, playerDetails[playerNum].view - p5.width / 2, players[playerNum].position.x + p5.sin(p5.frameCount * 10) * 5, players[playerNum].position.y - p5.sin(p5.frameCount - 90 * 10) * 5, 0);
           p5.camera(p5.round(players[playerNum].position.x), p5.round(players[playerNum].position.y), playerDetails[playerNum].view - p5.width / 2, p5.round(players[playerNum].position.x), p5.round(players[playerNum].position.y), 0);
@@ -1107,7 +1145,6 @@ let runner = null;
           p5.drawObjects(1);
           p5.drawRoofs(0);
           p5.drawRoofs(1);
-          p5.fill(255, 0, 0, 50);
           p5.angleMode(p5.DEGREES);
           p5.playerMove();
           playerDetails[playerNum].shooting = false;
