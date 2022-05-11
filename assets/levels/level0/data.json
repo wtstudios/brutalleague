@@ -1,0 +1,1297 @@
+{
+    "obstacles": [
+        {
+            "type": "rectangle",
+            "x": 610,
+            "y": 170,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 0,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 610,
+            "y": 490,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 0,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 610,
+            "y": 810,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 0,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 610,
+            "y": 1130,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 0,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 610,
+            "y": 1450,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 0,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 490,
+            "y": 1650,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 90,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 170,
+            "y": 1650,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 90,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 1600,
+            "y": 170,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 0,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 1600,
+            "y": 490,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 0,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 1600,
+            "y": 810,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 0,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 1600,
+            "y": 1130,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": false,
+                "friction": 1,
+                "restitution": 0,
+                "density": 1,
+                "angle": 5,
+                "chamfer": true,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#5b5b5b",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 1600,
+            "y": 1450,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 0,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 1720,
+            "y": 1650,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 90,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 2040,
+            "y": 1650,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 90,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 2360,
+            "y": 1650,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 90,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 2680,
+            "y": 1650,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 90,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 3000,
+            "y": 1650,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 90,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 3320,
+            "y": 1650,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 90,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 3640,
+            "y": 1650,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 90,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 3960,
+            "y": 1650,
+            "width": 80,
+            "height": 320,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 90,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 415,
+            "y": 800,
+            "width": 190,
+            "height": 390,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 10
+            },
+            "details": {
+                "image": "./assets/obstacles/container2.png",
+                "imageWidth": 200,
+                "imageHeight": 400,
+                "tint": "#c83232",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 250,
+            "y": 1485,
+            "width": 190,
+            "height": 390,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 90
+            },
+            "details": {
+                "image": "./assets/obstacles/container2.png",
+                "imageWidth": 200,
+                "imageHeight": 400,
+                "tint": "#40B5AD",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 2300,
+            "y": 1400,
+            "width": 190,
+            "height": 390,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 90
+            },
+            "details": {
+                "image": "./assets/obstacles/container2.png",
+                "imageWidth": 200,
+                "imageHeight": 400,
+                "tint": "#484bab",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 2300,
+            "y": 1400,
+            "width": 190,
+            "height": 390,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 70
+            },
+            "details": {
+                "image": "./assets/obstacles/container2.png",
+                "imageWidth": 200,
+                "imageHeight": 400,
+                "tint": "#c83232",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 770,
+            "y": 1200,
+            "width": 190,
+            "height": 390,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50
+            },
+            "details": {
+                "image": "./assets/obstacles/container2.png",
+                "imageWidth": 200,
+                "imageHeight": 400,
+                "tint": "#484bab",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 1440,
+            "y": 400,
+            "width": 190,
+            "height": 390,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50
+            },
+            "details": {
+                "image": "./assets/obstacles/container2.png",
+                "imageWidth": 200,
+                "imageHeight": 400,
+                "tint": "#3f7025",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "circle",
+            "x": 1000,
+            "y": 2200,
+            "radius": 65,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50
+            },
+            "details": {
+                "image": "./assets/obstacles/tree3.png",
+                "imageWidth": 180,
+                "imageHeight": 180,
+                "tint": "#008000",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 2000,
+            "y": 2580,
+            "width": 0,
+            "height": 0,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 1
+            },
+            "details": {
+                "image": "./assets/obstacles/table1.png",
+                "imageWidth": 300,
+                "imageHeight": 120,
+                "tint": "#FFFFFF",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "circle",
+            "x": 500,
+            "y": 1900,
+            "radius": 100,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 80
+            },
+            "details": {
+                "image": "./assets/obstacles/tree2.png",
+                "imageWidth": 250,
+                "imageHeight": 250,
+                "tint": "#217c4d",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "circle",
+            "x": 400,
+            "y": 2900,
+            "radius": 100,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 30
+            },
+            "details": {
+                "image": "./assets/obstacles/tree2.png",
+                "imageWidth": 250,
+                "imageHeight": 250,
+                "tint": "#217c4d",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "circle",
+            "x": 2500,
+            "y": 1900,
+            "radius": 65,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 140
+            },
+            "details": {
+                "image": "./assets/obstacles/tree3.png",
+                "imageWidth": 180,
+                "imageHeight": 180,
+                "tint": "#008000",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "circle",
+            "x": 3900,
+            "y": 3200,
+            "radius": 65,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 140
+            },
+            "details": {
+                "image": "./assets/obstacles/tree3.png",
+                "imageWidth": 180,
+                "imageHeight": 180,
+                "tint": "#008000",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "circle",
+            "x": 3400,
+            "y": 2600,
+            "radius": 100,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 30
+            },
+            "details": {
+                "image": "./assets/obstacles/tree2.png",
+                "imageWidth": 250,
+                "imageHeight": 250,
+                "tint": "#217c4d",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "polygon",
+            "x": 1400,
+            "y": 3300,
+            "sides": 7,
+            "radius": 80,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 120
+            },
+            "details": {
+                "image": "./assets/obstacles/rock.png",
+                "imageWidth": 160,
+                "imageHeight": 160,
+                "tint": "#696969",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 10,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "polygon",
+            "x": 1100,
+            "y": 2800,
+            "sides": 7,
+            "radius": 80,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 160
+            },
+            "details": {
+                "image": "./assets/obstacles/rock.png",
+                "imageWidth": 160,
+                "imageHeight": 160,
+                "tint": "#696969",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 10,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "polygon",
+            "x": 300,
+            "y": 2100,
+            "sides": 7,
+            "radius": 80,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 190
+            },
+            "details": {
+                "image": "./assets/obstacles/rock.png",
+                "imageWidth": 160,
+                "imageHeight": 160,
+                "tint": "#696969",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 10,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "polygon",
+            "x": 230,
+            "y": 400,
+            "sides": 7,
+            "radius": 80,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 340
+            },
+            "details": {
+                "image": "./assets/obstacles/rock.png",
+                "imageWidth": 160,
+                "imageHeight": 160,
+                "tint": "#696969",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 10,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "polygon",
+            "x": 2900,
+            "y": 3100,
+            "sides": 7,
+            "radius": 80,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 80
+            },
+            "details": {
+                "image": "./assets/obstacles/rock.png",
+                "imageWidth": 160,
+                "imageHeight": 160,
+                "tint": "#696969",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 10,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "fromVertices",
+            "x": 2100,
+            "y": 2800,
+            "vertexSets": [
+                {
+                    "x": -299,
+                    "y": -399
+                },
+                {
+                    "x": -299,
+                    "y": 399
+                },
+                {
+                    "x": 299,
+                    "y": 399
+                },
+                {
+                    "x": 299,
+                    "y": -139
+                },
+                {
+                    "x": 261,
+                    "y": -139
+                },
+                {
+                    "x": 261,
+                    "y": -79
+                },
+                {
+                    "x": 161,
+                    "y": -79
+                },
+                {
+                    "x": 161,
+                    "y": -41
+                },
+                {
+                    "x": 261,
+                    "y": -41
+                },
+                {
+                    "x": 261,
+                    "y": 361
+                },
+                {
+                    "x": -21,
+                    "y": 361
+                },
+                {
+                    "x": -21,
+                    "y": 101
+                },
+                {
+                    "x": -59,
+                    "y": 101
+                },
+                {
+                    "x": -59,
+                    "y": 361
+                },
+                {
+                    "x": -261,
+                    "y": 361
+                },
+                {
+                    "x": -261,
+                    "y": -41
+                },
+                {
+                    "x": -59,
+                    "y": -41
+                },
+                {
+                    "x": -59,
+                    "y": -21
+                },
+                {
+                    "x": -21,
+                    "y": -21
+                },
+                {
+                    "x": -21,
+                    "y": -41
+                },
+                {
+                    "x": 39,
+                    "y": -41
+                },
+                {
+                    "x": 39,
+                    "y": -79
+                },
+                {
+                    "x": -261,
+                    "y": -79
+                },
+                {
+                    "x": -261,
+                    "y": -361
+                },
+                {
+                    "x": 261,
+                    "y": -361
+                },
+                {
+                    "x": 261,
+                    "y": -261
+                },
+                {
+                    "x": 299,
+                    "y": -261
+                },
+                {
+                    "x": 299,
+                    "y": -399
+                }
+            ],
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 5,
+                "angle": 0
+            },
+            "details": {
+                "image": "./assets/buildings/house1.png",
+                "imageWidth": 650,
+                "imageHeight": 850,
+                "tint": "#FFFFFF",
+                "layer": 0,
+                "xOffset": -21,
+                "yOffset": -18,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "roof": {
+                    "image": "./assets/buildings/roof1.png",
+                    "width": 600,
+                    "height": 800,
+                    "opacity": 255
+                }
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 2261,
+            "y": 3090,
+            "width": 100,
+            "height": 80,
+            "options": {
+                "isStatic": false,
+                "friction": 1,
+                "restitution": 0,
+                "density": 1,
+                "angle": 180
+            },
+            "details": {
+                "image": "./assets/obstacles/drawer1.png",
+                "imageWidth": 100,
+                "imageHeight": 100,
+                "tint": "#FFFFFF",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 1900,
+            "y": 3090,
+            "width": 100,
+            "height": 80,
+            "options": {
+                "isStatic": false,
+                "friction": 1,
+                "restitution": 0,
+                "density": 1,
+                "angle": 180
+            },
+            "details": {
+                "image": "./assets/obstacles/drawer1.png",
+                "imageWidth": 100,
+                "imageHeight": 100,
+                "tint": "#FFFFFF",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 3450,
+            "y": 1200,
+            "width": 160,
+            "height": 160,
+            "options": {
+                "isStatic": false,
+                "friction": 1,
+                "restitution": 0,
+                "density": 1,
+                "angle": 50,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/palette.png",
+                "imageWidth": 160,
+                "imageHeight": 160,
+                "tint": "#967638",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 2900,
+            "y": 950,
+            "width": 160,
+            "height": 160,
+            "options": {
+                "isStatic": false,
+                "friction": 1,
+                "restitution": 0,
+                "density": 1,
+                "angle": 120,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/palette.png",
+                "imageWidth": 160,
+                "imageHeight": 160,
+                "tint": "#967638",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        }
+    ],
+    "players": [
+        {
+            "x": 3000,
+            "y": 3000,
+            "angle": 180,
+            "size": 40,
+            "colour1": "#4b5320",
+            "colour2": "#6c782e",
+            "options": {
+                "friction": 1,
+                "restitution": 0,
+                "inertia": 0,
+                "density": 0.01
+            },
+            "highlightcolour": "#7d8a35",
+            "loadout": {
+                "guns": [
+                    "AUG"
+                ],
+                "activeIndex": 0
+            },
+            "health": 100
+        },
+        {
+            "x": 1000,
+            "y": 1400,
+            "angle": 180,
+            "size": 40,
+            "colour1": "#D3D3D3",
+            "colour2": "#FFFFFF",
+            "options": {
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.01
+            },
+            "highlightcolour": "#7d8a35",
+            "loadout": {
+                "guns": [
+                    "AUG"
+                ],
+                "activeIndex": 0
+            },
+            "health": 100
+        },
+        {
+            "x": 1000,
+            "y": 1400,
+            "angle": 180,
+            "size": 40,
+            "colour1": "#D3D3D3",
+            "colour2": "#FFFFFF",
+            "options": {
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.01
+            },
+            "highlightcolour": "#7d8a35",
+            "loadout": {
+                "guns": [
+                    "AUG"
+                ],
+                "activeIndex": 0
+            },
+            "health": 100
+        },
+        {
+            "x": 1000,
+            "y": 1400,
+            "angle": 180,
+            "size": 40,
+            "colour1": "#D3D3D3",
+            "colour2": "#FFFFFF",
+            "options": {
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.01
+            },
+            "highlightcolour": "#7d8a35",
+            "loadout": {
+                "guns": [
+                    "AUG"
+                ],
+                "activeIndex": 0
+            },
+            "health": 100
+        }
+    ]
+}
