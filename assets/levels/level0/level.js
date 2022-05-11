@@ -65,7 +65,7 @@ export const level = await (async () => {
                 p5.setup = function () {
                     engine.gravity.y = 0;
 
-                    //document.addEventListener("contextmenu", e => e.preventDefault());
+                    document.addEventListener("contextmenu", e => e.preventDefault());
 
                     p5.createCanvas(p5.windowWidth, p5.windowHeight, p5.WEBGL);
                     $("defaultCanvas0").style.display = "none";
