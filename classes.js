@@ -439,7 +439,7 @@ class bullet {
  * @type {{readonly version: string, levelsRaw: { name: string; world: { width: number; height: number; colour: string; gridColour: any; }; initializer: () => void; }[], levels: level[], settings: { graphicsQuality: number, debug: boolean }, guns: gunPrototype[]}}
  */
 const gamespace = {
-    get version() { return "0.0.6"; },
+    get version() { return "0.0.6-electron"; },
     levelsRaw: [],
     levels: [],
     settings: {
@@ -451,19 +451,19 @@ const gamespace = {
             "AUG",
             { loot: loadImg("assets/items/firearms/AUG/AUG_loot.svg"), held: loadImg("assets/items/firearms/AUG/AUG_topdown.svg") },
             2500,
-            { damage: 30, velocity: 200, range: 1000 },
+            { damage: 34, velocity: 140, range: 1000 },
             "5.56x45mm",
             RPMToMSDelay(680),
             // RPMToMSDelay(750),
             { default: 1 * Math.PI / 180, moving: 5 * Math.PI / 180 },
             { x: 0, y: -1.5 },
             { width: 0.9, height: 4.6 },
-            { lefthand: { x: -0.15, y: -2 }, righthand: { x: 0.2, y: -1 } },
+            { lefthand: { x: -0.2, y: -1 }, righthand: { x: 0.2, y: 0 } },
             { x: 0, y: 40 },
             40,
             { x: 0, y: -5, duration: 80 },
             [/*"automatic",  */"burst-3",  "semi"],
             { shotDelay: RPMToMSDelay(1800), burstDelay: RPMToMSDelay(250) }
-        )
+        ),
     ]
 };
