@@ -111,7 +111,7 @@ export const level = await (async () => {
                             for (let i = 0; i < 2; i++) { // Hands
                                 p5.fill([0, "#F8C574"][i]);
                                 Object.values(item.hands).forEach(hand => {
-                                    p5.ellipse(hand.x * radius, hand.y * radius, radius * (i ? 0.55 : 0.8), radius * (i ? 0.55 : 0.8), 50);
+                                    p5.ellipse((hand.x * radius) + item.offset.x * radius + item.recoilImpulse.x * (1 - (d / item.recoilImpulse.duration)), (hand.y * radius) + item.offset.y * radius - item.recoilImpulse.y * (1 - (d / item.recoilImpulse.duration)), radius * (i ? 0.55 : 0.8), radius * (i ? 0.55 : 0.8), 50);
                                 });
                             }
 
@@ -169,15 +169,17 @@ export const level = await (async () => {
                             p5.tint(0, 0, 0, 60);
                             p5.ellipse(0, 0, radius * 2.1 + 10, radius * 2.1 + 10, 70);
 
-                            Object.values(item.hands).forEach(hand => p5.ellipse(hand.x * radius, hand.y * radius, radius + 5, radius + 5, 50));
+                            Object.values(item.hands).forEach(hand => {
+                                p5.ellipse((hand.x * radius) + item.offset.x * radius + item.recoilImpulse.x * (1 - (d / item.recoilImpulse.duration)), (hand.y * radius) + item.offset.y * radius - item.recoilImpulse.y * (1 - (d / item.recoilImpulse.duration)), radius * 1.1, radius * 1.1, 50);
+                            });
 
                             if (item) {
                                 p5.image(
                                     item.images.held,
                                     item.offset.x * radius + item.recoilImpulse.x * (1 - (d / item.delay)),
                                     item.offset.y * radius - item.recoilImpulse.y * (1 - (d / item.delay)),
-                                    item.width * radius + 15,
-                                    item.height * radius + 10
+                                    item.width * radius + 30,
+                                    item.height * radius + 20,
                                 );
                             }
 
@@ -190,7 +192,6 @@ export const level = await (async () => {
                     levelData.obstacles.filter(o => o.layer == layer).forEach(o => {
                         const b = o.body;
                         Matter.Body.setVelocity(b, { x: -b.force.x, y: b.force.y });
-
                         p5.push();
                         p5.imageMode(o.imageMode);
                         p5.translate(b.position.x, b.position.y);
@@ -287,45 +288,50 @@ export const level = await (async () => {
                     bullets.forEach((b, i) => {
                         const bd = b.body;
 
-                        if (sqauredDist(bd.position, levelData.players[playerNum].body.position) < (p5.width + p5.height) ** 2) {
-                            p5.push();
-                            p5.translate(bd.position.x - Math.cos(b.angle + p5.HALF_PI) * b.emitter.ballistics.velocity * dt * 3, bd.position.y - Math.sin(b.angle + p5.HALF_PI) * b.emitter.ballistics.velocity * dt * 3);
-                            p5.rotate(b.angle);
-                            p5.fill(0, 0, 0, 120);
-                            p5.image(images[`caliber_${b.emitter.caliber}`], 0, 0, 15, 50);
-                            p5.pop();
-                        }
-
                         Matter.Body.setPosition(bd, { x: bd.position.x + p5.cos(b.angle - Math.PI / 2) * b.emitter.ballistics.velocity * dt, y: bd.position.y + p5.sin(b.angle - Math.PI / 2) * b.emitter.ballistics.velocity * dt });
                         b.squaredDistance = sqauredDist(b.start, bd.position);
 
                         if (b.squaredDistance > b.emitter.ballistics.range ** 2) {
                             removeBullet(bd, i);
                         }
+                        const p = Matter.Query.collides(bd, levelData.players.map(o => o.body))[0];
 
-                        if (Matter.Query.collides(bd, levelData.obstacles.map(o => o.body)).length) {
-                            removeBullet(bd, i);
-                            b.destroy();
-                        } else {
-                            const p = Matter.Query.collides(bd, levelData.players.map(o => o.body))[0];
+                        if (p) {
+                            const f = pl => pl.body.id == p.bodyA.id,
+                                target = levelData.players.find(f),
+                                index = levelData.players.findIndex(f);
+                            if(b.index != index) {
+                                target.health -= b.emitter.ballistics.damage;
 
-                            if (p) {
-                                const f = pl => pl.body.id == p.bodyA.id,
-                                    target = levelData.players.find(f),
-                                    index = levelData.players.findIndex(f);
-                                if(b.index != index) {
-                                    target.health -= b.emitter.ballistics.damage;
-
-                                    if (target.health <= 0) {
-                                        World.remove(world, target.body);
-                                        target.destroy();
-                                        levelData.players.splice(index, 1);
-                                    }
-                                    removeBullet(bd, i);
+                                if (target.health <= 0) {
+                                    World.remove(world, target.body);
+                                    target.destroy();
+                                    levelData.players.splice(index, 1);
                                 }
+                                removeBullet(bd, i);
                             }
                         }
+                        else if (Matter.Query.collides(bd, levelData.obstacles.map(o => o.body)).length) {
+                            removeBullet(bd, i);
+                            b.destroy();
+                        } 
+                        else if (sqauredDist(bd.position, levelData.players[playerNum].body.position) < (p5.width + p5.height) ** 2) {
+                            p5.push();
+                            p5.translate(bd.position.x, bd.position.y);
+                            p5.rotate(b.angle);
+                            p5.fill(0, 0, 0, 30);
+                            p5.rect(0, 0, 15, b.emitter.ballistics.velocity * dt * 6);
+                            p5.pop();
+                            p5.push();
+                            p5.translate(bd.position.x - Math.cos(b.angle + p5.HALF_PI) * b.emitter.ballistics.velocity * dt * 2.7, bd.position.y - Math.sin(b.angle + p5.HALF_PI) * b.emitter.ballistics.velocity * dt * 2.7);
+                            p5.rotate(b.angle);
+                            p5.image(images[`caliber_${b.emitter.caliber}`], 0, 0, 15, 50);
+                            p5.pop();
+                        } 
+
+
                     });
+                    
                 };
 
                 function drawGridLines() {
@@ -369,9 +375,13 @@ export const level = await (async () => {
                         player = levelData.players[playerNum].body;
 
                     Body.applyForce(player, { x: player.position.x, y: player.position.y }, {
-                        x: +(a ^ d) && (dt * ((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * (player.circleRadius / 6 - 2)),
-                        y: +(w ^ s) && (dt * ((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * (player.circleRadius / 6 - 2))
+                        x: +(a ^ d) && (dt * ((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * (player.circleRadius / 10)),
+                        y: +(w ^ s) && (dt * ((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * (player.circleRadius / 10))
+
                     });
+                    if(w || a || s || d) {
+                        levelData.players[playerNum].isMoving = true;
+                    }   else { levelData.players[playerNum].isMoving = false; }
                 };
 
                 function addToWorld() {
@@ -417,11 +427,13 @@ export const level = await (async () => {
                     p5.fill(level.world.colour);
                     p5.rect(0, 0, level.world.width, level.world.height);
                     p5.imageMode(p5.CENTER);
-
+                    p5.rectMode(p5.CENTER);
                     drawGridLines();
-                    drawPlayerShadows();
-                    drawShadows(0);
-                    drawShadows(1);
+                    if(gamespace.settings.graphicsQuality > 1) {
+                        drawPlayerShadows();
+                        drawShadows(0);
+                        drawShadows(1);
+                    }
                     drawObjects(0);
                     drawBullets();
                     drawPlayers();
@@ -448,9 +460,14 @@ export const level = await (async () => {
                             p.state.lastShot = now;
                             if (!p.state.fired && burst) { p.state.lastBurst = now; }
                             p.state.fired++;
-    
-                            const a = ip.accuracy.default + (b.velocity.x * b.velocity.y && ip.accuracy.moving),
-                                start = { x: b.position.x + Math.cos(p.angle - p5.HALF_PI) * ip.ballistics.velocity * dt * 1.5, y: b.position.y + Math.sin(p.angle - p5.HALF_PI) * ip.ballistics.velocity * dt * 1.5},
+                            console.log(p.isMoving);
+                            let a;
+                            if(p.isMoving) {
+                                a = ip.accuracy.moving;
+                            }   else {    
+                                a = ip.accuracy.default;
+                            }
+                                const start = { x: b.position.x + Math.cos(p.angle - p5.HALF_PI) * ip.ballistics.velocity * dt, y: b.position.y + Math.sin(p.angle - p5.HALF_PI) * ip.ballistics.velocity * dt},
                                 dev = p.angle + p5.random(-a, a),
                                 body = Bodies.rectangle(start.x, start.y, 10, ip.ballistics.velocity * dt * 6, { isStatic: false, friction: 1, restitution: 0, density: 1, angle: dev, isSensor: true });
     
