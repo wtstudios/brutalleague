@@ -71,7 +71,6 @@ function parseLevelData(data) {
                 default:
                     throw new SyntaxError(`Unknown type '${o.type}'`);
             }
-
             const d = o.details;
 
             return new obstacle(
