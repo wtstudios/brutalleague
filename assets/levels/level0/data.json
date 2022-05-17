@@ -270,7 +270,7 @@
                 "isStatic": false,
                 "friction": 1,
                 "restitution": 0,
-                "density": 1,
+                "density": 10,
                 "angle": 5,
                 "chamfer": true,
                 "inertia": 0
@@ -598,6 +598,56 @@
         },
         {
             "type": "rectangle",
+            "x": 780,
+            "y": 1200,
+            "width": 190,
+            "height": 390,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/container2.png",
+                "imageWidth": 200,
+                "imageHeight": 400,
+                "tint": "#484bab",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 1420,
+            "y": 600,
+            "width": 190,
+            "height": 390,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/container2.png",
+                "imageWidth": 200,
+                "imageHeight": 400,
+                "tint": "#CC5500",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
             "x": 2300,
             "y": 1400,
             "width": 190,
@@ -614,30 +664,6 @@
                 "imageWidth": 200,
                 "imageHeight": 400,
                 "tint": "#c83232",
-                "layer": 1,
-                "xOffset": 0,
-                "yOffset": 0,
-                "angleOffset": 0,
-                "imageMode": "center"
-            }
-        },
-        {
-            "type": "rectangle",
-            "x": 770,
-            "y": 1200,
-            "width": 190,
-            "height": 390,
-            "options": {
-                "isStatic": true,
-                "friction": 1,
-                "restitution": 0,
-                "density": 50
-            },
-            "details": {
-                "image": "./assets/obstacles/container2.png",
-                "imageWidth": 200,
-                "imageHeight": 400,
-                "tint": "#484bab",
                 "layer": 1,
                 "xOffset": 0,
                 "yOffset": 0,
@@ -1114,7 +1140,7 @@
                 "isStatic": false,
                 "friction": 1,
                 "restitution": 0,
-                "density": 1,
+                "density": 10,
                 "angle": 180
             },
             "details": {
@@ -1139,7 +1165,7 @@
                 "isStatic": false,
                 "friction": 1,
                 "restitution": 0,
-                "density": 1,
+                "density": 10,
                 "angle": 180
             },
             "details": {
@@ -1164,7 +1190,7 @@
                 "isStatic": false,
                 "friction": 1,
                 "restitution": 0,
-                "density": 1,
+                "density": 10,
                 "angle": 50,
                 "inertia": 0
             },
@@ -1190,7 +1216,7 @@
                 "isStatic": false,
                 "friction": 1,
                 "restitution": 0,
-                "density": 1,
+                "density": 10,
                 "angle": 120,
                 "inertia": 0
             },
@@ -1210,7 +1236,7 @@
     "players": [
         {
             "x": 3000,
-            "y": 3000,
+            "y": 2700,
             "angle": 180,
             "size": 40,
             "colour1": "#4b5320",
@@ -1275,6 +1301,48 @@
         {
             "x": 1000,
             "y": 1400,
+            "angle": 180,
+            "size": 40,
+            "colour1": "#D3D3D3",
+            "colour2": "#FFFFFF",
+            "options": {
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.01
+            },
+            "highlightcolour": "#7d8a35",
+            "loadout": {
+                "guns": [
+                    "AUG"
+                ],
+                "activeIndex": 0
+            },
+            "health": 100
+        },
+        {
+            "x": 1000,
+            "y": 1400,
+            "angle": 180,
+            "size": 40,
+            "colour1": "#D3D3D3",
+            "colour2": "#FFFFFF",
+            "options": {
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.01
+            },
+            "highlightcolour": "#7d8a35",
+            "loadout": {
+                "guns": [
+                    "AUG"
+                ],
+                "activeIndex": 0
+            },
+            "health": 100
+        },
+        {
+            "x": 1800,
+            "y": 1100,
             "angle": 180,
             "size": 40,
             "colour1": "#D3D3D3",
