@@ -623,7 +623,7 @@
         },
         {
             "type": "rectangle",
-            "x": 1420,
+            "x": 1430,
             "y": 600,
             "width": 190,
             "height": 390,
@@ -1250,7 +1250,7 @@
             "highlightcolour": "#7d8a35",
             "loadout": {
                 "guns": [
-                    "AUG"
+                    "AKS-74U"
                 ],
                 "activeIndex": 0
             },
@@ -1334,15 +1334,15 @@
             "highlightcolour": "#7d8a35",
             "loadout": {
                 "guns": [
-                    "AUG"
+                    "AKS-74U"
                 ],
                 "activeIndex": 0
             },
             "health": 100
         },
         {
-            "x": 1800,
-            "y": 1100,
+            "x": 2400,
+            "y": 900,
             "angle": 180,
             "size": 40,
             "colour1": "#D3D3D3",
