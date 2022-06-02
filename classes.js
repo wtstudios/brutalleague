@@ -439,7 +439,7 @@ class bullet {
  * @type {{readonly version: string, levelsRaw: { name: string; world: { width: number; height: number; colour: string; gridColour: any; }; initializer: () => void; }[], levels: level[], settings: { graphicsQuality: number, debug: boolean }, guns: gunPrototype[]}}
  */
 const gamespace = {
-    get version() { return "0.0.6-electron"; },
+    get version() { return "0.0.8-web"; },
     levelsRaw: [],
     levels: [],
     settings: {
@@ -451,7 +451,7 @@ const gamespace = {
             "AUG",
             { loot: loadImg("assets/items/firearms/AUG/AUG_loot.svg"), held: loadImg("assets/items/firearms/AUG/AUG_topdown.svg") },
             2500,
-            { damage: 34, velocity: 140, range: 1000 },
+            { damage: 25, velocity: 140, range: 1000 },
             "5.56x45mm",
             RPMToMSDelay(680),
             // RPMToMSDelay(750),
@@ -463,7 +463,25 @@ const gamespace = {
             40,
             { x: 0, y: -5, duration: 80 },
             [/*"automatic",  */"burst-3",  "semi"],
-            { shotDelay: RPMToMSDelay(1800), burstDelay: RPMToMSDelay(250) }
+            { shotDelay: RPMToMSDelay(1800), burstDelay: RPMToMSDelay(130) }
+        ),
+        new gunPrototype(
+            "AKS-74U",
+            { loot: loadImg("assets/items/firearms/AKS-74U/AKS-74U_loot.svg"), held: loadImg("assets/items/firearms/AKS-74U/AKS-74U_topdown.svg") },
+            2000,
+            { damage: 17, velocity: 140, range: 1000 },
+            "5.56x45mm",
+            RPMToMSDelay(300),
+            // RPMToMSDelay(750),
+            { default: 2.5 * Math.PI / 180, moving: 6 * Math.PI / 180 },
+            { x: 0, y: -1.7 },
+            { width: 1.1, height: 3.3 },
+            { lefthand: { x: -0.15, y: -0.4 }, righthand: { x: 0.25, y: 0.5 } },
+            { x: 0, y: 40 },
+            40,
+            { x: 0, y: -6, duration: 70 },
+            ["automatic"],
+            { shotDelay: RPMToMSDelay(1400), burstDelay: RPMToMSDelay(130) }
         ),
     ]
 };
