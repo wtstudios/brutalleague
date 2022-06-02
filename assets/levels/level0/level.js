@@ -50,7 +50,15 @@ export const level = await (async () => {
              */
             const s = p5 => {
                 let playerNum = 0;
-
+                let gameCamera = {
+                    x: 0,
+                    y: 0,
+                    z: 0,
+                    x: 0,
+                    xFocus: 0,
+                    yFocus: 0,
+                    zFocus: 0,
+                }
                 const Engine = Matter.Engine,
                     World = Matter.World,
                     Bodies = Matter.Bodies,
@@ -94,6 +102,7 @@ export const level = await (async () => {
                 };
 
                 function drawPlayers() {
+                    const now = Date.now();
                     levelData.players.forEach((player, i, a) => {
                         const b = player.body;
                         Matter.Body.setVelocity(b, { x: -b.force.x, y: -b.force.y });
@@ -111,7 +120,7 @@ export const level = await (async () => {
                             for (let i = 0; i < 2; i++) { // Hands
                                 p5.fill([0, "#F8C574"][i]);
                                 Object.values(item.hands).forEach(hand => {
-                                    p5.ellipse((hand.x * radius) + item.offset.x * radius + item.recoilImpulse.x * (1 - (d / item.recoilImpulse.duration)), (hand.y * radius) + item.offset.y * radius - item.recoilImpulse.y * (1 - (d / item.recoilImpulse.duration)), radius * (i ? 0.55 : 0.8), radius * (i ? 0.55 : 0.8), 50);
+                                    p5.ellipse((hand.x * radius) + item.offset.x * radius + item.recoilImpulse.x * (1 - (d / item.recoilImpulse.duration)), (hand.y * radius) + item.offset.y * radius - item.recoilImpulse.y * (1 - (d / item.recoilImpulse.duration)), radius * (i ? 0.55 : 0.8), radius * (i ? 0.55 : 0.8), 20);
                                 });
                             }
 
@@ -138,19 +147,53 @@ export const level = await (async () => {
                                     scaleY = Math.random() * 0.2 + 0.9;
 
                                 p5.scale(scaleX, scaleY);
-                                p5.image(images.muzzleFlash, 0, (item.offset.y - item.height + 1.4) * radius / scaleY);
+                                p5.image(images.muzzleFlash, 0, (item.offset.y - item.height / 2 - 1) * radius / scaleY);
                             }
                             p5.scale(1, 1);
 
                             // Intense NPC stare
-                            if (i != playerNum && sqauredDist(a[playerNum].body.position, player.body.position) <= 2000 ** 2) {
+                            if (i != playerNum && sqauredDist(a[playerNum].body.position, player.body.position) <= 2100 ** 2) {
                                 player.angle = Math.PI / 2 + Math.atan2(a[playerNum].body.position.y - player.body.position.y, a[playerNum].body.position.x - player.body.position.x);
                             }
-
+                            const p = levelData.players[i],
+                            q = p.inventory.activeItem,
+                            ip = q.proto;
+                            p.state.shooting = false;
+                            if(i != playerNum) {
+                                const fire = q.activeFireMode,
+                                    burst = fire.startsWith("burst-");
+            
+                                    if (((burst && !p.state.fired)
+                                            ? (burst && now - p.state.lastBurst > ip.burstProps.burstDelay)
+                                            : (p.state.fired < ({ automatic: Infinity, semi: 1 }[fire] ?? +fire.replace("burst-", "")))
+                
+                                            && (now - p.state.lastShot) > (burst ? (ip.burstProps.shotDelay ?? ip.delay) : ip.delay)
+                                        )
+                                    ) {
+                                        p.state.shooting = true;
+                                        p.state.lastShot = now;
+                                    if (!p.state.fired && burst) { p.state.lastBurst = now;}
+                                        p.state.fired++;
+                                    let a;
+                                    if(p.isMoving) {
+                                        a = ip.accuracy.moving;
+                                    }   else {    
+                                        a = ip.accuracy.default;
+                                    }
+                                    const start = { x: b.position.x + Math.cos(p.angle - p5.HALF_PI) * ip.ballistics.velocity * dt * 2, y: b.position.y + Math.sin(p.angle - p5.HALF_PI) * ip.ballistics.velocity * dt * 2},
+                                    dev = p.angle + p5.random(-a, a),
+                                    body = Bodies.rectangle(start.x, start.y, 10, ip.ballistics.velocity * dt * 6, { isStatic: true, friction: 1, restitution: 0, density: 1, angle: dev, isSensor: true });
+                                    bullets.push(new bullet(body, p, ip, dev, start, i));
+                                }
+                                if(p.state.fired == fire.replace("burst-", "") - 1) {
+                                    p.state.fired = 0;
+                                }
+                            }
                             p5.fill(0);
                             p5.rotate(-player.angle);
                             p5.pop();
                         }
+                        
                     });
                 };
 
@@ -170,7 +213,7 @@ export const level = await (async () => {
                             p5.ellipse(0, 0, radius * 2.1 + 10, radius * 2.1 + 10, 70);
 
                             Object.values(item.hands).forEach(hand => {
-                                p5.ellipse((hand.x * radius) + item.offset.x * radius + item.recoilImpulse.x * (1 - (d / item.recoilImpulse.duration)), (hand.y * radius) + item.offset.y * radius - item.recoilImpulse.y * (1 - (d / item.recoilImpulse.duration)), radius * 1.1, radius * 1.1, 50);
+                                p5.ellipse((hand.x * radius) + item.offset.x * radius + item.recoilImpulse.x * (1 - (d / item.recoilImpulse.duration)), (hand.y * radius) + item.offset.y * radius - item.recoilImpulse.y * (2 - (d / item.recoilImpulse.duration)), radius * (i ? 0.55 : 0.8) + 15, radius * (i ? 0.55 : 0.8) + 15, 20);
                             });
 
                             if (item) {
@@ -281,22 +324,27 @@ export const level = await (async () => {
                      * @param {number} i
                      */
                     function removeBullet(b, i) {
-                        World.remove(world, b);
+                        //World.remove(world, b);
                         bullets.splice(i, 1);
                     }
 
                     bullets.forEach((b, i) => {
+                        let gone = false;
                         const bd = b.body;
-
                         Matter.Body.setPosition(bd, { x: bd.position.x + p5.cos(b.angle - Math.PI / 2) * b.emitter.ballistics.velocity * dt, y: bd.position.y + p5.sin(b.angle - Math.PI / 2) * b.emitter.ballistics.velocity * dt });
                         b.squaredDistance = sqauredDist(b.start, bd.position);
 
                         if (b.squaredDistance > b.emitter.ballistics.range ** 2) {
                             removeBullet(bd, i);
+                            gone = true;
                         }
                         const p = Matter.Query.collides(bd, levelData.players.map(o => o.body))[0];
-
-                        if (p) {
+                        if (Matter.Query.collides(bd, levelData.obstacles.map(o => o.body)).length && !gone && b.squaredDistance ) {
+                            removeBullet(bd, i);
+                            b.destroy();
+                            gone = true;
+                        } 
+                        if (p && !gone) {
                             const f = pl => pl.body.id == p.bodyA.id,
                                 target = levelData.players.find(f),
                                 index = levelData.players.findIndex(f);
@@ -304,32 +352,33 @@ export const level = await (async () => {
                                 target.health -= b.emitter.ballistics.damage;
 
                                 if (target.health <= 0) {
-                                    World.remove(world, target.body);
-                                    target.destroy();
-                                    levelData.players.splice(index, 1);
+                                    if(index == playerNum) {
+                                        levelData.players[playerNum].health = 100;
+                                        Matter.Body.setPosition(levelData.players[playerNum].body, {x: json.players[playerNum].x, y: json.players[playerNum].y});
+                                        console.log(json);
+                                    }   else {
+                                        World.remove(world, target.body);
+                                        target.destroy();
+                                        levelData.players.splice(index, 1);
+                                    }
                                 }
                                 removeBullet(bd, i);
+                                gone = true;
                             }
                         }
-                        else if (Matter.Query.collides(bd, levelData.obstacles.map(o => o.body)).length) {
-                            removeBullet(bd, i);
-                            b.destroy();
-                        } 
-                        else if (sqauredDist(bd.position, levelData.players[playerNum].body.position) < (p5.width + p5.height) ** 2) {
+                        if (sqauredDist(bd.position, levelData.players[playerNum].body.position) < (p5.width + p5.height) ** 2 && !gone) {
                             p5.push();
                             p5.translate(bd.position.x, bd.position.y);
                             p5.rotate(b.angle);
                             p5.fill(0, 0, 0, 30);
-                            p5.rect(0, 0, 15, b.emitter.ballistics.velocity * dt * 6);
+                            p5.rect(0, 0, 12, b.emitter.ballistics.velocity * dt * 5);
                             p5.pop();
                             p5.push();
                             p5.translate(bd.position.x - Math.cos(b.angle + p5.HALF_PI) * b.emitter.ballistics.velocity * dt * 2.7, bd.position.y - Math.sin(b.angle + p5.HALF_PI) * b.emitter.ballistics.velocity * dt * 2.7);
                             p5.rotate(b.angle);
                             p5.image(images[`caliber_${b.emitter.caliber}`], 0, 0, 15, 50);
                             p5.pop();
-                        } 
-
-
+                        }
                     });
                     
                 };
@@ -368,7 +417,7 @@ export const level = await (async () => {
                 };
 
                 function playerMove() {
-                    const w = !!keys[83],
+                    let w = !!keys[83],
                         a = !!keys[65],
                         s = !!keys[87],
                         d = !!keys[68],
@@ -421,7 +470,11 @@ export const level = await (async () => {
                         ip = i.proto;
 
                     p5.textFont(fonts.sourceSansPro, 60);
-                    p5.camera(Math.round(b.position.x), Math.round(b.position.y), p.view - p5.width / 2, Math.round(b.position.x), Math.round(b.position.y), 0);
+                    gameCamera.x = levelData.players[playerNum].body.position.x, 
+                    gameCamera.y = levelData.players[playerNum].body.position.y,
+                    gameCamera.xFocus = levelData.players[playerNum].body.position.x,
+                    gameCamera.yFocus = levelData.players[playerNum].body.position.y;
+                    p5.camera(Math.round(gameCamera.x), Math.round(gameCamera.y), p.view - p5.width / 2, Math.round(gameCamera.xFocus), Math.round(gameCamera.yFocus), 0);
                     p5.noStroke();
                     p5.rectMode(p5.CORNER);
                     p5.fill(level.world.colour);
@@ -460,16 +513,15 @@ export const level = await (async () => {
                             p.state.lastShot = now;
                             if (!p.state.fired && burst) { p.state.lastBurst = now; }
                             p.state.fired++;
-                            console.log(p.isMoving);
                             let a;
                             if(p.isMoving) {
                                 a = ip.accuracy.moving;
                             }   else {    
                                 a = ip.accuracy.default;
                             }
-                                const start = { x: b.position.x + Math.cos(p.angle - p5.HALF_PI) * ip.ballistics.velocity * dt, y: b.position.y + Math.sin(p.angle - p5.HALF_PI) * ip.ballistics.velocity * dt},
+                                const start = { x: b.position.x + Math.cos(p.angle - p5.HALF_PI) * ip.ballistics.velocity * dt * 1.5, y: b.position.y + Math.sin(p.angle - p5.HALF_PI) * ip.ballistics.velocity * dt * 1.5},
                                 dev = p.angle + p5.random(-a, a),
-                                body = Bodies.rectangle(start.x, start.y, 10, ip.ballistics.velocity * dt * 6, { isStatic: false, friction: 1, restitution: 0, density: 1, angle: dev, isSensor: true });
+                                body = Bodies.rectangle(start.x, start.y, 10, ip.ballistics.velocity * dt * 6, { isStatic: true, friction: 1, restitution: 0, density: 1, angle: dev, isSensor: true });
     
                             bullets.push(new bullet(body, p, ip, dev, start, playerNum));
                         }
