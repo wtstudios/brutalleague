@@ -203,7 +203,7 @@ export const level = await (async () => {
                         if (i == playerNum || sqauredDist(b.position, a[playerNum].body.position) < (p5.width + p5.height) ** 2) {
                             const item = player.inventory.activeItem.proto,
                                 radius = b.circleRadius,
-                                d = Math.min(item.delay, lastTime - player.state.lastShot);
+                                d = Math.min(item.recoilImpulse.duration, lastTime - player.state.lastShot);
 
                             p5.push();
                             p5.translate(b.position.x, b.position.y);
@@ -213,7 +213,7 @@ export const level = await (async () => {
                             p5.ellipse(0, 0, radius * 2.1 + 10, radius * 2.1 + 10, 70);
 
                             Object.values(item.hands).forEach(hand => {
-                                p5.ellipse((hand.x * radius) + item.offset.x * radius + item.recoilImpulse.x * (1 - (d / item.recoilImpulse.duration)), (hand.y * radius) + item.offset.y * radius - item.recoilImpulse.y * (2 - (d / item.recoilImpulse.duration)), radius * (i ? 0.55 : 0.8) + 15, radius * (i ? 0.55 : 0.8) + 15, 20);
+                                p5.ellipse((hand.x * radius) + item.offset.x * radius + item.recoilImpulse.x * (1 - (d / item.recoilImpulse.duration)), (hand.y * radius) + item.offset.y * radius - item.recoilImpulse.y * (1 - (d / item.recoilImpulse.duration)), radius * (i ? 0.55 : 0.8) + 10, radius * (i ? 0.55 : 0.8) + 10, 20);
                             });
 
                             if (item) {
