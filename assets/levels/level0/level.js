@@ -481,12 +481,15 @@ export const level = await (async () => {
                     p5.rect(0, 0, level.world.width, level.world.height);
                     p5.imageMode(p5.CENTER);
                     p5.rectMode(p5.CENTER);
+                    p5.translate(0, 0, 1);
                     drawGridLines();
+                    p5.translate(0, 0, 1);
                     if(gamespace.settings.graphicsQuality > 1) {
                         drawPlayerShadows();
                         drawShadows(0);
                         drawShadows(1);
                     }
+                    p5.translate(0, 0, 1);
                     drawObjects(0);
                     drawBullets();
                     drawPlayers();
