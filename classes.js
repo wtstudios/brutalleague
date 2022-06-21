@@ -23,7 +23,7 @@ class level {
      * @param {{ width: number, height: number, colour: string, gridColour: string }} world
      * @param {() => void} initializer
      */
-    constructor(name, description, world, initializer) {
+    constructor (name, description, world, initializer) {
         this.name = name;
         this.description = description;
         this.world = world;
@@ -62,7 +62,7 @@ class obstacle {
      */
     layer;
     /**
-     * @type {{ x: number, y: number, angle: 0 }}
+     * @type {{ x: number, y: number, angle: number }}
      */
     offset = { x: 0, y: 0, angle: 0 };
     /**
@@ -70,7 +70,7 @@ class obstacle {
      */
     imageMode;
     /**
-     * @type {{ image: import("p5").Image; width: number; height: number; opacity: number; }; }
+     * @type {{ image: import("p5").Image; width: number; height: number; opacity: number; roofHitbox: Matter.Body } | void}
      */
     roof;
 
@@ -83,9 +83,9 @@ class obstacle {
      * @param {number} layer
      * @param {{ x: number, y: number, angle: number }} offset
      * @param {import("p5").IMAGE_MODE} imageMode
-     * @param {void | { image: string; width: number; height: number; opacity: number; } } roof
+     * @param {void | { image: import("p5").Image; width: number; height: number; opacity: number; roofHitbox: Matter.Body; } } roof
      */
-    constructor(body, angle, image, imageDimensions, tint, layer, offset, imageMode, roof) {
+    constructor (body, angle, image, imageDimensions, tint, layer, offset, imageMode, roof) {
         this.#body = body;
         this.angle = angle ?? 0;
         this.image = image;
@@ -136,7 +136,7 @@ class playerLike {
     /**
      * @type {boolean}
      */
-     isMoving;
+    isMoving;
     /**
      * @type {{shooting: boolean, lastShot: number, fired: number, lastBurst }}
      */
@@ -149,14 +149,14 @@ class playerLike {
     /**
      * @param {Matter.Body} body
      * @param {number} angle
-     * @param {{ primary: `#${string}`, secondary: `#${string}`, highlight: `#${string}` }} colour
-     * @param {{ friction: number, restitution: number, inertia?: number, density: number; }} options
-     * @param {{ guns: string[];activeIndex: number; }} loadout
-     * @param {number} selected
+     * @param {{primary: `#${string}`;secondary: `#${string}`;highlight: `#${string}`;}} colour
+     * @param {{friction: number;restitution: number;inertia?: number;density: number;}} options
+     * @param {{guns: string[];activeIndex: number;}} loadout
      * @param {number} health
-     * @param {boolean} isMoving;
+     * @param {boolean} isMoving
+     * @param {number} view
      */
-    constructor(body, angle, colour, options, loadout, health, view, isMoving) {
+    constructor (body, angle, colour, options, loadout, health, view, isMoving) {
         this.#body = body;
         this.#body.angle = angle;
         this.angle = angle;
@@ -203,7 +203,7 @@ class inventory {
      * @param  {playerLike} parent
      * @param  {...gunPrototype} items
      */
-    constructor(parent, ...items) {
+    constructor (parent, ...items) {
         this.#parent = parent;
         this.guns = (items ?? []).map(v => new gun(v));
     }
@@ -238,7 +238,7 @@ class gun {
      *
      * @param {gunPrototype} proto
      */
-    constructor(proto) {
+    constructor (proto) {
         this.#proto = proto;
         this.#activeFireMode = proto.fireMode[this.activeFireModeIndex];
     }
@@ -261,7 +261,7 @@ class gunPrototype {
      */
     view;
     /**
-     * @type {{ damage: number, velocity: number, range: number }}
+     * @type {{ damage: number, velocity: number, range: number, timeout: number }}
      */
     ballistics;
     /**
@@ -307,9 +307,9 @@ class gunPrototype {
      */
     flashDuration = 40;
     /**
-     * @type {{ x: number, y: number, duration: number }}
+     * @type {{{ x: number, y: number, duration: number }, { x: number, y: number, duration: number }, { x: number, y: number, duration: number }}}
      */
-    recoilImpulse = { x: 0, y: -5, duration: 80 };
+    recoilImpulse = { left: {x: 0, y: -5, duration: 80 }, right: {x: 0, y: -5, duration: 80 }, weapon: {x: 0, y: -5, duration: 80 }};
     /**
      * @type {("automatic" | "semi" | `burst-${number}`)[]}
      */
@@ -326,7 +326,7 @@ class gunPrototype {
      * @param {string} name
      * @param {{ loot: import("p5").Image, held: import("p5").Image }} images
      * @param {number} view
-     * @param {{ damage: number, velocity: number, range: number }} ballistics
+     * @param {{ damage: number, velocity: number, range: number, timeout?: number }} ballistics
      * @param {string} caliber
      * @param {number} delay
      * @param {{ default: number,moving: number; }} accuracy
@@ -339,14 +339,15 @@ class gunPrototype {
      * @param {("automatic" | "semi" | `burst-${number}`)[]} fireMode
      * @param {{ shotDelay: number, burstDelay: number; }} burstProps
      */
-    constructor(name, images, view, ballistics, caliber, delay, accuracy, offset, dimensions, hands, spawnOffset, flashDuration, recoilImpulse, fireMode, burstProps) {
+    constructor (name, images, view, ballistics, caliber, delay, accuracy, offset, dimensions, hands, spawnOffset, flashDuration, recoilImpulse, fireMode, burstProps) {
         this.name = name;
         this.images = images;
         this.view = view;
         this.ballistics = {
             damage: ballistics?.damage ?? 30,
             velocity: ballistics?.velocity ?? 150,
-            velocity: ballistics?.velocity ?? 500,
+            range: ballistics?.range ?? 500,
+            timeout: ballistics?.timeout ?? 0,
         };
         this.caliber = caliber;
         this.delay = delay;
@@ -367,9 +368,21 @@ class gunPrototype {
         };
         this.flashDuration = flashDuration ?? 40;
         this.recoilImpulse = {
-            x: recoilImpulse?.x ?? 0,
-            y: recoilImpulse?.y ?? 0,
-            duration: recoilImpulse?.duration ?? this.delay
+            left: {
+                x: recoilImpulse.left?.x ?? 0,
+                y: recoilImpulse.left?.y ?? 0,
+                duration: recoilImpulse.left?.duration ?? this.delay
+            },
+            right: {
+                x: recoilImpulse.right?.x ?? 0,
+                y: recoilImpulse.right?.y ?? 0,
+                duration: recoilImpulse.right?.duration ?? this.delay
+            },
+            weapon: {
+                x: recoilImpulse.weapon?.x ?? 0,
+                y: recoilImpulse.weapon?.y ?? 0,
+                duration: recoilImpulse.weapon?.duration ?? this.delay
+            },
         };
         this.fireMode = fireMode ?? ["automatic"];
         this.burstProps = burstProps && {
@@ -413,7 +426,6 @@ class bullet {
      * @type {number}
      */
     squaredDistance = 0;
-
     /**
      * @param {Matter.Body} body
      * @param {playerLike} shooter
@@ -422,13 +434,14 @@ class bullet {
      * @param {{ x: number, y: number }} start
      * @param {number} index
      */
-    constructor(body, shooter, emitter, angle, start, index) {
+    constructor (body, shooter, emitter, angle, start, index) {
         this.#body = body;
         this.#shooter = shooter;
         this.#emitter = emitter;
         this.#angle = angle;
         this.#start = start;
         this.index = index;
+        this.timer = 0;
     }
     destroy() { // Free up the memory by clearing references to objects, since we no longer need the references
         this.#body = this.#shooter = this.#emitter = void 0;
@@ -439,7 +452,7 @@ class bullet {
  * @type {{readonly version: string, levelsRaw: { name: string; world: { width: number; height: number; colour: string; gridColour: any; }; initializer: () => void; }[], levels: level[], settings: { graphicsQuality: number, debug: boolean }, guns: gunPrototype[]}}
  */
 const gamespace = {
-    get version() { return "0.0.8-web"; },
+    get version() { return "0.9-web_alpha"; },
     levelsRaw: [],
     levels: [],
     settings: {
@@ -449,37 +462,69 @@ const gamespace = {
     guns: [
         new gunPrototype(
             "AUG",
-            { loot: loadImg("assets/items/firearms/AUG/AUG_loot.svg"), held: loadImg("assets/items/firearms/AUG/AUG_topdown.svg") },
+            { loot: loadImg("assets/items/weapons/AUG/AUG_loot.svg"), held: loadImg("assets/items/weapons/AUG/AUG_topdown.svg") },
             2500,
             { damage: 25, velocity: 140, range: 1000 },
             "5.56x45mm",
             RPMToMSDelay(680),
-            // RPMToMSDelay(750),
             { default: 1 * Math.PI / 180, moving: 5 * Math.PI / 180 },
             { x: 0, y: -1.5 },
             { width: 0.9, height: 4.6 },
-            { lefthand: { x: -0.2, y: -1 }, righthand: { x: 0.2, y: 0 } },
+            { lefthand: { x: -0.2, y: 0 }, righthand: { x: 0.2, y: -1 } },
             { x: 0, y: 40 },
             40,
-            { x: 0, y: -5, duration: 80 },
-            [/*"automatic",  */"burst-3",  "semi"],
+            { left: {x: 0, y: -5, duration: 80}, right: {x: 0, y: -5, duration: 80}, weapon: {x: 0, y: -5, duration: 80}},
+            [/*"automatic",  */"burst-3", "semi"],
             { shotDelay: RPMToMSDelay(1800), burstDelay: RPMToMSDelay(130) }
         ),
         new gunPrototype(
             "AKS-74U",
-            { loot: loadImg("assets/items/firearms/AKS-74U/AKS-74U_loot.svg"), held: loadImg("assets/items/firearms/AKS-74U/AKS-74U_topdown.svg") },
+            { loot: loadImg("assets/items/weapons/AKS-74U/AKS-74U_loot.svg"), held: loadImg("assets/items/weapons/AKS-74U/AKS-74U_topdown.svg") },
             2000,
             { damage: 14, velocity: 140, range: 700 },
-            "5.56x45mm",
+            "7.62x39mm",
             RPMToMSDelay(650),
-            // RPMToMSDelay(750),
             { default: 3 * Math.PI / 180, moving: 8 * Math.PI / 180 },
             { x: 0, y: -1.7 },
             { width: 1.1, height: 3.3 },
             { lefthand: { x: -0.15, y: -0.4 }, righthand: { x: 0.25, y: 0.5 } },
             { x: 0, y: 40 },
             40,
-            { x: 0, y: -6, duration: 70 },
+            { left: {x: 0, y: -6, duration: 70}, right: {x: 0, y: -6, duration: 70}, weapon: {x: 0, y: -6, duration: 70}},
+            ["automatic"],
+            { shotDelay: RPMToMSDelay(1400), burstDelay: RPMToMSDelay(130) }
+        ),
+        new gunPrototype(
+            "M4A1",
+            { loot: loadImg("assets/items/weapons/M4A1/M4A1_loot.svg"), held: loadImg("assets/items/weapons/M4A1/M4A1_topdown.svg") },
+            2000,
+            { damage: 21, velocity: 140, range: 1000 },
+            "5.56x45mm",
+            RPMToMSDelay(400),
+            { default: 1 * Math.PI / 180, moving: 4 * Math.PI / 180 },
+            { x: 0, y: -1.2 },
+            { width: 1.1, height: 4.3 },
+            { lefthand: { x: -0.2, y: -0.8 }, righthand: { x: 0.2, y: 0 } },
+            { x: 100, y: 40 },
+            40,
+            { left: {x: 0, y: -10, duration: 90}, right: {x: 0, y: -10, duration: 90}, weapon: {x: 0, y: -10, duration: 90} },
+            ["automatic"],
+            { shotDelay: RPMToMSDelay(1400), burstDelay: RPMToMSDelay(130) }
+        ),
+        new gunPrototype(
+            "Military Bayonet",
+            { loot: loadImg("assets/items/weapons/Bayonet-Military/Bayonet-Military_loot.svg"), held: loadImg("assets/items/weapons/Bayonet-Military/Bayonet-Military_held.svg") },
+            2000,
+            { damage: 48, velocity: 20, range: 20, timeout: 1 },
+            "melee",
+            RPMToMSDelay(130),
+            { default: 0 * Math.PI / 180, moving: 0 * Math.PI / 180 },
+            { x: 0.4, y: -1.6 },
+            { width: 2.4, height: 2.4 },
+            { lefthand: { x: -1, y: 0.6 }, righthand: { x: 0.3, y: 0.6 } },
+            { x: 100, y: 40 },
+            40,
+            { left: {x: 0, y: 0, duration: 200}, right: {x: -10, y: 30, duration: 200}, weapon: {x: -10, y: 30, duration: 200} },
             ["automatic"],
             { shotDelay: RPMToMSDelay(1400), burstDelay: RPMToMSDelay(130) }
         ),
