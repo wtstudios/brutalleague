@@ -107,12 +107,12 @@
       input.autocomplete = "off";
       play.disabled = true;
       play.style.backgroundColor = "#cb332e";
-      play.style.cursor = "default";
+      play.style.cursor = "crosshair";
 
       function a(e) {
         if (e.key == "Escape") {
           play.disabled = false;
-          play.style.cursor = '';
+          play.style.cursor = "";
           play.style.backgroundColor = "white";
           document.removeEventListener("keydown", a);
           input.remove();
