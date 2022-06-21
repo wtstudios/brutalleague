@@ -1378,7 +1378,7 @@
             "highlightcolour": "#7d8a35",
             "loadout": {
                 "guns": [
-                    "M4A1"
+                    "Military Bayonet"
                 ],
                 "activeIndex": 0
             },
@@ -1420,7 +1420,7 @@
             "highlightcolour": "#7d8a35",
             "loadout": {
                 "guns": [
-                    "Military Bayonet"
+                    "M4A1"
                 ],
                 "activeIndex": 0
             },
