@@ -452,7 +452,7 @@ class bullet {
  * @type {{readonly version: string, levelsRaw: { name: string; world: { width: number; height: number; colour: string; gridColour: any; }; initializer: () => void; }[], levels: level[], settings: { graphicsQuality: number, debug: boolean }, guns: gunPrototype[]}}
  */
 const gamespace = {
-    get version() { return "0.9-web_alpha"; },
+    get version() { return "0.8.5-web_alpha"; },
     levelsRaw: [],
     levels: [],
     settings: {
