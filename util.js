@@ -41,8 +41,76 @@ function RPMToMSDelay(rpm) {
 }
 
 /**
- *
- * @param {{ obstacles: (({ type: "rectangle"; width: number; height: number; } | { type: "circle"; radius: number; } | { type: "polygon"; sides: number; radius: number; } | { type: "fromVertices"; vertexSets: { x: number; y: number; }[]; } | { type: "trapezoid"; slope: number; }) & { x: number; y: number; options: { isStatic: boolean; friction: number; restitution: number; density: number; angle: number; chamfer?: boolean; }; details: { image: string; imageWidth: number; imageHeight: number; tint: `#${string}`; layer: boolean; xOffset: number; yOffset: number; angleOffset: number; imageMode: import("p5").IMAGE_MODE; roof?: { image: string; width: number; height: number; opacity: number; }; special?: number; }; })[]; players: { x: number; y: number; angle: number; size: number; colour1: `#${string}`; colour2: `#${string}`; options: { friction: number; restitution: number; inertia?: number; density: number; }; highlightcolour: `#${string}`; loadout: { guns: string[], activeIndex: number; }; health: number; view: number; }[]; }} data
+ * @param {{
+ * obstacles: (({
+ *     type: "rectangle";
+ *     width: number;
+ *     height: number;
+ * } | {
+ *     type: "circle";
+ *     radius: number;
+ * } | {
+ *     type: "polygon";
+ *     sides: number;
+ *     radius: number;
+ * } | {
+ *     type: "fromVertices";
+ *     vertexSets: { x: number; y: number; }[];
+ * } | {
+ *     type: "trapezoid";
+ *     slope: number;
+ *     width: number;
+ *     height: number;
+ * }) & {
+ *     x: number;
+ *     y: number;
+ *     options: {
+ *         isStatic: boolean;
+ *         friction: number;
+ *         restitution: number;
+ *         density: number;
+ *         angle: number;
+ *         chamfer?: undefined;
+ *     };
+ *     details: {
+ *         image: string;
+ *         imageWidth: number;
+ *         imageHeight: number;
+ *         tint: `#${string}`;
+ *         layer: number;
+ *         xOffset: number;
+ *         yOffset: number;
+ *         angleOffset: number;
+ *         imageMode: import("p5").IMAGE_MODE;
+ *         roof?: { image: string;
+ *         width: number;
+ *         height: number;
+ *         opacity: number;
+ *         };
+ *         special?: number;
+ *     };
+ * })[];
+ * players: {
+ *     x: number;
+ *     y: number;
+ *     angle: number;
+ *     size: number;
+ *     colour1: `#${string}`;
+ *     colour2: `#${string}`;
+ *     options: { friction: number;
+ *         restitution: number;
+ *         inertia?: number;
+ *         density: number;
+ *         };
+ *     highlightcolour: `#${string}`;
+ *     loadout: {
+ *       guns: string[],
+ *       activeIndex: number;
+ *     };
+ *     health: number;
+ *     view: number;
+ *     }[];
+ *     }} data
  * @returns {{ obstacles: obstacle[], players: playerLike[] }}
  */
 function parseLevelData(data) {
@@ -63,7 +131,7 @@ function parseLevelData(data) {
                     body = Matter.Bodies.polygon(o.x, o.y, o.sides, o.radius, o.options);
                     break;
                 case "fromVertices":
-                    body = Matter.Bodies.fromVertices(o.x, o.y, o.vertexSets, o.options);
+                    body = Matter.Bodies.fromVertices(o.x, o.y, [o.vertexSets], o.options);
                     break;
                 case "trapezoid":
                     body = Matter.Bodies.trapezoid(o.x, o.y, o.width, o.height, o.slope, o.options);
@@ -86,9 +154,9 @@ function parseLevelData(data) {
                     image: loadImg(d.roof.image),
                     width: d.roof.width,
                     height: d.roof.height,
-                    opacity: d.roof.opacity ?? 255
-                },
-                d.special
+                    opacity: d.roof.opacity ?? 255,
+                    roofHitbox: Matter.Bodies.fromVertices(o.x, o.y, [d.roof.roofHitbox], { isSensor: true, isStatic: false })
+                }
             );
         }),
         players: data.players.map(p => new playerLike(Matter.Bodies.circle(p.x, p.y, p.size, p.options), p.angle * Math.PI / 180, { primary: p.colour1, secondary: p.colour2, highlight: p.highlightcolour }, p.options, p.loadout, p.health, 1700, false))
