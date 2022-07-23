@@ -1,77 +1,5 @@
 export const level = await (async () => {
     const j = await fetch("assets/levels/level0/data.json"),
-        /**
-         * @type {{
-         * obstacles: (({
-         *     type: "rectangle";
-         *     width: number;
-         *     height: number;
-         * } | {
-         *     type: "circle";
-         *     radius: number;
-         * } | {
-         *     type: "polygon";
-         *     sides: number;
-         *     radius: number;
-         * } | {
-         *     type: "fromVertices";
-         *     vertexSets: { x: number; y: number; }[];
-         * } | {
-         *     type: "trapezoid";
-         *     slope: number;
-         *     width: number;
-         *     height: number;
-         * }) & {
-         *     x: number;
-         *     y: number;
-         *     options: {
-         *         isStatic: boolean;
-         *         friction: number;
-         *         restitution: number;
-         *         density: number;
-         *         angle: number;
-         *         chamfer?: undefined;
-         *     };
-         *     details: {
-         *         image: string;
-         *         imageWidth: number;
-         *         imageHeight: number;
-         *         tint: `#${string}`;
-         *         layer: number;
-         *         xOffset: number;
-         *         yOffset: number;
-         *         angleOffset: number;
-         *         imageMode: import("p5").IMAGE_MODE;
-         *         roof?: { image: string;
-         *         width: number;
-         *         height: number;
-         *         opacity: number;
-         *         };
-         *         special?: number;
-         *     };
-         * })[];
-         * players: {
-         *     x: number;
-         *     y: number;
-         *     angle: number;
-         *     size: number;
-         *     colour1: `#${string}`;
-         *     colour2: `#${string}`;
-         *     options: { friction: number;
-         *         restitution: number;
-         *         inertia?: number;
-         *         density: number;
-         *         };
-         *     highlightcolour: `#${string}`;
-         *     loadout: {
-         *       guns: string[],
-         *       activeIndex: number;
-         *     };
-         *     health: number;
-         *     view: number;
-         *     }[];
-         *     }}
-         */
         json = await j.json();
 
 
@@ -215,7 +143,7 @@ export const level = await (async () => {
                                 radius = b.circleRadius,
                                 d = Math.min(item.recoilImpulse.weapon.duration, lastTime - player.state.lastShot);
 
-                            if(item.caliber != 'melee') {
+                            if (item.caliber != 'melee') {
                                 for (let i = 0; i < 2; i++) { // Hands
                                     p5.fill(["#000", "#F8C574"][i]);
                                     let uselessArray = [item.recoilImpulse.left, item.recoilImpulse.right];
@@ -238,7 +166,7 @@ export const level = await (async () => {
                                 );
                             }
 
-                            if(item.caliber == 'melee') {
+                            if (item.caliber == 'melee') {
                                 for (let i = 0; i < 2; i++) { // Hands
                                     p5.fill(["#000", "#F8C574"][i]);
                                     let uselessArray = [item.recoilImpulse.left, item.recoilImpulse.right];
@@ -471,14 +399,14 @@ export const level = await (async () => {
                             const f = pl => pl.body.id == p[p.length - 1].bodyA.id,
                                 target = levelData.players.find(f),
                                 index = levelData.players.findIndex(f);
-                                let thing = levelData.obstacles.map(o => o.body);
-                                thing.push(target.body);
-                                const ray = Matter.Query.ray(thing, b.start, target.body.position, 1);
+                            let thing = levelData.obstacles.map(o => o.body);
+                            thing.push(target.body);
+                            const ray = Matter.Query.ray(thing, b.start, target.body.position, 1);
                             if (ray[0] && b.index != index && ray[ray.length - 1].bodyA.id == target.body.id && ob || !ob && b.index != index) {
                                 target.health -= b.emitter.ballistics.damage;
 
                                 if (target.health <= 0) {
-                                    for(let x = 0; x < Math.round(p5.random(6, 12)); x++) {
+                                    for (let x = 0; x < Math.round(p5.random(6, 12)); x++) {
                                         let angle = p5.random(0, Math.PI * 2) + x * Math.PI / 7;
                                         levelData.particles.push(new particle(images.particle1, 255, 10, target.body.position.x + Math.cos(angle) * 10, target.body.position.y + Math.sin(angle) * 10, angle, '#FF0000'));
                                     }
@@ -495,15 +423,15 @@ export const level = await (async () => {
                                 gone = true;
                             }
                         }
-                        if (ob[0] && !gone || b.squaredDistance > b.emitter.ballistics.range ** 3 && !gone || !gone && b.timer >= b.emitter.ballistics.timeout) {
-                            if(ob[0]) {
+                        if (ob[0] && !gone || b.squaredDistance > b.emitter.ballistics.range ** 2 && !gone || !gone && b.timer >= b.emitter.ballistics.timeout) {
+                            if (ob[0]) {
                                 const f = pl => pl.body.id == ob[ob.length - 1].bodyA.id,
-                                target = levelData.obstacles.find(f),
-                                index = levelData.obstacles.findIndex(f);
-                                if(index != -1) {
+                                    target = levelData.obstacles.find(f),
+                                    index = levelData.obstacles.findIndex(f);
+                                if (index != -1) {
                                     target.health -= b.emitter.ballistics.damage;
-                                    if(target.health <= 0) {
-                                        for(let x = 0; x < Math.round(p5.random(5, 9)); x++) {
+                                    if (target.health <= 0) {
+                                        for (let x = 0; x < Math.round(p5.random(5, 9)); x++) {
                                             let angle = p5.random(0, Math.PI * 2) + x * Math.PI / 7;
                                             levelData.particles.push(new particle(images.particle1, 255, 10, target.body.position.x + Math.cos(angle) * 10, target.body.position.y + Math.sin(angle) * 10, angle, target.tint));
                                         }
@@ -537,14 +465,14 @@ export const level = await (async () => {
 
                 function drawParticles() {
                     levelData.particles.forEach((p, i) => {
-                        if (sqauredDist({x: p.x, y: p.y}, levelData.players[playerNum].body.position) < (p5.width + p5.height) ** 2) {
-                            p5.tint(p.tint + p5.hex(p.opacity)[6] + p5.hex(p.opacity)[7]); 
+                        if (sqauredDist({ x: p.x, y: p.y }, levelData.players[playerNum].body.position) < (p5.width + p5.height) ** 2) {
+                            p5.tint(p.tint + p5.hex(p.opacity)[6] + p5.hex(p.opacity)[7]);
                             p5.image(p.image, p.x, p.y, 20, 20);
                         }
                         p.opacity -= p.unit;
                         p.x += Math.cos(p.angle) * 5;
                         p.y += Math.sin(p.angle) * 5;
-                        if(p.opacity <= 0) {
+                        if (p.opacity <= 0) {
                             levelData.particles.splice(i, 1);
                         }
                     });
@@ -554,7 +482,7 @@ export const level = await (async () => {
                     levelData.paths.forEach((p, i) => {
                         p5.fill(p.colour);
                         p5.beginShape(p5.TESS);
-                        for(let b = 0; b < p.vertices.length; b++) {
+                        for (let b = 0; b < p.vertices.length; b++) {
                             p5.vertex(p.vertices[b].x, p.vertices[b].y);
                         }
                         p5.endShape();
@@ -578,17 +506,23 @@ export const level = await (async () => {
 
                 p5.keyPressed = function () {
                     keys[p5.keyCode] = true;
+                    const player = levelData.players[playerNum],
+                        absMod = (v, m) => (m + (v % m)) % m;
+
                     if (p5.key.toLowerCase() == 'z') {
                         sightArray.pop();
                     }
+
                     if (p5.key.toLowerCase() == 'c') {
                         console.log(sightArray);
                     }
-                    if (p5.key.toLowerCase() == 'q' && levelData.players[playerNum].inventory.activeIndex > 0) {
-                        levelData.players[playerNum].inventory.activeIndex--;
+
+                    if (p5.key.toLowerCase() == 'q') {
+                        player.inventory.activeIndex = absMod((player.inventory.activeIndex - 1), player.inventory.guns.length);
                     }
-                    if (p5.key.toLowerCase() == 'e' && levelData.players[playerNum].inventory.activeIndex < levelData.players[playerNum].inventory.guns.length - 1) {
-                        levelData.players[playerNum].inventory.activeIndex++;
+
+                    if (p5.key.toLowerCase() == 'e') {
+                        player.inventory.activeIndex = absMod((player.inventory.activeIndex + 1), player.inventory.guns.length);
                     }
                 };
 
@@ -610,22 +544,20 @@ export const level = await (async () => {
                 };
 
                 function playerMove() {
-                    let w = !!keys[83],
+                    const w = !!keys[83],
                         a = !!keys[65],
                         s = !!keys[87],
                         d = !!keys[68],
-                        player = levelData.players[playerNum].body;
+                        player = levelData.players[playerNum],
+                        body = player.body,
+                        base = player.body.circleRadius / (10 * Math.SQRT2);
 
-                    Body.applyForce(player, { x: player.position.x, y: player.position.y }, {
-                        x: +(a ^ d) && (dt * ((w ^ s) ? Math.SQRT1_2 : 1) * [-0.7, 0.7][+d] * (player.circleRadius / 10)),
-                        y: +(w ^ s) && (dt * ((a ^ d) ? Math.SQRT1_2 : 1) * [-0.7, 0.7][+w] * (player.circleRadius / 10))
-                    });
+                    Body.applyForce(body, body.position, { // Why is the base speed √8
+                        x: +(a ^ d) && (dt * ((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base),
+                        y: +(w ^ s) && (dt * ((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base)
+                    }); //                                                      ^ This part is supposed to manage the sign of the force and nothing else
 
-                    if (w || a || s || d) {
-                        levelData.players[playerNum].isMoving = true;
-                    } else {
-                        levelData.players[playerNum].isMoving = false;
-                    }
+                    player.isMoving = w || a || s || d;
                 };
 
                 function addToWorld() {
@@ -665,10 +597,11 @@ export const level = await (async () => {
                         ip = i.proto;
 
                     p5.textFont(fonts.sourceSansPro, 60);
-                    gameCamera.x = levelData.players[playerNum].body.position.x,
-                    gameCamera.y = levelData.players[playerNum].body.position.y,
-                    gameCamera.xFocus = levelData.players[playerNum].body.position.x,
+                    gameCamera.x = levelData.players[playerNum].body.position.x;
+                    gameCamera.y = levelData.players[playerNum].body.position.y;
+                    gameCamera.xFocus = levelData.players[playerNum].body.position.x;
                     gameCamera.yFocus = levelData.players[playerNum].body.position.y;
+
                     p5.camera(Math.round(gameCamera.x)/* + (p5.mouseX - p5.width / 2) / 2*/, Math.round(gameCamera.y)/* + (p5.mouseY - p5.height / 2) / 2*/, p.view - p5.width / 2, Math.round(gameCamera.xFocus)/* + (p5.mouseX - p5.width / 2) / 2*/, Math.round(gameCamera.yFocus)/* + (p5.mouseY - p5.height / 2) / 2*/, 0);
                     //p5.camera(Math.round(gameCamera.x) + (p5.mouseX - p5.width / 2) / 2, Math.round(gameCamera.y) + (p5.mouseY - p5.height / 2) / 2, p.view - p5.width / 2, Math.round(gameCamera.xFocus) + (p5.mouseX - p5.width / 2) / 2, Math.round(gameCamera.yFocus) + (p5.mouseY - p5.height / 2) / 2, 0);
                     p5.noStroke();
@@ -720,7 +653,7 @@ export const level = await (async () => {
                         ((burst && !p.state.fired)
                             ? (burst && now - p.state.lastBurst > ip.burstProps.burstDelay)
                             : (p.state.fired < ({ automatic: Infinity, semi: 1 }[fire] ?? +fire.replace("burst-", "")))
- 
+
                             && (now - p.state.lastShot) > (burst ? (ip.burstProps.shotDelay ?? ip.delay) : ip.delay)
                         )
                     ) {
@@ -729,15 +662,15 @@ export const level = await (async () => {
                         if (!p.state.fired && burst) { p.state.lastBurst = now; }
                         p.state.fired++;
                         let a;
-                        if(p.isMoving) {
+                        if (p.isMoving) {
                             a = ip.accuracy.moving;
-                        }   else {    
+                        } else {
                             a = ip.accuracy.default;
                         }
-                            const start = { x: b.position.x + Math.cos(p.angle - p5.HALF_PI) * ip.ballistics.velocity * dt * 1.5, y: b.position.y + Math.sin(p.angle - p5.HALF_PI) * ip.ballistics.velocity * dt * 1.5},
+                        const start = { x: b.position.x + Math.cos(p.angle - p5.HALF_PI) * ip.ballistics.velocity * dt * 1.5, y: b.position.y + Math.sin(p.angle - p5.HALF_PI) * ip.ballistics.velocity * dt * 1.5 },
                             dev = p.angle + p5.random(-a, a),
                             body = Bodies.rectangle(start.x, start.y, 10, ip.ballistics.velocity * dt * 6, { isStatic: true, friction: 1, restitution: 0, density: 1, angle: dev, isSensor: true });
- 
+
                         bullets.push(new bullet(body, p, ip, dev, start, playerNum));
                     }
 

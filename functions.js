@@ -1,3 +1,6 @@
+// These are all just copy pasted from the level script, and hence, they'll all fail with a billion ReferenceError's cause you haven't ensured that
+// variables accesible in the level script (like levelData and playerNum) are accessible here.
+
 function drawPlayers() {
     p5.rectMode(p5.CENTER);
     const now = Date.now();
@@ -5,20 +8,20 @@ function drawPlayers() {
         const b = player.body;
         Matter.Body.setVelocity(b, { x: -b.force.x, y: -b.force.y });
         /*
-        if(i == playerNum) {
+        if (i == playerNum) {
             let obstaclesCheck = levelData.obstacles.map(o => o.body);
             let playersCheck = levelData.players.map(o => o.body);
             playersCheck.splice(playerNum, 1);
             obstaclesCheck.concat(playersCheck);
             let ray = raycast(Matter.Composite.allBodies(world), {x: b.position.x + Math.cos(player.angle - Math.PI / 2) * 500, y: b.position.y + Math.sin(player.angle - Math.PI / 2) * 500}, {x: b.position.x + Math.cos(player.angle - Math.PI / 2) * 50, y: b.position.y + Math.sin(player.angle - Math.PI / 2) * 50}, true);
         }
-        if(i == playerNum && ray[0]) {
+
+        if (i == playerNum && ray[0]) {
             console.log(ray);
             p5.stroke('red');
             p5.strokeWeight(3);
             p5.line(b.position.x, b.position.y, ray[ray.length - 1].point.x, ray[ray.length - 1].point.y);
-        }
-        else if(i == playerNum) {
+        } else if (i == playerNum) {
             p5.stroke('red');
             p5.strokeWeight(3);
             p5.line(b.position.x, b.position.y, b.position.x + Math.cos(player.angle - Math.PI / 2) * 500, b.position.y + Math.sin(player.angle - Math.PI / 2) * 500);
@@ -34,7 +37,7 @@ function drawPlayers() {
                 radius = b.circleRadius,
                 d = Math.min(item.recoilImpulse.weapon.duration, lastTime - player.state.lastShot);
 
-            if(item.caliber != 'melee') {
+            if (item.caliber != 'melee') {
                 for (let i = 0; i < 2; i++) { // Hands
                     p5.fill(["#000", "#F8C574"][i]);
                     let uselessArray = [item.recoilImpulse.left, item.recoilImpulse.right];
@@ -57,7 +60,7 @@ function drawPlayers() {
                 );
             }
 
-            if(item.caliber == 'melee') {
+            if (item.caliber == 'melee') {
                 for (let i = 0; i < 2; i++) { // Hands
                     p5.fill(["#000", "#F8C574"][i]);
                     let uselessArray = [item.recoilImpulse.left, item.recoilImpulse.right];
@@ -288,16 +291,17 @@ function drawBullets() {
             const f = pl => pl.body.id == p.bodyA.id,
                 target = levelData.players.find(f),
                 index = levelData.players.findIndex(f);
-                let thing = levelData.obstacles.map(o => o.body);
-                thing.push(target.body);
-                const ray = Matter.Query.ray(thing, b.start, target.body.position, 1)[0];
-            if (ray && b.index != index && ray.bodyA.id == target.body.id && ob || !ob && b.index != index) {
+            let thing = levelData.obstacles.map(o => o.body);
+            thing.push(target.body);
+            const ray = Matter.Query.ray(thing, b.start, target.body.position, 1)[0];
+
+            if (ray && b.index != index && ray.bodyA.id == target.body.id && ob || !ob && b.index != index) { // Very messy; I hope you know your operator precedence rules by heart
                 target.health -= b.emitter.ballistics.damage;
 
                 if (target.health <= 0) {
-                    for(let x = 0; x < Math.round(p5.random(6, 12)); x++) {
+                    for (let x = 0; x < Math.round(p5.random(6, 12)); x++) {
                         let angle = p5.random(0, Math.PI * 2);
-                        levelData.particles.push(new particle(images.particle1, 255, 15 , target.body.position.x + Math.cos(angle) * 10, target.body.position.y + Math.sin(angle) * 10, angle, 230, 0, 0));
+                        levelData.particles.push(new particle(images.particle1, 255, 15, target.body.position.x + Math.cos(angle) * 10, target.body.position.y + Math.sin(angle) * 10, angle, 230, 0, 0));
                     }
                     if (index == playerNum) {
                         levelData.players[playerNum].health = 100;
@@ -313,16 +317,16 @@ function drawBullets() {
             }
         }
         if (ob && !gone || b.squaredDistance > b.emitter.ballistics.range ** 3 && !gone && b.timer >= b.emitter.ballistics.timeout) {
-            if(ob) {
+            if (ob) {
                 const f = pl => pl.body.id == ob.bodyA.id,
-                target = levelData.obstacles.find(f),
-                index = levelData.obstacles.findIndex(f);
-                if(index != -1) {
+                    target = levelData.obstacles.find(f),
+                    index = levelData.obstacles.findIndex(f);
+                if (index != -1) {
                     target.health -= b.emitter.ballistics.damage;
-                    if(target.health <= 0) {
-                        for(let x = 0; x < Math.round(p5.random(3, 6)); x++) {
+                    if (target.health <= 0) {
+                        for (let x = 0; x < Math.round(p5.random(3, 6)); x++) {
                             let angle = p5.random(0, Math.PI * 2);
-                            levelData.particles.push(new particle(images.particle1, 255, 15 , target.body.position.x + Math.cos(angle) * 10, target.body.position.y + Math.sin(angle) * 10, angle, 255, 255, 255));
+                            levelData.particles.push(new particle(images.particle1, 255, 15, target.body.position.x + Math.cos(angle) * 10, target.body.position.y + Math.sin(angle) * 10, angle, 255, 255, 255));
                         }
                         levelData.obstacles.splice(index, 1);
                         World.remove(world, target.body);
@@ -354,14 +358,14 @@ function drawBullets() {
 
 function drawParticles() {
     levelData.particles.forEach((p, i) => {
-        if (sqauredDist({x: p.x, y: p.y}, levelData.players[playerNum].body.position) < (p5.width + p5.height) ** 2) {
+        if (sqauredDist({ x: p.x, y: p.y }, levelData.players[playerNum].body.position) < (p5.width + p5.height) ** 2) {
             p5.tint(p.tintR, p.tintG, p.tintB, p.opacity);
             p5.image(p.image, p.x, p.y, 20, 20);
         }
         p.opacity -= p.unit;
         p.x += Math.cos(p.angle) * 4;
         p.y += Math.sin(p.angle) * 4;
-        if(p.opacity <= 0) {
+        if (p.opacity <= 0) {
             levelData.particles.splice(i, 1);
         }
     });

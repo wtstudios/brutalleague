@@ -1,21 +1,7 @@
 class level {
-    /**
-     * @readonly
-     * @type {string}
-     */
     name;
-    /**
-     * @readonly
-     * @type {string}
-     */
     description;
-    /**
-     * @type {{ width: number, height: number, colour: string, gridColour: string }}
-     */
     world;
-    /**
-     * @type {() => void}
-     */
     initializer;
     /**
      * @param {string} name
@@ -37,59 +23,19 @@ class obstacle {
      */
     #body;
     get body() { return this.#body; }
-    /**
-     * @type {import("p5").Image}
-     */
+
     image;
-    /**
-     * @type {number}
-     */
+    // I suggest renaming to "width" and "height", then encapsulating in a "dimensions" object, akin to the one passed into the constructor (dimensions: { width:number, height: number })
     imageWidth;
-    /**
-     * @type {number}
-     */
     imageHeight;
-    /**
-     * @type {string}
-     */
     tint;
-    /**
-     * @type {number}
-     */
     angle;
-    /**
-     * @type {number}
-     */
     layer;
-    /**
-     * @type {{ x: number, y: number, angle: number }}
-     */
     offset = { x: 0, y: 0, angle: 0 };
-    /**
-     * @type {import("p5").IMAGE_MODE}
-     */
     imageMode;
-    /**
-     * @type {{ image: import("p5").Image; width: number; height: number; opacity: number; roofHitbox: Matter.Body } | void}
-     */
     health;
-    /**
-     * @type {number}
-     */
     roof;
 
-    /**
-     * @param {Matter.Body} body
-     * @param {number} angle
-     * @param {import("p5").Image} image
-     * @param {{ width: number, height: number }} imageDimensions
-     * @param {string} tint
-     * @param {number} layer
-     * @param {{ x: number, y: number, angle: number }} offset
-     * @param {import("p5").IMAGE_MODE} imageMode
-     * @param {number} health
-     * @param {void | { image: import("p5").Image; width: number; height: number; opacity: number; roofHitbox: Matter.Body; } } roof
-     */
     constructor (body, angle, image, imageDimensions, tint, layer, offset, imageMode, health, roof) {
         this.#body = body;
         this.angle = angle ?? 0;
@@ -110,18 +56,9 @@ class obstacle {
 }
 
 class path {
-    /**
-     * @type {Array}
-     */
     vertices;
-    /**
-     * @type {String}
-     */
     colour;
-    /**
-     * @param {Array} vertices
-     * @param {String} colour
-     */
+
     constructor (vertices, colour) {
         this.vertices = vertices;
         this.colour = colour;
@@ -133,53 +70,21 @@ class playerLike {
      */
     #body;
     get body() { return this.#body; }
-    /**
-     * @type {{ primary: `#${string}`, secondary: `#${string}`, highlight: `#${string}` }}
-     */
+
     colour;
-    /**
-     * @type {{ friction: number, restitution: number, inertia?: number, density: number; }}
-     */
     options;
-    /**
-     * @type {inventory}
-     */
     inventory;
-    /**
-     * @type {number}
-     */
-    angle;
-    /**
-     * @type {number}
-     */
+    angle; // Consider moving this to the "state" property
     health;
-    /**
-     * @type {number}
-     */
     view;
-    /**
-     * @type {boolean}
-     */
-    isMoving;
-    /**
-     * @type {{shooting: boolean, lastShot: number, fired: number, lastBurst }}
-     */
+    isMoving; // Consider moving this to the "state" property
     state = {
         shooting: false,
         lastShot: 0,
         fired: 0,
         lastBurst: 0
     };
-    /**
-     * @param {Matter.Body} body
-     * @param {number} angle
-     * @param {{primary: `#${string}`;secondary: `#${string}`;highlight: `#${string}`;}} colour
-     * @param {{friction: number;restitution: number;inertia?: number;density: number;}} options
-     * @param {{guns: string[];activeIndex: number;}} loadout
-     * @param {number} health
-     * @param {boolean} isMoving
-     * @param {number} view
-     */
+
     constructor (body, angle, colour, options, loadout, health, view, isMoving) {
         this.#body = body;
         this.#body.angle = angle;
@@ -214,7 +119,8 @@ class inventory {
     set activeIndex(v) {
         this.#activeIndex = v;
         this.#activeItem = this.guns[v];
-        //this.#parent.view = this.#activeItem.proto.view;
+        // this.#parent.view = this.#activeItem.proto.view;
+        // Why is this commented out?
     }
 
     /**
@@ -251,17 +157,9 @@ class gun {
         this.#activeFireMode = f[this.#activeFireModeIndex = v % f.length];
     };
 
-    /**
-     * @readonly
-     * @type {(typeof gunPrototype.prototype.fireMode)[number]}
-     */
     #activeFireMode;
     get activeFireMode() { return this.#activeFireMode; };
 
-    /**
-     *
-     * @param {gunPrototype} proto
-     */
     constructor (proto) {
         this.#proto = proto;
         this.#activeFireMode = proto.fireMode[this.activeFireModeIndex];
@@ -269,13 +167,7 @@ class gun {
 }
 
 class gunPrototype {
-    /**
-     * @type {string}
-     */
     name;
-    /**
-     * @type {{ loot: import("p5").Image, held: import("p5").Image }}
-     */
     images = {
         loot: void 0,
         held: void 0
@@ -284,86 +176,66 @@ class gunPrototype {
      * @type {number}
      */
     view;
-    /**
-     * @type {{ damage: number, velocity: number, range: number, timeout: number }}
-     */
     ballistics;
-    /**
-     * @type {string}
-     */
     caliber;
-    /**
-     * @type {number}
-     */
-    delay;
-    /**
-     * @type {{ default: number, moving: number; }}
-     */
+    delay; // Consider renaming to "firingDelay" or similar
     accuracy = {
         default: 0,
         moving: 0,
     };
-    /**
-     * @type {{ x: number, y: number }}
-     */
-    offset = { x: 0, y: 0 };
-    /**
-     * @type {number}
-     */
+    offset = { x: 0, y: 0 }; // Consider renaming to "imageOffset" for added clarity
     width;
-    /**
-     * @type {number}
-     */
     height;
-    /**
-     * @type {{ lefthand: { x: number, y: number; }, righthand: { x: number, y: number; }; }}
-     */
-    hands = {
-        lefthand: { x: 0.5, y: -1 },
-        righthand: { x: 0.5, y: -1 }
+    hands = { // Consider adding in support for values that indicate one-handed riggings
+        lefthand: {
+            x: 0.5,
+            y: -1
+        },
+        righthand: {
+            x: 0.5,
+            y: -1
+        }
     };
-    /**
-     * @type {{ x: number, y: number }}
-     */
     spawnOffset = { x: 0, y: 0 };
-    /**
-     * @type {number}
-     */
     flashDuration = 40;
-    /**
-     * @type {{{ x: number, y: number, duration: number }, { x: number, y: number, duration: number }, { x: number, y: number, duration: number }}}
-     */
-    recoilImpulse = { left: {x: 0, y: -5, duration: 80 }, right: {x: 0, y: -5, duration: 80 }, weapon: {x: 0, y: -5, duration: 80 }};
-    /**
-     * @type {("automatic" | "semi" | `burst-${number}`)[]}
-     */
-    fireMode = ["automatic"];
-    /**
-     * @type {{ shotDelay: number, burstDelay: number; }}
-     */
+    recoilImpulse = { // Consider naming the "left" and "right" right fields more clearly
+        left: {
+            x: 0,
+            y: -5,
+            duration: 80
+        }, right: {
+            x: 0,
+            y: -5,
+            duration: 80
+        }, weapon: {
+            x: 0,
+            y: -5,
+            duration: 80
+        }
+    };
+    fireMode = ["automatic"]; // Pluralize field name?
     burstProps = {
         shotDelay: 60,
         burstDelay: 500,
     };
 
-    /**
-     * @param {string} name
-     * @param {{ loot: import("p5").Image, held: import("p5").Image }} images
-     * @param {number} view
-     * @param {{ damage: number, velocity: number, range: number, timeout?: number }} ballistics
-     * @param {string} caliber
-     * @param {number} delay
-     * @param {{ default: number,moving: number; }} accuracy
-     * @param {{ x: number, y: number }} offset
-     * @param {{ width: number, height: number }} dimensions
-     * @param {{ lefthand: { x: number, y: number; }, righthand: { x: number, y: number; }; }} hands
-     * @param {{ x: number, y: number }} spawnOffset
-     * @param {number} flashDuration
-     * @param {{ x: number, y: number, duration: number }} recoilImpulse
-     * @param {("automatic" | "semi" | `burst-${number}`)[]} fireMode
-     * @param {{ shotDelay: number, burstDelay: number; }} burstProps
-     */
-    constructor (name, images, view, ballistics, caliber, delay, accuracy, offset, dimensions, hands, spawnOffset, flashDuration, recoilImpulse, fireMode, burstProps) {
+    constructor (
+        name,
+        images,
+        view,
+        ballistics,
+        caliber,
+        delay,
+        accuracy,
+        offset,
+        dimensions,  // Please refactor either this constructor parameter or the fields it's assigned to so as to resolve this type incoherence
+        hands,
+        spawnOffset,
+        flashDuration,
+        recoilImpulse,
+        fireMode,
+        burstProps
+    ) {
         this.name = name;
         this.images = images;
         this.view = view;
@@ -371,7 +243,8 @@ class gunPrototype {
             damage: ballistics?.damage ?? 30,
             velocity: ballistics?.velocity ?? 150,
             range: ballistics?.range ?? 500,
-            timeout: ballistics?.timeout ?? 0,
+            timeout: ballistics?.timeout ?? 0 // Not needed; "timeout" (or more apprpriately, "lifespan") is simply range divided by velocity
+            // Why is this field instantiated as 0 if no value is found?
         };
         this.caliber = caliber;
         this.delay = delay;
@@ -417,47 +290,32 @@ class gunPrototype {
 }
 
 class bullet {
-    /**
-     * @type {Matter.Body}
-     */
     #body;
     get body() { return this.#body; }
-    /**
-     * @type {playerLike}
-     */
+
     #shooter;
     get shooter() { return this.#shooter; }
-    /**
-     * @type {gunPrototype}
-     */
+
     #emitter;
     get emitter() { return this.#emitter; }
-    /**
-     * @type {number}
-     */
+
     #angle;
     get angle() { return this.#angle; }
-    /**
-     * @type {{ x: number, y: number }}
-     */
+
     #start;
     get start() { return this.#start; }
-    /**
-     * @type {number}
-     */
-    index;
-    /**
-     * @type {number}
-     */
+
+    index; // Extremely ambiguous name
+    /*
+        Also not needed.
+        This property stores the index at which this bullet's shooter is within the player array.
+        Not only does this change when players die or are added, therefore making it unreliable for identifying this bullet's shoooter,
+        there is literally a property dedicated to keeping track of the playerLike who shot this bullet: the shooter property
+
+        If you want to implement checks to prevent bullets colliding with their shooters, use playerLike.body.id instead.
+    */
+    timer; // Better to store the timestamp of the bullet's spawn, rather than how long it's existed for.
     squaredDistance = 0;
-    /**
-     * @param {Matter.Body} body
-     * @param {playerLike} shooter
-     * @param {gunPrototype} emitter
-     * @param {number} angle
-     * @param {{ x: number, y: number }} start
-     * @param {number} index
-     */
     constructor (body, shooter, emitter, angle, start, index) {
         this.#body = body;
         this.#shooter = shooter;
@@ -472,39 +330,24 @@ class bullet {
     }
 }
 class particle {
-    /**
-     * @type {import("p5").Image}
-     */
     image;
-    /**
-     * @type {number}
-     */
     opacity;
-    /**
-     * @type {number}
-     */
-    unit;
-    /**
-     * @param {number}
-     */
+    unit; // Unclear naming
+    /*
+        Furthermore, it'd be better to express a particle's lifetime "as-is". This doesn't even garantee a consistent lifetime, since the amount of time a particle ends up living is
+        directly dependant on how fast drawParticles is called, which is in turn dependant on how fast p5's draw function is called
+
+        I suggest adding a "lifetime" field and a "created" field, both of tyoe number. The first stores how many milliseconds the particle should live for,
+        the second, the timestamp the particle was created at. The constructor takes a parameter called "created" and assigns it to this.created;
+        Date.now() should therefore always be passed to this parameter.
+
+        Then, in drawParticles, before drawing anything, loop over the particles that exist, and for each one, check if the difference between that particle's "created" timestamp
+        and the current timestamp is less than that particle's lifetime: if so, do nothing. Otherwise, remove it. Use Array.filter for this.
+    */
     x;
-    /**
-     * @param {number}
-     */
     y;
-    /**
-     * @param {string}
-     */
-    tint;
-    /**
-     * @param {angle}
-     */
+    tint;  // Rather than force the color mode into RGB so that you can use a specific overload of p5's tint function, why not write a utility function to convert hex to RGB?
     angle;
-    /**
-     * @param {import("p5").Image} image
-     * @param {number} opacity
-     * @param {number} unit
-     */
     constructor (image, opacity, unit, x, y, angle, tint) {
         this.x = x;
         this.y = y;
@@ -526,7 +369,18 @@ const gamespace = {
         graphicsQuality: 1,
         debug: false
     },
-    guns: [
+    guns: [ // You should probably extract this to .json and import it
+        /*
+            Why do the AUG and knife deal the same damage?
+            Why do those two weapons share the title for highest damage per shot?
+            Why do all the guns have the same velocity?
+            The AK-102 fires too slow (450RPM vs 600RPM)
+            M4's usually fire around the 700-950RPM range
+            Why does the AUG still fire 3-round bursts?
+
+            And most importantly of all,
+            why is the bayonet a gun?? Make a seperate melee class!
+         */
         new gunPrototype(
             "AUG",
             { loot: loadImg("assets/items/weapons/AUG/AUG_loot.svg"), held: loadImg("assets/items/weapons/AUG/AUG_topdown.svg") },
@@ -540,8 +394,8 @@ const gamespace = {
             { lefthand: { x: -0.2, y: -0.2 }, righthand: { x: 0.2, y: -1 } },
             { x: 0, y: 40 },
             40,
-            { left: {x: 0, y: -15, duration: 80}, right: {x: 0, y: -15, duration: 80}, weapon: {x: 0, y: -15, duration: 80}},
-            [/*"automatic",  */"burst-3", "semi"],
+            { left: { x: 0, y: -15, duration: 80 }, right: { x: 0, y: -15, duration: 80 }, weapon: { x: 0, y: -15, duration: 80 } },
+            [/* "automatic", */"burst-3", "semi"],
             { shotDelay: RPMToMSDelay(1000), burstDelay: RPMToMSDelay(130) }
         ),
         new gunPrototype(
@@ -557,7 +411,7 @@ const gamespace = {
             { lefthand: { x: -0.15, y: -0.4 }, righthand: { x: 0.25, y: 0.5 } },
             { x: 0, y: 40 },
             40,
-            { left: {x: 0, y: -6, duration: 70}, right: {x: 0, y: -6, duration: 70}, weapon: {x: 0, y: -6, duration: 70}},
+            { left: { x: 0, y: -6, duration: 70 }, right: { x: 0, y: -6, duration: 70 }, weapon: { x: 0, y: -6, duration: 70 } },
             ["automatic"],
             { shotDelay: RPMToMSDelay(1400), burstDelay: RPMToMSDelay(130) }
         ),
@@ -574,7 +428,7 @@ const gamespace = {
             { lefthand: { x: -0.15, y: -0.4 }, righthand: { x: 0.25, y: 0.5 } },
             { x: 0, y: 40 },
             40,
-            { left: {x: 0, y: -14, duration: 70}, right: {x: 0, y: -14, duration: 70}, weapon: {x: 0, y: -14, duration: 70}},
+            { left: { x: 0, y: -14, duration: 70 }, right: { x: 0, y: -14, duration: 70 }, weapon: { x: 0, y: -14, duration: 70 } },
             ["automatic"],
             { shotDelay: RPMToMSDelay(1400), burstDelay: RPMToMSDelay(130) }
         ),
@@ -584,14 +438,14 @@ const gamespace = {
             2000,
             { damage: 23, velocity: 140, range: 1000, timeout: Infinity },
             "5.56x45mm",
-            RPMToMSDelay(400),
+            RPMToMSDelay(100),
             { default: 1 * Math.PI / 180, moving: 4 * Math.PI / 180 },
             { x: 0, y: -1.2 },
             { width: 1, height: 4.3 },
             { lefthand: { x: -0.2, y: -0.8 }, righthand: { x: 0.2, y: 0 } },
             { x: 100, y: 40 },
             40,
-            { left: {x: 0, y: -10, duration: 90}, right: {x: 0, y: -10, duration: 90}, weapon: {x: 0, y: -10, duration: 90} },
+            { left: { x: 0, y: -10, duration: 90 }, right: { x: 0, y: -10, duration: 90 }, weapon: { x: 0, y: -10, duration: 90 } },
             ["automatic"],
             { shotDelay: RPMToMSDelay(1400), burstDelay: RPMToMSDelay(130) }
         ),
@@ -608,7 +462,7 @@ const gamespace = {
             { lefthand: { x: -1, y: 0.6 }, righthand: { x: 0.3, y: 0.6 } },
             { x: 100, y: 40 },
             40,
-            { left: {x: 0, y: -10, duration: 100}, right: {x: -10, y: 30, duration: 100}, weapon: {x: -10, y: 30, duration: 100} },
+            { left: { x: 0, y: -10, duration: 100 }, right: { x: -10, y: 30, duration: 100 }, weapon: { x: -10, y: 30, duration: 100 } },
             ["semi"],
             { shotDelay: RPMToMSDelay(400), burstDelay: RPMToMSDelay(130) }
         ),
