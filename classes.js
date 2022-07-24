@@ -25,7 +25,7 @@ class obstacle {
     get body() { return this.#body; }
 
     image;
-    // I suggest renaming to "width" and "height", then encapsulating in a "dimensions" object, akin to the one passed into the constructor (dimensions: { width:number, height: number })
+    // I suggest renaming to "width" and "height", then encapsulating in a "dimensions" object, akin to the one passed into the constructor (dimensions: { width: number, height: number })
     imageWidth;
     imageHeight;
     tint;
@@ -243,7 +243,7 @@ class gunPrototype {
             damage: ballistics?.damage ?? 30,
             velocity: ballistics?.velocity ?? 150,
             range: ballistics?.range ?? 500,
-            timeout: ballistics?.timeout ?? 0 // Not needed; "timeout" (or more apprpriately, "lifespan") is simply range divided by velocity
+            timeout: ballistics?.timeout ?? 0 // Not needed; "timeout" (or more appropriately, "lifespan") is simply range divided by velocity
             // Why is this field instantiated as 0 if no value is found?
         };
         this.caliber = caliber;
