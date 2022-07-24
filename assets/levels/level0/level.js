@@ -465,7 +465,7 @@ export const level = await (async () => {
 
                 function drawParticles() {
                     levelData.particles.forEach((p, i) => {
-                        if (sqauredDist({ x: p.x, y: p.y }, levelData.players[playerNum].body.position) < (p5.width + p5.height) ** 2) {
+                        if (sqauredDist(p, levelData.players[playerNum].body.position) < (p5.width + p5.height) ** 2) {
                             p5.tint(p.tint + p5.hex(p.opacity)[6] + p5.hex(p.opacity)[7]);
                             p5.image(p.image, p.x, p.y, 20, 20);
                         }
