@@ -1,0 +1,178 @@
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: rgb(39, 39, 39);
+    overflow: hidden;
+}
+
+canvas {
+    display: block;
+    top: 0;
+    left: 0;
+    cursor: crosshair;
+}
+
+input#alpha-code {
+    position: absolute;
+    outline: none;
+    background-color: hsl(0, 60%, 50%);
+    border: 7px solid black;
+    color: white;
+    border-radius: 6px;
+    width: 30%;
+    font-family: "source-sans-pro";
+}
+
+input#alpha-code::placeholder {
+    color: white;
+    opacity: 0.7;
+}
+
+div#menu-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+button {
+    background-color: hsl(0, 0%, 100%);
+    color: rgb(203, 51, 46);
+    font-family: "source-sans-pro";
+    font-size: 130%;
+    border: none;
+    text-align: center;
+    width: 10%;
+    height: 5%;
+    cursor: pointer;
+}
+
+button#play {
+    position: absolute;
+}
+
+button.graphic-quality-option {
+    position: absolute;
+    top: 80%;
+    font-size: 80%;
+    width: 4%;
+    height: 5%;
+}
+
+button#quality0 {
+    right: 24%;
+}
+
+button#quality1 {
+    right: 17%;
+}
+
+button#quality2 {
+    right: 10%;
+}
+
+button#weapon-name {
+    position: absolute;
+    font-family: "source-sans-pro";
+    font-size: 200%;
+    right: 190px;
+    bottom: 190px;
+    width: 145px;
+    height: 75px;
+    border: 3px solid black;
+    border-radius: 20%;
+    background-color: #ffffff7e; 
+    color: black;
+    user-select: none;
+    -webkit-user-drag: none;
+    opacity: 100%;
+    transition: linear 0.4s;
+    outline: none;
+}
+
+button#weapon-name:hover {
+    opacity: 50%;
+    transition: linear 0.4s;
+}
+
+p#loading {
+    font-family: "source-sans-pro";
+    font-size: larger;
+    font-weight: bold;
+    color: white;
+}
+
+p#version {
+    position: absolute;
+    font-family: "source-sans-pro";
+    font-size: 14px;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+}
+
+p#qualityTitle {
+    position: absolute;
+    font-family: "source-sans-pro";
+    font-size: 180%;
+    color: hsl(0, 0%, 100%);
+    top: 65%;
+    left: 72%;
+}
+
+img#logo {
+    position: absolute;
+    width: 50%;
+    top: 30%;
+}
+
+img#weapon-slot-1 {
+    position: absolute;
+    width: 300px;
+    bottom: 30px;
+    right: 30px;
+    border: 3px solid black;
+    border-radius: 10%;
+    background-color: #ffffff7e; 
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-drag: none;
+    opacity: 100%;
+    transition: linear 0.4s;
+}
+
+img#weapon-slot-2 {
+    position: absolute;
+    width: 145px;
+    bottom: 190px;
+    right: 30px;
+    border: 3px solid black;
+    border-radius: 20%;
+    background-color: #ffffff7e; 
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-drag: none;
+    opacity: 100%;
+    transition: linear 0.4s;
+}
+
+img#weapon-slot-1:hover {
+    opacity: 50%;
+    transition: linear 0.4s;
+}
+
+img#weapon-slot-2:hover {
+    opacity: 50%;
+    transition: linear 0.4s;
+}
+
+@font-face {
+    font-family: "source-sans-pro";
+    src: url("assets/fonts/SourceSansPro-Black.ttf");
+}
