@@ -16,7 +16,7 @@
                     {
                         click: function (e) {
                             if (!e.button) {
-                                if (localStorage.getItem("alphaAuth") == "true") {
+                                if (/*localStorage.getItem("alphaAuth") == "true" && */ true) {
                                     return startGame.call(this);
                                 }
 
