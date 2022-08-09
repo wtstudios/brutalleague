@@ -41,6 +41,14 @@ div#menu-container {
     height: 100%;
 }
 
+div#ui-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
 button {
     background-color: hsl(0, 0%, 100%);
     color: rgb(203, 51, 46);
@@ -51,6 +59,8 @@ button {
     width: 10%;
     height: 5%;
     cursor: pointer;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 button#play {
@@ -60,7 +70,7 @@ button#play {
 button.graphic-quality-option {
     position: absolute;
     top: 80%;
-    font-size: 80%;
+    font-size: 12px;
     width: 4%;
     height: 5%;
 }
@@ -80,13 +90,13 @@ button#quality2 {
 button#weapon-name {
     position: absolute;
     font-family: "source-sans-pro";
-    font-size: 200%;
+    font-size: 30px;
     right: 190px;
     bottom: 190px;
     width: 145px;
     height: 75px;
     border: 3px solid black;
-    border-radius: 20%;
+    border-radius: 20px;
     background-color: #ffffff7e; 
     color: black;
     user-select: none;
@@ -99,6 +109,16 @@ button#weapon-name {
 button#weapon-name:hover {
     opacity: 50%;
     transition: linear 0.4s;
+}
+
+button#respawn-button {
+    position: absolute;
+    width: 160px;
+    height: 60px;
+    left: calc(50% - 80px);
+    top: calc(60% - 30px);
+    background-color: rgb(203, 51, 46);
+    color: hsl(0, 0%, 100%);
 }
 
 p#loading {
@@ -120,10 +140,34 @@ p#version {
 p#qualityTitle {
     position: absolute;
     font-family: "source-sans-pro";
-    font-size: 180%;
+    font-size: 30px;
     color: hsl(0, 0%, 100%);
     top: 65%;
     left: 72%;
+}
+
+p#you-died-text {
+    position: absolute;
+    color:hsl(0, 0%, 100%);
+    font-size: 70px;
+    top: 15%;
+    font-family: "source-sans-pro";
+}
+
+p#killer-text {
+    position: absolute;
+    color:rgb(203, 51, 46);
+    font-size: 25px;
+    top: 35%;
+    font-family: "source-sans-pro";
+}
+
+p#xp-loss {
+    position: absolute;
+    color:rgb(191, 193, 77);
+    font-size: 25px;
+    top: 42%;
+    font-family: "source-sans-pro";
 }
 
 img#logo {
@@ -138,7 +182,7 @@ img#weapon-slot-1 {
     bottom: 30px;
     right: 30px;
     border: 3px solid black;
-    border-radius: 10%;
+    border-radius: 20px;
     background-color: #ffffff7e; 
     cursor: pointer;
     user-select: none;
@@ -153,7 +197,7 @@ img#weapon-slot-2 {
     bottom: 190px;
     right: 30px;
     border: 3px solid black;
-    border-radius: 20%;
+    border-radius: 20px;
     background-color: #ffffff7e; 
     cursor: pointer;
     user-select: none;
@@ -170,6 +214,45 @@ img#weapon-slot-1:hover {
 img#weapon-slot-2:hover {
     opacity: 50%;
     transition: linear 0.4s;
+}
+
+img#death-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    -webkit-user-drag: none;
+    user-select: none;
+    opacity: 100%;
+    transition: linear 0.2s;
+}
+
+img#healthbar-outline {
+    position: absolute;
+    width: 300px;
+    height: 75px;
+    right: 30px;
+    bottom: 275px;
+    border: 3px solid black;
+    border-radius: 20px;
+    -webkit-user-drag: none;
+    user-select: none;
+    cursor: crosshair;
+}
+
+img#healthbar {
+    position: absolute;
+    width: 298px;
+    height: 71px;
+    right: 32px;
+    bottom: 277px;
+    border: 3px solid #00000000;
+    border-radius: 18px;
+    -webkit-user-drag: none;
+    user-select: none;
+    background-color: rgba(203, 51, 46, 0.5);
+    transition: ease-in-out 0.1s;
 }
 
 @font-face {

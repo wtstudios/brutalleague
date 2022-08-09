@@ -1,0 +1,167 @@
+{
+    "obstacles": [
+    {
+        "type": "fromVertices",
+        "x": 1100,
+        "y": 900,
+        "vertexSets": [
+            {"x": -550, "y": -500},
+            {"x": -550, "y": 250},
+            {"x": -130, "y": 250},
+            {"x": -130, "y": 215},
+            {"x": -520, "y": 215},
+            {"x": -520, "y": -190},
+            {"x": 300, "y": -190},
+            {"x": 300, "y": -220},
+            {"x": -520, "y": -220},
+            {"x": -520, "y": -463},
+            {"x": 520, "y": -463},
+            {"x": 520, "y": -220},
+            {"x": 430, "y": -220},
+            {"x": 430, "y": -190},
+            {"x": 520, "y": -190},
+            {"x": 520, "y": 215},
+            {"x": 130, "y": 215},
+            {"x": 130, "y": 250},
+            {"x": 550, "y": 250},
+            {"x": 550, "y": -490},
+            {"x": -550, "y": -500}
+        ],
+        "options": {
+            "isStatic": true,
+            "friction": 1,
+            "restitution": 0,
+            "density": 5,
+            "angle": 0
+        },
+        "details": {
+            "image": "./assets/buildings/house2.png",
+            "imageWidth": 1157,
+            "imageHeight": 799,
+            "tint": "#FFFFFF",
+            "layer": 0,
+            "xOffset": 0,
+            "yOffset": 0,
+            "angleOffset": 0,
+            "imageMode": "center",
+            "roof": {
+                "image": "./assets/buildings/roof2.png",
+                "width": 1157,
+                "height": 799,
+                "opacity": 255,
+                "roofHitbox": [
+                    {"x": -570, "y": -370},
+                    {"x": -570, "y": -300},
+                    {"x": -610, "y": -300},
+                    {"x": -610, "y": -160},
+                    {"x": -570, "y": -160},
+                    {"x": -570, "y": 340},
+                    {"x": -420, "y": 340},
+                    {"x": -420, "y": 380},
+                    {"x": -280, "y": 380},
+                    {"x": -280, "y": 340},
+                    {"x": -170, "y": 340},
+                    {"x": -170, "y": 380},
+                    {"x": 90, "y": 380},
+                    {"x": 90, "y": 340},
+                    {"x": 210, "y": 340},
+                    {"x": 210, "y": 380},
+                    {"x": 340, "y": 380},
+                    {"x": 340, "y": 340},
+                    {"x": 490, "y": 340},
+                    {"x": 490, "y": 190},
+                    {"x": 530, "y": 190},
+                    {"x": 530, "y": 50},
+                    {"x": 490, "y": 50},
+                    {"x": 490, "y": -370},
+                    {"x": -570, "y": -370}
+                ]
+            }
+        }
+    },
+    {
+        "type": "circle",
+        "x": 1800,
+        "y": 300,
+        "radius": 100,
+        "options": {
+            "isStatic": true,
+            "friction": 1,
+            "restitution": 0,
+            "density": 50,
+            "angle": 80
+        },
+        "details": {
+            "image": "./assets/obstacles/tree2.png",
+            "imageWidth": 250,
+            "imageHeight": 250,
+            "tint": "#8d582d",
+            "layer": 1,
+            "xOffset": 0,
+            "yOffset": 0,
+            "angleOffset": 0,
+            "imageMode": "center",
+            "health": 300
+        }
+    }
+    ],
+    "players": [
+        {
+            "x": 600,
+            "y": 3400,
+            "angle": 180,
+            "size": 40,
+            "colour1": "#4b5320",
+            "colour2": "#6c782e",
+            "options": {
+                "friction": 1,
+                "restitution": 0,
+                "inertia": 0,
+                "density": 0.01
+            },
+            "highlightcolour": "#7d8a35",
+            "loadout": {
+                "guns": [
+                    "AUG",
+                    "Bayonet"
+                ],
+                "activeIndex": 0
+            },
+            "health": 100
+        }
+    ],
+    "ground": [
+        {
+            "vertices": [
+                {"x": 0, "y": 1400},
+                {"x": 0, "y": 1900},
+                {"x": 4000, "y": 1900},
+                {"x": 4000, "y": 1400}
+            ],
+            "colour": "#8d582d"
+        }
+    ],
+    "missions": [
+        {
+            "name": "Kill 6 Enemies",
+            "type": "kill-enemies",
+            "quantity": 6,
+            "xp-reward": 250,
+            "id": null
+        },
+        {
+            "name": "Destroy 3 Rifle Crates",
+            "type": "destroy-objects",
+            "quantity": 3,
+            "xp-reward": 150,
+            "id": "crate1.png"
+        },
+        {
+            "name": "Kill 1 Enemy With a Bayonet",
+            "type": "weapon-kill",
+            "quantity": 1,
+            "xp-reward": 200,
+            "id": "Bayonet"
+        }
+    ]
+}

@@ -149,11 +149,80 @@ export const level = await (async () => {
                                         textContent: levelData.players[playerNum].inventory.activeItem.proto.name
                                     }
                                 ),
+                                makeElement(
+                                    "img",
+                                    {
+                                        id: "healthbar",
+                                        src: "assets/misc/blank.png"
+                                    }
+                                ),
+                                makeElement(
+                                    "img",
+                                    {
+                                        id: "healthbar-outline",
+                                        src: "assets/misc/blank.png"
+                                    }
+                                ),
+                                makeElement(
+                                    "img",
+                                    {
+                                        id: "death-overlay",
+                                        src: "assets/misc/blanksquare.png"
+                                    }
+                                ),
+                                makeElement(
+                                    "p",
+                                    {
+                                        id: "you-died-text",
+                                        textContent: "YOU DIED"
+                                    }
+                                ),
+                                makeElement(
+                                    "p",
+                                    {
+                                        id: "killer-text",
+                                        textContent: "You were killed by <name> with <weapon>"
+                                    }
+                                ),
+                                makeElement(
+                                    "p",
+                                    {
+                                        id: "xp-loss",
+                                        textContent: "-50 XP"
+                                    }
+                                ),
+                                makeElement(
+                                    "button",
+                                    {
+                                        id: "respawn-button",
+                                        textContent: "RESPAWN"
+                                    },
+                                    void 0,
+                                    {
+                                        click: function (e) {
+                                            if (!e.button) {
+                                                levelData.players[playerNum].health = 100;
+                                                Matter.Body.setPosition(levelData.players[playerNum].body, { x: json.players[playerNum].x, y: json.players[playerNum].y });
+                                                document.getElementById('death-overlay').style.display = "none";      
+                                                document.getElementById('respawn-button').style.display = "none"; 
+                                                document.getElementById('you-died-text').style.display = "none";      
+                                                document.getElementById('killer-text').style.display = "none";     
+                                                document.getElementById('xp-loss').style.display = "none";
+                                                document.getElementById('healthbar').style.width = "298px";
+                                                document.getElementById('healthbar').style.display = "block";
+                                                levelData.players[playerNum].view = 1700; 
+                                            }
+                                        }
+                                    }
+                                ),
                             ]
                         )
                     );
-                    console.log(levelData.players[playerNum].inventory.activeItem.proto);
-                            
+                    document.getElementById('death-overlay').style.display = "none";
+                    document.getElementById('respawn-button').style.display = "none";
+                    document.getElementById('you-died-text').style.display = "none";
+                    document.getElementById('killer-text').style.display = "none";
+                    document.getElementById('xp-loss').style.display = "none";
                 };
 
                 function drawPlayers() {
@@ -182,7 +251,7 @@ export const level = await (async () => {
                             p5.line(b.position.x, b.position.y, b.position.x + Math.cos(player.angle - Math.PI / 2) * 500, b.position.y + Math.sin(player.angle - Math.PI / 2) * 500);
                         }*/
                         p5.noStroke();
-                        if (i == playerNum || sqauredDist(b.position, a[playerNum].body.position) < (p5.width + p5.height) ** 2) {
+                        if (i == playerNum && player.health > 0 || sqauredDist(b.position, a[playerNum].body.position) < (p5.width + p5.height) ** 2 && player.health > 0) {
                             // Setup
                             p5.push();
                             p5.translate(b.position.x, b.position.y);
@@ -192,7 +261,7 @@ export const level = await (async () => {
                                 p5.fill('red');
                                 p5.noStroke();
                                 p5.text('!', 0, -80);
-                                player.angle += (Math.atan2(a[playerNum].body.position.y - player.body.position.y, a[playerNum].body.position.x - player.body.position.x) - player.angle + Math.PI / 2) / 7 * dt;
+                                player.angle += (Math.atan2(a[playerNum].body.position.y - player.body.position.y, a[playerNum].body.position.x - player.body.position.x) - player.angle + Math.PI / 2) / 4 * dt;
                                 //player.angle = Math.PI / 2 + Math.atan2(a[playerNum].body.position.y - player.body.position.y, a[playerNum].body.position.x - player.body.position.x);
                             }
                             p5.rotate(player.angle);
@@ -248,7 +317,7 @@ export const level = await (async () => {
                                 const scaleX = (2 * Math.round(Math.random()) - 1) * (Math.random() * 0.2 + 0.9),
                                     scaleY = Math.random() * 0.2 + 0.9;
 
-                                p5.scale(scaleX, scaleY);
+                                p5.scale(scaleX * (radius / 40), scaleY * (radius / 40));
                                 p5.image(images.muzzleFlash, 0, (item.offset.y - item.height / 2 - 1) * radius / scaleY);
                             }
                             p5.scale(1, 1);
@@ -257,7 +326,7 @@ export const level = await (async () => {
                                 q = p.inventory.activeItem,
                                 ip = q.proto;
                             p.state.shooting = false;
-                            if (i != playerNum && sqauredDist(a[playerNum].body.position, player.body.position) <= (item.ballistics.range * 4000) && Math.round(p5.degrees(player.angle) / 10) == Math.round(p5.degrees(Math.atan2(a[playerNum].body.position.y - player.body.position.y, a[playerNum].body.position.x - player.body.position.x) + Math.PI / 2) / 10)) {
+                            if (levelData.players[playerNum].health > 0 && i != playerNum && sqauredDist(a[playerNum].body.position, player.body.position) <= (item.ballistics.range * 4000) && Math.round(p5.degrees(player.angle) / 10) == Math.round(p5.degrees(Math.atan2(a[playerNum].body.position.y - player.body.position.y, a[playerNum].body.position.x - player.body.position.x) + Math.PI / 2) / 10)) {
                                 const fire = q.activeFireMode,
                                 burst = fire.startsWith("burst-");
 
@@ -299,7 +368,7 @@ export const level = await (async () => {
                 function drawPlayerShadows() {
                     levelData.players.forEach((player, i, a) => {
                         const b = player.body;
-                        if (i == playerNum || sqauredDist(b.position, a[playerNum].body.position) < (p5.width + p5.height) ** 2) {
+                        if (i == playerNum && player.health > 0 || sqauredDist(b.position, a[playerNum].body.position) < (p5.width + p5.height) ** 2 && player.health > 0) {
                             const item = player.inventory.activeItem.proto,
                                 radius = b.circleRadius,
                                 d = Math.min(item.recoilImpulse.weapon.duration, lastTime - player.state.lastShot);
@@ -444,7 +513,7 @@ export const level = await (async () => {
                         let gone = false;
                         const bd = b.body;
                         b.timer++;
-                        Matter.Body.setPosition(bd, { x: bd.position.x + p5.cos(b.angle - Math.PI / 2) * b.emitter.ballistics.velocity * dt, y: bd.position.y + p5.sin(b.angle - Math.PI / 2) * b.emitter.ballistics.velocity * dt });
+                        Matter.Body.setPosition(bd, { x: bd.position.x + p5.cos(b.angle - Math.PI / 2) * b.emitter.ballistics.velocity * (dt / 2 + 0.2), y: bd.position.y + p5.sin(b.angle - Math.PI / 2) * b.emitter.ballistics.velocity * (dt / 2 + 0.2) });
                         b.squaredDistance = sqauredDist(b.start, bd.position);
                         const p = Matter.Query.collides(bd, levelData.players.map(o => o.body));
                         const ob = Matter.Query.collides(bd, levelData.obstacles.map(help => help.body));
@@ -458,15 +527,22 @@ export const level = await (async () => {
                             if (ray[0] && b.index != index && ray[ray.length - 1].bodyA.id == target.body.id && ob || !ob && b.index != index) {
                                 target.health -= b.emitter.ballistics.damage;
                                 levelData.particles.push(new particle(images.particle1, 255, 10, target.body.position.x + Math.cos(b.angle + Math.PI / 2) * 50, target.body.position.y + Math.sin(b.angle + Math.PI / 2) * 50, b.angle + Math.PI / 2 + p5.random(-0.4, 0.4), '#FF0000'));
-
+                                if(index == playerNum) {
+                                    document.getElementById('healthbar').style.width = ('' + target.health * 3 + 'px');
+                                }
                                 if (target.health <= 0) {
                                     for (let x = 0; x < Math.round(p5.random(6, 12)); x++) {
                                         let angle = p5.random(0, Math.PI * 2) + x * Math.PI / 7;
                                         levelData.particles.push(new particle(images.particle1, 255, 10, target.body.position.x + Math.cos(angle) * 10, target.body.position.y + Math.sin(angle) * 10, angle, '#FF0000'));
                                     }
                                     if (index == playerNum) {
-                                        levelData.players[playerNum].health = 100;
-                                        Matter.Body.setPosition(levelData.players[playerNum].body, { x: json.players[playerNum].x, y: json.players[playerNum].y });
+                                        document.getElementById('healthbar').style.display = "none";
+                                        document.getElementById('killer-text').textContent = (`You were killed by ` + p5.random(['Society']) + ` with a${isVowel(b.emitter.name[0])} ` + b.emitter.name);
+                                        document.getElementById('death-overlay').style.display = "block";
+                                        document.getElementById('respawn-button').style.display = "block";
+                                        document.getElementById('you-died-text').style.display = "block";
+                                        document.getElementById('killer-text').style.display = "block"; 
+                                        document.getElementById('xp-loss').style.display = "block";
                                     } else {
                                         World.remove(world, target.body);
                                         target.destroy();
@@ -573,18 +649,20 @@ export const level = await (async () => {
                         console.log(sightArray);
                     }
 
-                    if (p5.key.toLowerCase() == 'q') {
-                        player.inventory.activeIndex = absMod((player.inventory.activeIndex - 1), player.inventory.guns.length);
-                        document.getElementById('weapon-slot-1').src = player.inventory.activeItem.proto.images.loot;
-                        document.getElementById('weapon-slot-2').src = player.inventory.guns[ absMod((player.inventory.activeIndex - 1), player.inventory.guns.length)].proto.images.loot;
-                        document.getElementById('weapon-name').textContent = player.inventory.activeItem.proto.name;
-                    }
+                    if(levelData.players[playerNum].health > 0) {
+                        if (p5.key.toLowerCase() == 'q') {
+                            player.inventory.activeIndex = absMod((player.inventory.activeIndex - 1), player.inventory.guns.length);
+                            document.getElementById('weapon-slot-1').src = player.inventory.activeItem.proto.images.loot;
+                            document.getElementById('weapon-slot-2').src = player.inventory.guns[ absMod((player.inventory.activeIndex - 1), player.inventory.guns.length)].proto.images.loot;
+                            document.getElementById('weapon-name').textContent = player.inventory.activeItem.proto.name;
+                        }
 
-                    if (p5.key.toLowerCase() == 'e') {
-                        player.inventory.activeIndex = absMod((player.inventory.activeIndex + 1), player.inventory.guns.length);
-                        document.getElementById('weapon-slot-1').src = player.inventory.activeItem.proto.images.loot;
-                        document.getElementById('weapon-slot-2').src = player.inventory.guns[ absMod((player.inventory.activeIndex - 1), player.inventory.guns.length)].proto.images.loot;
-                        document.getElementById('weapon-name').textContent = player.inventory.activeItem.proto.name;
+                        else if (p5.key.toLowerCase() == 'e') {
+                            player.inventory.activeIndex = absMod((player.inventory.activeIndex + 1), player.inventory.guns.length);
+                            document.getElementById('weapon-slot-1').src = player.inventory.activeItem.proto.images.loot;
+                            document.getElementById('weapon-slot-2').src = player.inventory.guns[ absMod((player.inventory.activeIndex - 1), player.inventory.guns.length)].proto.images.loot;
+                            document.getElementById('weapon-name').textContent = player.inventory.activeItem.proto.name;
+                        }
                     }
                 };
 
@@ -615,8 +693,8 @@ export const level = await (async () => {
                         base = player.body.circleRadius / (10 * Math.SQRT2);
 
                     Body.applyForce(body, body.position, { // Why is the base speed √8
-                        x: +(a ^ d) && (dt * ((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base),
-                        y: +(w ^ s) && (dt * ((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base)
+                        x: +(a ^ d) && ((dt / 2 + 0.2) * ((w ^ s) ? Math.SQRT1_2 : 1) * [-1, 1][+d] * base),
+                        y: +(w ^ s) && ((dt / 2 + 0.2) * ((a ^ d) ? Math.SQRT1_2 : 1) * [-1, 1][+w] * base)
                     }); //                                                      ^ This part is supposed to manage the sign of the force and nothing else
 
                     player.isMoving = w || a || s || d;
@@ -664,8 +742,8 @@ export const level = await (async () => {
                     gameCamera.xFocus = levelData.players[playerNum].body.position.x;
                     gameCamera.yFocus = levelData.players[playerNum].body.position.y;
 
-                    p5.camera(Math.round(gameCamera.x)/* + (p5.mouseX - p5.width / 2) / 2*/, Math.round(gameCamera.y)/* + (p5.mouseY - p5.height / 2) / 2*/, p.view - p5.width / 2, Math.round(gameCamera.xFocus)/* + (p5.mouseX - p5.width / 2) / 2*/, Math.round(gameCamera.yFocus)/* + (p5.mouseY - p5.height / 2) / 2*/, 0);
-                    //p5.camera(Math.round(gameCamera.x) + (p5.mouseX - p5.width / 2) / 2, Math.round(gameCamera.y) + (p5.mouseY - p5.height / 2) / 2, p.view - p5.width / 2, Math.round(gameCamera.xFocus) + (p5.mouseX - p5.width / 2) / 2, Math.round(gameCamera.yFocus) + (p5.mouseY - p5.height / 2) / 2, 0);
+                    //p5.camera(Math.round(gameCamera.x)/* + (p5.mouseX - p5.width / 2) / 2*/, Math.round(gameCamera.y)/* + (p5.mouseY - p5.height / 2) / 2*/, p.view - p5.width / 2, Math.round(gameCamera.xFocus)/* + (p5.mouseX - p5.width / 2) / 2*/, Math.round(gameCamera.yFocus)/* + (p5.mouseY - p5.height / 2) / 2*/, 0);
+                    p5.camera(Math.round(gameCamera.x) + (p5.mouseX - p5.width / 2) / 2, Math.round(gameCamera.y) + (p5.mouseY - p5.height / 2) / 2, p.view - p5.width / 2, Math.round(gameCamera.xFocus) + (p5.mouseX - p5.width / 2) / 2, Math.round(gameCamera.yFocus) + (p5.mouseY - p5.height / 2) / 2, 0);
                     p5.noStroke();
                     p5.rectMode(p5.CORNER);
                     p5.fill(level.world.colour);
@@ -700,7 +778,7 @@ export const level = await (async () => {
                             p5.line(sightArray[m].x, sightArray[m].y, sightArray[m - 1].x, sightArray[m - 1].y);
                         }
                     }*/
-                    if (shouldCall > 1) {
+                    if (shouldCall > 1 && levelData.players[playerNum].health > 0) {
                         playerMove();
                     }
                     if (document.visibilityState == "visible" && shouldCall < 3) {
@@ -720,6 +798,7 @@ export const level = await (async () => {
 
                             && (now - p.state.lastShot) > (burst ? (ip.burstProps.shotDelay ?? ip.delay) : ip.delay)
                         )
+                        && levelData.players[playerNum].health > 0
                     ) {
                         p.state.shooting = true;
                         p.state.lastShot = now;

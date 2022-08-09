@@ -37,8 +37,6 @@ function parseLevelData(data) {
                     break;
                 case "fromVertices":
                     body = Matter.Bodies.fromVertices(o.x, o.y, Matter.Vertices.create(o.vertexSets, Matter.Bodies.rectangle(o.x, o.y, 1, 1, {})), o.options);
-                    console.log(Matter.Vertices.centre(body.vertices).x - o.x);
-                    console.log(Matter.Vertices.centre(body.vertices).y - o.y);
                     break;
                 case "trapezoid":
                     body = Matter.Bodies.trapezoid(o.x, o.y, o.width, o.height, o.slope, o.options);
@@ -84,6 +82,20 @@ function parseLevelData(data) {
         particles: [],
         paths: data.ground.map(p => new path(p.vertices, p.colour))
     };
+}
+
+function isVowel(letter) {
+    const vowels = ['a', 'e', 'i', 'o', 'u'];
+    let is = false;
+    for(let i = 0; i < vowels.length; i++) {
+        if(letter.toLowerCase() == vowels[i]) {
+            return 'n';
+            is = true;
+        }
+    }
+    if(!is) {
+        return ' ';
+    }
 }
 
 function createDiv(id = "", className = "") {
