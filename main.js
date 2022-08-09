@@ -128,7 +128,7 @@
         );
         Array.from(this.parentElement.children).forEach(e => e.remove());
 
-        document.title = `Brutal League (${gamespace.levels[1].name})`;
-        gamespace.levels[1].initializer();
+        document.title = `Brutal League (${gamespace.levels[0].name})`;
+        gamespace.levels[0].initializer();
     }
 })();
