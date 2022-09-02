@@ -17,7 +17,7 @@ export const level = await (async () => {
             "caliber_shrapnel1": loadImg("assets/items/ammo/shrapnel1_projectile.svg"),
             "caliber_shrapnel2": loadImg("assets/items/ammo/shrapnel2_projectile.svg"),
             "caliber_melee": loadImg("assets/misc/blank.png"),
-            particle1: loadImg("assets/misc/particle1.png")
+            particle1: loadImg("assets/obstacles/particle1.png")
         },
         /**
          * @type {{ [key: string]: import("p5").Font }}

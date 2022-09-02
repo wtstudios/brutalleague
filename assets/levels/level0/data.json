@@ -5,7 +5,7 @@
             "x": 610,
             "y": 170,
             "width": 75,
-            "height": 320,
+            "height": 310,
             "options": {
                 "isStatic": true,
                 "friction": 1,
@@ -31,7 +31,7 @@
             "x": 610,
             "y": 490,
             "width": 75,
-            "height": 320,
+            "height": 310,
             "options": {
                 "isStatic": true,
                 "friction": 1,
@@ -49,7 +49,8 @@
                 "xOffset": 0,
                 "yOffset": 0,
                 "angleOffset": 0,
-                "imageMode": "center"
+                "imageMode": "center",
+                "health": 80
             }
         },
         {
@@ -57,7 +58,7 @@
             "x": 610,
             "y": 810,
             "width": 75,
-            "height": 320,
+            "height": 310,
             "options": {
                 "isStatic": true,
                 "friction": 1,
@@ -83,7 +84,7 @@
             "x": 610,
             "y": 1130,
             "width": 75,
-            "height": 320,
+            "height": 310,
             "options": {
                 "isStatic": true,
                 "friction": 1,
@@ -109,7 +110,7 @@
             "x": 610,
             "y": 1450,
             "width": 75,
-            "height": 320,
+            "height": 310,
             "options": {
                 "isStatic": true,
                 "friction": 1,
@@ -135,7 +136,7 @@
             "x": 490,
             "y": 1650,
             "width": 75,
-            "height": 315,
+            "height": 310,
             "options": {
                 "isStatic": true,
                 "friction": 1,
@@ -161,7 +162,7 @@
             "x": 170,
             "y": 1650,
             "width": 75,
-            "height": 315,
+            "height": 310,
             "options": {
                 "isStatic": true,
                 "friction": 1,
@@ -187,7 +188,7 @@
             "x": 1600,
             "y": 170,
             "width": 75,
-            "height": 320,
+            "height": 310,
             "options": {
                 "isStatic": true,
                 "friction": 1,
@@ -213,7 +214,7 @@
             "x": 1600,
             "y": 490,
             "width": 75,
-            "height": 320,
+            "height": 310,
             "options": {
                 "isStatic": true,
                 "friction": 1,
@@ -239,7 +240,7 @@
             "x": 1600,
             "y": 810,
             "width": 75,
-            "height": 320,
+            "height": 310,
             "options": {
                 "isStatic": true,
                 "friction": 1,
@@ -265,7 +266,7 @@
             "x": 1600,
             "y": 1450,
             "width": 75,
-            "height": 320,
+            "height": 310,
             "options": {
                 "isStatic": true,
                 "friction": 1,
@@ -291,7 +292,7 @@
             "x": 1720,
             "y": 1650,
             "width": 75,
-            "height": 315,
+            "height": 310,
             "options": {
                 "isStatic": true,
                 "friction": 1,
@@ -317,7 +318,7 @@
             "x": 2040,
             "y": 1650,
             "width": 75,
-            "height": 315,
+            "height": 310,
             "options": {
                 "isStatic": true,
                 "friction": 1,
@@ -343,7 +344,7 @@
             "x": 2360,
             "y": 1650,
             "width": 75,
-            "height": 315,
+            "height": 310,
             "options": {
                 "isStatic": true,
                 "friction": 1,
@@ -369,7 +370,7 @@
             "x": 2680,
             "y": 1650,
             "width": 75,
-            "height": 315,
+            "height": 310,
             "options": {
                 "isStatic": true,
                 "friction": 1,
@@ -395,7 +396,7 @@
             "x": 3000,
             "y": 1650,
             "width": 75,
-            "height": 315,
+            "height": 310,
             "options": {
                 "isStatic": true,
                 "friction": 1,
@@ -421,7 +422,7 @@
             "x": 3320,
             "y": 1650,
             "width": 75,
-            "height": 315,
+            "height": 310,
             "options": {
                 "isStatic": true,
                 "friction": 1,
@@ -447,7 +448,7 @@
             "x": 3640,
             "y": 1650,
             "width": 75,
-            "height": 315,
+            "height": 310,
             "options": {
                 "isStatic": true,
                 "friction": 1,
@@ -473,7 +474,7 @@
             "x": 3960,
             "y": 1650,
             "width": 75,
-            "height": 315,
+            "height": 310,
             "options": {
                 "isStatic": true,
                 "friction": 1,
@@ -541,7 +542,8 @@
                 "xOffset": 0,
                 "yOffset": 0,
                 "angleOffset": 0,
-                "imageMode": "center"
+                "imageMode": "center",
+                "health": 300
             }
         },
         {
@@ -1112,106 +1114,31 @@
                     "height": 850,
                     "opacity": 255,
                     "roofHitbox": [
-                        {
-                            "x": 240,
-                            "y": -280
-                        },
-                        {
-                            "x": 300,
-                            "y": -280
-                        },
-                        {
-                            "x": 300,
-                            "y": -160
-                        },
-                        {
-                            "x": 240,
-                            "y": -160
-                        },
-                        {
-                            "x": 240,
-                            "y": 20
-                        },
-                        {
-                            "x": 300,
-                            "y": 20
-                        },
-                        {
-                            "x": 300,
-                            "y": 140
-                        },
-                        {
-                            "x": 240,
-                            "y": 140
-                        },
-                        {
-                            "x": 240,
-                            "y": 340
-                        },
-                        {
-                            "x": 100,
-                            "y": 340
-                        },
-                        {
-                            "x": 100,
-                            "y": 400
-                        },
-                        {
-                            "x": -20,
-                            "y": 400
-                        },
-                        {
-                            "x": -20,
-                            "y": 340
-                        },
-                        {
-                            "x": -280,
-                            "y": 340
-                        },
-                        {
-                            "x": -280,
-                            "y": 140
-                        },
-                        {
-                            "x": -340,
-                            "y": 140
-                        },
-                        {
-                            "x": -340,
-                            "y": 20
-                        },
-                        {
-                            "x": -280,
-                            "y": 20
-                        },
-                        {
-                            "x": -280,
-                            "y": -380
-                        },
-                        {
-                            "x": -100,
-                            "y": -380
-                        },
-                        {
-                            "x": -100,
-                            "y": -440
-                        },
-                        {
-                            "x": 40,
-                            "y": -440
-                        },
-                        {
-                            "x": 40,
-                            "y": -380
-                        },
-                        {
-                            "x": 240,
-                            "y": -380
-                        },
-                        {
-                            "x": 240,
-                            "y": -280
-                        }
+                        {"x": 260, "y": -400},
+                        {"x": 260, "y": -280},
+                        {"x": 300, "y": -280},
+                        {"x": 300, "y": -150},
+                        {"x": 260, "y": -150},
+                        {"x": 260, "y": 10},
+                        {"x": 300, "y": 10},
+                        {"x": 300, "y": 140},
+                        {"x": 260, "y": 140},
+                        {"x": 260, "y": 360},
+                        {"x": 110, "y": 360},
+                        {"x": 110, "y": 410},
+                        {"x": -10, "y": 410},
+                        {"x": -10, "y": 360},
+                        {"x": -300, "y": 360},
+                        {"x": -300, "y": 140},
+                        {"x": -340, "y": 140},
+                        {"x": -340, "y": 10},
+                        {"x": -300, "y": 10},
+                        {"x": -300, "y": -400},
+                        {"x": -100, "y": -400},
+                        {"x": -100, "y": -450},
+                        {"x": 40, "y": -450},
+                        {"x": 40, "y": -400},
+                        {"x": 260, "y": -400}
                     ]
                 }
             }
@@ -1293,38 +1220,15 @@
                     "height": 566,
                     "opacity": 255,
                     "roofHitbox": [
-                        {
-                            "x": -240,
-                            "y": -250
-                        },
-                        {
-                            "x": -106,
-                            "y": -250
-                        },
-                        {
-                            "x": -106,
-                            "y": -290
-                        },
-                        {
-                            "x": 106,
-                            "y": -290
-                        },
-                        {
-                            "x": 106,
-                            "y": -250
-                        },
-                        {
-                            "x": 240,
-                            "y": -250
-                        },
-                        {
-                            "x": 240,
-                            "y": 160
-                        },
-                        {
-                            "x": -240,
-                            "y": 160
-                        }
+                        {"x": -230, "y": -190},
+                        {"x": -110, "y": -190},
+                        {"x": -110, "y": -240},
+                        {"x": 110, "y": -240},
+                        {"x": 110, "y": -190},
+                        {"x": 230, "y": -190},
+                        {"x": 230, "y": 280},
+                        {"x": -230, "y": 280},
+                        {"x": -230, "y": -190}
                     ]
                 }
             }
@@ -1406,38 +1310,15 @@
                     "height": 566,
                     "opacity": 255,
                     "roofHitbox": [
-                        {
-                            "x": -240,
-                            "y": -250
-                        },
-                        {
-                            "x": -106,
-                            "y": -250
-                        },
-                        {
-                            "x": -106,
-                            "y": -290
-                        },
-                        {
-                            "x": 106,
-                            "y": -290
-                        },
-                        {
-                            "x": 106,
-                            "y": -250
-                        },
-                        {
-                            "x": 240,
-                            "y": -250
-                        },
-                        {
-                            "x": 240,
-                            "y": 160
-                        },
-                        {
-                            "x": -240,
-                            "y": 160
-                        }
+                        {"x": -230, "y": -190},
+                        {"x": -110, "y": -190},
+                        {"x": -110, "y": -240},
+                        {"x": 110, "y": -240},
+                        {"x": 110, "y": -190},
+                        {"x": 230, "y": -190},
+                        {"x": 230, "y": 280},
+                        {"x": -230, "y": 280},
+                        {"x": -230, "y": -190}
                     ]
                 }
             }
@@ -1447,7 +1328,7 @@
             "x": 1600,
             "y": 1130,
             "width": 75,
-            "height": 315,
+            "height": 310,
             "options": {
                 "isStatic": false,
                 "friction": 1,
@@ -1468,6 +1349,81 @@
                 "angleOffset": 0,
                 "imageMode": "center",
                 "health": 5000
+            }
+        },
+        {
+            "type": "fromVertices",
+            "x": 2000,
+            "y": 2000,
+            "vertexSets": [
+                {
+                    "x": -220,
+                    "y": -25
+                },
+                {
+                    "x": -220,
+                    "y": 25
+                },
+                {
+                    "x": -170,
+                    "y": 25
+                },
+                {
+                    "x": -170,
+                    "y": 15
+                },
+                {
+                    "x": 170,
+                    "y": 15
+                },
+                {
+                    "x": 170,
+                    "y": 25
+                },
+                {
+                    "x": 220,
+                    "y": 25
+                },
+                {
+                    "x": 220,
+                    "y": -25
+                },
+                {
+                    "x": 170,
+                    "y": -25
+                },
+                {
+                    "x": 170,
+                    "y": -15
+                },
+                {
+                    "x": -170,
+                    "y": -15
+                },
+                {
+                    "x": -170,
+                    "y": -25
+                }
+            ],
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.05,
+                "angle": 0,
+                "chamfer": true,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/fence1.png",
+                "imageWidth": 450,
+                "imageHeight": 60,
+                "tint": "#a87e39",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
             }
         },
         {
@@ -1587,7 +1543,34 @@
                 "friction": 1,
                 "restitution": 0,
                 "density": 0.3,
-                "angle": 20,
+                "angle": 60,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/crate2.png",
+                "imageWidth": 140,
+                "imageHeight": 140,
+                "tint": "#a87e39",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 130
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 1400,
+            "y": 2500,
+            "width": 136,
+            "height": 136,
+            "options": {
+                "isStatic": false,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.3,
+                "angle": 120,
                 "inertia": 0
             },
             "details": {
@@ -1694,24 +1677,25 @@
             "colour1": "#4b5320",
             "colour2": "#6c782e",
             "options": {
-                "friction": 1,
+                "friction": 0,
                 "restitution": 0,
                 "inertia": 0,
                 "density": 0.01
             },
             "highlightcolour": "#7d8a35",
+            "class": "player",
             "loadout": {
                 "guns": [
-                    "M4A1",
-                    "Bayonet"
+                    "MSG90",
+                    "G19"
                 ],
                 "activeIndex": 0
             },
             "health": 100
         },
         {
-            "x": 1940,
-            "y": 2640,
+            "x": 2250,
+            "y": 2580,
             "angle": 180,
             "size": 40,
             "colour1": "#4b5320",
@@ -1723,6 +1707,7 @@
                 "density": 0.01
             },
             "highlightcolour": "#7d8a35",
+            "class": "runner",
             "loadout": {
                 "guns": [
                     "AKS-74U"
@@ -1745,6 +1730,7 @@
                 "density": 0.01
             },
             "highlightcolour": "#7d8a35",
+            "class": "gunner",
             "loadout": {
                 "guns": [
                     "AKS-74U"
@@ -1767,6 +1753,7 @@
                 "density": 0.01
             },
             "highlightcolour": "#7d8a35",
+            "class": "gunner",
             "loadout": {
                 "guns": [
                     "AK-102"
@@ -1789,6 +1776,7 @@
                 "density": 0.01
             },
             "highlightcolour": "#7d8a35",
+            "class": "runner",
             "loadout": {
                 "guns": [
                     "AKS-74U"
@@ -1798,8 +1786,8 @@
             "health": 100
         },
         {
-            "x": 3600,
-            "y": 1360,
+            "x": 3100,
+            "y": 300,
             "angle": 180,
             "size": 40,
             "colour1": "#4b5320",
@@ -1811,6 +1799,7 @@
                 "density": 0.01
             },
             "highlightcolour": "#7d8a35",
+            "class": "gunner",
             "loadout": {
                 "guns": [
                     "AKS-74U"
@@ -1833,6 +1822,7 @@
                 "density": 0.01
             },
             "highlightcolour": "#7d8a35",
+            "class": "gunner",
             "loadout": {
                 "guns": [
                     "AK-102"
@@ -2042,21 +2032,21 @@
             "name": "Kill 6 Enemies",
             "type": "kill-enemies",
             "quantity": 6,
-            "xp-reward": 1200,
+            "xp-reward": 250,
             "id": null
         },
         {
-            "name": "Destroy 2 Rifle Crates",
+            "name": "Destroy 3 Rifle Crates",
             "type": "destroy-objects",
-            "quantity": 2,
-            "xp-reward": 700,
+            "quantity": 3,
+            "xp-reward": 150,
             "id": "crate1.png"
         },
         {
             "name": "Kill 1 Enemy With a Bayonet",
             "type": "weapon-kill",
             "quantity": 1,
-            "xp-reward": 1000,
+            "xp-reward": 200,
             "id": "Bayonet"
         }
     ]

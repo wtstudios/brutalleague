@@ -123,24 +123,24 @@ declare class inventory {
     #activeItem: gun;
     get activeItem(): gun;
 
-    constructor(parent: playerLike, ...items: gunPrototype[]);
+    constructor(parent: playerLike, ...items: weaponPrototype[]);
 }
 
 declare class gun {
-    #proto: gunPrototype;
-    get proto(): gunPrototype;
+    #proto: weaponPrototype;
+    get proto(): weaponPrototype;
 
     #activeFireModeIndex: number;
     get activeFireModeIndex(): number;
     set activeFireModeIndex(v: number);
 
-    #activeFireMode: (typeof gunPrototype.prototype.fireMode)[number];
-    get activeFireMode(): (typeof gunPrototype.prototype.fireMode)[number];
+    #activeFireMode: (typeof weaponPrototype.prototype.fireMode)[number];
+    get activeFireMode(): (typeof weaponPrototype.prototype.fireMode)[number];
 
-    constructor(proto: gunPrototype);
+    constructor(proto: weaponPrototype);
 }
 
-declare class gunPrototype {
+declare class weaponPrototype {
     name: string;
     images: {
         loot: import("p5").Image,
@@ -202,22 +202,27 @@ declare class gunPrototype {
 
     burstProps: { shotDelay: number, burstDelay: number; };
 
+    roundsPerShot: number;
+
+    magSize: number;
+    mag: number;
+
     constructor(
-        name: typeof gunPrototype.prototype.name,
-        images: typeof gunPrototype.prototype.images,
-        view: typeof gunPrototype.prototype.view,
-        ballistics: typeof gunPrototype.prototype.ballistics,
-        caliber: typeof gunPrototype.prototype.caliber,
-        delay: typeof gunPrototype.prototype.delay,
-        accuracy: typeof gunPrototype.prototype.accuracy,
-        offset: typeof gunPrototype.prototype.offset,
+        name: typeof weaponPrototype.prototype.name,
+        images: typeof weaponPrototype.prototype.images,
+        view: typeof weaponPrototype.prototype.view,
+        ballistics: typeof weaponPrototype.prototype.ballistics,
+        caliber: typeof weaponPrototype.prototype.caliber,
+        delay: typeof weaponPrototype.prototype.delay,
+        accuracy: typeof weaponPrototype.prototype.accuracy,
+        offset: typeof weaponPrototype.prototype.offset,
         dimensions: { width: number, height: number; },
-        hands: typeof gunPrototype.prototype.hands,
-        spawnOffset: typeof gunPrototype.prototype.spawnOffset,
-        flashDuration: typeof gunPrototype.prototype.flashDuration,
-        recoilImpulse: typeof gunPrototype.prototype.recoilImpulse,
-        fireMode: typeof gunPrototype.prototype.fireMode,
-        burstProps: typeof gunPrototype.prototype.burstProps
+        hands: typeof weaponPrototype.prototype.hands,
+        spawnOffset: typeof weaponPrototype.prototype.spawnOffset,
+        flashDuration: typeof weaponPrototype.prototype.flashDuration,
+        recoilImpulse: typeof weaponPrototype.prototype.recoilImpulse,
+        fireMode: typeof weaponPrototype.prototype.fireMode,
+        burstProps: typeof weaponPrototype.prototype.burstProps
     );
 }
 
@@ -228,8 +233,8 @@ declare class bullet {
     #shooter: playerLike;
     get shooter(): playerLike;
 
-    #emitter: gunPrototype;
-    get emitter(): gunPrototype;
+    #emitter: weaponPrototype;
+    get emitter(): weaponPrototype;
 
     #angle: number;
     get angle(): number;
@@ -241,7 +246,7 @@ declare class bullet {
     timer: number;
     squaredDistance: number;
 
-    constructor(body: Matter.Body, shooter: playerLike, emitter: gunPrototype, angle: number, start: { x: number; y: number; }, index: number);
+    constructor(body: Matter.Body, shooter: playerLike, emitter: weaponPrototype, angle: number, start: { x: number; y: number; }, index: number);
     destroy(): void;
 }
 
@@ -278,5 +283,5 @@ declare const gamespace: {
         graphicsQuality: number,
         debug: boolean,
     },
-    guns: gunPrototype[];
+    guns: weaponPrototype[];
 };

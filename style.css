@@ -49,6 +49,22 @@ div#ui-container {
     height: 100%;
 }
 
+div#deathscreen-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+div#weapon-selection-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
 button {
     background-color: hsl(0, 0%, 100%);
     color: rgb(203, 51, 46);
@@ -87,30 +103,6 @@ button#quality2 {
     right: 10%;
 }
 
-button#weapon-name {
-    position: absolute;
-    font-family: "source-sans-pro";
-    font-size: 30px;
-    right: 190px;
-    bottom: 190px;
-    width: 145px;
-    height: 75px;
-    border: 3px solid black;
-    border-radius: 20px;
-    background-color: #ffffff7e; 
-    color: black;
-    user-select: none;
-    -webkit-user-drag: none;
-    opacity: 100%;
-    transition: linear 0.4s;
-    outline: none;
-}
-
-button#weapon-name:hover {
-    opacity: 50%;
-    transition: linear 0.4s;
-}
-
 button#respawn-button {
     position: absolute;
     width: 160px;
@@ -119,6 +111,18 @@ button#respawn-button {
     top: calc(60% - 30px);
     background-color: rgb(203, 51, 46);
     color: hsl(0, 0%, 100%);
+}
+
+button#start-level {
+    position: absolute;
+    width: 10%;
+    height: 10%;
+    left: 45%;
+    top: 45%;
+    background-color: rgb(203, 51, 46);
+    color: hsl(0, 0%, 100%);
+    user-select: none;
+    outline: none;
 }
 
 p#loading {
@@ -170,50 +174,111 @@ p#xp-loss {
     font-family: "source-sans-pro";
 }
 
+p#weapon-name {
+    position: absolute;
+    font-family: "source-sans-pro";
+    color: black;
+    user-select: none;
+    -webkit-user-drag: none;
+    opacity: 100%;
+    transition: ease-in-out 0.1s;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+p#ammocount {
+    position: absolute;
+    font-family: "source-sans-pro";
+    color: black;
+    user-select: none;
+    -webkit-user-drag: none;
+    opacity: 100%;
+    transition: ease-in-out 0.1s;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+p#select-weapons-text {
+    position: absolute;
+    color:hsl(0, 0%, 100%);
+    font-size: 250%;
+    top: -3%;
+    left: calc(25% - 20px);
+    width: calc(50% + 40px);
+    font-family: "source-sans-pro";
+    text-align: center;
+}
+
 img#logo {
     position: absolute;
     width: 50%;
     top: 30%;
 }
 
-img#weapon-slot-1 {
+img#ammocount-background {
     position: absolute;
-    width: 300px;
-    bottom: 30px;
-    right: 30px;
     border: 3px solid black;
-    border-radius: 20px;
     background-color: #ffffff7e; 
     cursor: pointer;
     user-select: none;
     -webkit-user-drag: none;
     opacity: 100%;
-    transition: linear 0.4s;
+    transition: ease-in-out 0.1s;
+}
+
+img#weapon-slot-1 {
+    position: absolute;
+    border: 3px solid black;
+    background-color: #ffffff7e; 
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-drag: none;
+    opacity: 100%;
+    transition: ease-in-out 0.1s;
 }
 
 img#weapon-slot-2 {
     position: absolute;
-    width: 145px;
-    bottom: 190px;
-    right: 30px;
     border: 3px solid black;
-    border-radius: 20px;
     background-color: #ffffff7e; 
     cursor: pointer;
     user-select: none;
     -webkit-user-drag: none;
     opacity: 100%;
-    transition: linear 0.4s;
+    transition: ease-in-out 0.1s;
+}
+
+img#weapon-name-background {
+    position: absolute;
+    border: 3px solid black;
+    background-color: #ffffff7e; 
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-drag: none;
+    opacity: 100%;
+    transition: ease-in-out 0.1s;
+}
+
+img#ammocount-background:hover {
+    opacity: 50%;
+    transition: ease-in-out 0.1s;
 }
 
 img#weapon-slot-1:hover {
     opacity: 50%;
-    transition: linear 0.4s;
+    transition: ease-in-out 0.1s;
 }
 
 img#weapon-slot-2:hover {
     opacity: 50%;
-    transition: linear 0.4s;
+    transition: ease-in-out 0.1s;
+}
+
+img#weapon-name-background:hover {
+    opacity: 50%;
+    transition: ease-in-out 0.1s;
 }
 
 img#death-overlay {
@@ -228,31 +293,82 @@ img#death-overlay {
     transition: linear 0.2s;
 }
 
-img#healthbar-outline {
+img#selection-overlay {
     position: absolute;
-    width: 300px;
-    height: 75px;
-    right: 30px;
-    bottom: 275px;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    -webkit-user-drag: none;
+    user-select: none;
+    opacity: 100%;
+    transition: linear 0.2s;
+}
+
+img.selection-backing {
+    position: absolute;
+    justify-content: center;
+    width: 13%;
+    left: 27%;
+    -webkit-user-drag: none;
+    user-select: none;
+    background-color: rgb(100, 100, 100);
     border: 3px solid black;
     border-radius: 20px;
+    opacity: 100%;
+    transition: linear 0.2s;
+    cursor: pointer;
+}
+
+img.selection-backing-secondary {
+    position: absolute;
+    justify-content: center;
+    width: 13%;
+    right: 27%;
+    -webkit-user-drag: none;
+    user-select: none;
+    background-color: rgb(100, 100, 100);
+    border: 3px solid black;
+    border-radius: 20px;
+    opacity: 100%;
+    transition: linear 0.2s;
+    cursor: pointer;
+}
+
+img#healthbar-outline {
+    position: absolute;
+    border: 3px solid black;
     -webkit-user-drag: none;
     user-select: none;
     cursor: crosshair;
+    transition: ease-in-out 0.1s;
 }
 
 img#healthbar {
     position: absolute;
-    width: 298px;
-    height: 71px;
-    right: 32px;
-    bottom: 277px;
     border: 3px solid #00000000;
-    border-radius: 18px;
     -webkit-user-drag: none;
     user-select: none;
     background-color: rgba(203, 51, 46, 0.5);
+    cursor: crosshair;
     transition: ease-in-out 0.1s;
+}
+
+img#reload-progress {
+    position: absolute;
+    -webkit-user-drag: none;
+    user-select: none;
+    background-color: rgba(255, 255, 255, 0.5);
+    cursor: crosshair;
+    border: 3px solid rgba(0, 0, 0, 0);
+}
+
+img#reload-progress-outline {
+    position: absolute;
+    -webkit-user-drag: none;
+    user-select: none;
+    cursor: crosshair;
+    border: 3px solid black;
 }
 
 @font-face {

@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="85"
-   height="209"
-   viewBox="0 0 22.489583 55.297919"
+   width="80mm"
+   height="330mm"
+   viewBox="0 0 80 330"
    version="1.1"
    id="svg5"
    inkscape:version="1.1.1 (c3084ef, 2021-09-22)"
@@ -23,19 +23,16 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="mm"
      showgrid="false"
-     units="px"
-     width="300px"
-     height="250px"
-     inkscape:zoom="1.2425806"
-     inkscape:cx="-76.453795"
-     inkscape:cy="30.581518"
-     inkscape:window-width="1440"
-     inkscape:window-height="744"
+     height="310mm"
+     inkscape:zoom="0.29934254"
+     inkscape:cx="101.88996"
+     inkscape:cy="445.97737"
+     inkscape:window-width="1312"
+     inkscape:window-height="731"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="0"
-     inkscape:current-layer="layer1"
-     inkscape:snap-smooth-nodes="true" />
+     inkscape:current-layer="layer1" />
   <defs
      id="defs2" />
   <g
@@ -43,23 +40,19 @@
      inkscape:groupmode="layer"
      id="layer1">
     <path
-       style="fill:#625c21;fill-opacity:1;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 2.6857716,17.277074 H 20.285253 V 52.688076 H 2.6857716 Z"
-       id="path1161" />
+       style="fill:#585858;fill-opacity:1;stroke:#000000;stroke-width:14.3394;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 12.049963,149.94013 56.542485,-0.13822 3.17235,-2.62628 0.373209,-2.21159 0.186604,-5.52899 -0.559813,-8.15526 -0.933053,-8.29348 -2.052694,-11.74909 -3.918783,-16.44875 -2.985749,-10.505079 -3.918784,-11.1962 -3.918783,-10.366854 -4.478613,-10.781529 -3.73218,-7.464133 v 0 L 40.458338,34.92395 v 0 L 37.739596,34.8857 h -1.679485 l -1.679469,0.691122 -2.257158,2.889499 -6.557293,14.12536 -6.531308,22.254181 -4.105397,18.798562 -3.545566,21.286616 -2.8795284,24.50401 -0.3732156,8.56993 0.3732156,0.82935 z"
+       id="path869"
+       sodipodi:nodetypes="ccccccccccccccccccccccccccccc" />
     <path
-       style="fill:#626262;fill-opacity:1;stroke:#000000;stroke-width:4;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 20.28496,17.277074 0.01827,-3.668277 -0.118888,-1.4907 -0.356662,-1.490701 -0.475546,-1.1925598 -1.14719,-2.17955 v 0 L 14.71553,3.1738942 13.120219,2.5493022 11.574686,2.3875222 9.8162633,2.5365922 8.4010796,3.2610542 5.4423218,6.8261102 3.8967873,9.2857662 3.1834648,11.372746 2.707916,13.832402 2.685769,17.277074 Z"
-       id="path1593"
-       sodipodi:nodetypes="cccccccccccccccccc" />
+       style="fill:none;stroke:#000000;stroke-width:11.4715;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.3"
+       d="m 20.953422,144.19616 1.421813,-16.42934 2.274898,-17.27186 3.981083,-21.484533 9.099577,-35.596909 4.549806,-14.744279"
+       id="path1848" />
     <path
-       style="fill:none;stroke:#ffffff;stroke-width:3.46327;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.15"
-       d="M 14.547822,24.136399 V 42.078192"
-       id="path4604"
-       sodipodi:nodetypes="cc" />
-    <path
-       style="fill:#000000;fill-opacity:0.30000001;stroke:#000000;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m 2.6857716,52.688077 4.8092381,0.02273 0.122869,-35.263407 -0.014041,-3.132011 0.5819264,-2.793247 1.5130084,-2.5604757 0.7759019,-1.2026479 0.620721,-0.7759017 v 0 L 14.71553,3.1738942 13.120219,2.5493022 7.254682,3.6467385 3.1834648,11.372746 Z"
-       id="path972"
-       sodipodi:nodetypes="cccccccccccccc" />
+       style="fill:none;stroke:#ffffff;stroke-width:14.3394;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.2"
+       d="m 44.521246,92.962112 3.738213,42.649348"
+       id="path1986"
+       inkscape:transform-center-x="9.6950381"
+       inkscape:transform-center-y="0.89766189" />
   </g>
 </svg>

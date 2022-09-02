@@ -61,7 +61,7 @@ function parseLevelData(data) {
                     width: d.roof.width,
                     height: d.roof.height,
                     opacity: d.roof.opacity ?? 255,
-                    roofHitbox: Matter.Bodies.fromVertices(o.x, o.y, [d.roof.roofHitbox], { isSensor: true, isStatic: false })
+                    roofHitbox: Matter.Bodies.fromVertices(Matter.Vertices.centre(d.roof.roofHitbox).x + o.x, Matter.Vertices.centre(d.roof.roofHitbox).y + o.y, [d.roof.roofHitbox], { isSensor: true, isStatic: false })
                 }
             );
         }),
@@ -77,7 +77,8 @@ function parseLevelData(data) {
             p.loadout,
             p.health,
             1700,
-            false
+            false,
+            p.class
         )),
         particles: [],
         paths: data.ground.map(p => new path(p.vertices, p.colour))
@@ -85,17 +86,19 @@ function parseLevelData(data) {
 }
 
 function isVowel(letter) {
-    const vowels = ['a', 'e', 'i', 'o', 'u'];
-    let is = false;
+    const vowels = "aeiou";
     for(let i = 0; i < vowels.length; i++) {
         if(letter.toLowerCase() == vowels[i]) {
             return 'n';
-            is = true;
         }
     }
-    if(!is) {
-        return ' ';
-    }
+    return '';
+}
+
+function shouldUseInfinity(string) { // i hate my life
+    if(string == Infinity) {
+        return "∞";
+    } else { return string; }
 }
 
 function createDiv(id = "", className = "") {
@@ -107,6 +110,8 @@ function createDiv(id = "", className = "") {
 }
 
 function $(ele) { return document.getElementById(ele); }
+
+function getElement(ele) { return document.getElementById(ele)};
 
 function average(...args) {
     for (var i = 0, sum = 0; i < args.length; sum += +args[i++]);
