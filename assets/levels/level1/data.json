@@ -1,167 +1,1590 @@
 {
     "obstacles": [
-    {
-        "type": "fromVertices",
-        "x": 1100,
-        "y": 900,
-        "vertexSets": [
-            {"x": -550, "y": -500},
-            {"x": -550, "y": 250},
-            {"x": -130, "y": 250},
-            {"x": -130, "y": 215},
-            {"x": -520, "y": 215},
-            {"x": -520, "y": -190},
-            {"x": 300, "y": -190},
-            {"x": 300, "y": -220},
-            {"x": -520, "y": -220},
-            {"x": -520, "y": -463},
-            {"x": 520, "y": -463},
-            {"x": 520, "y": -220},
-            {"x": 430, "y": -220},
-            {"x": 430, "y": -190},
-            {"x": 520, "y": -190},
-            {"x": 520, "y": 215},
-            {"x": 130, "y": 215},
-            {"x": 130, "y": 250},
-            {"x": 550, "y": 250},
-            {"x": 550, "y": -490},
-            {"x": -550, "y": -500}
-        ],
-        "options": {
-            "isStatic": true,
-            "friction": 1,
-            "restitution": 0,
-            "density": 5,
-            "angle": 0
+        {
+            "type": "rectangle",
+            "x": 2100,
+            "y": 3150,
+            "width": 166,
+            "height": 166,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.3,
+                "angle": 20,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/crate2.png",
+                "imageWidth": 170,
+                "imageHeight": 170,
+                "tint": "#ae8b37",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 300
+            }
         },
-        "details": {
-            "image": "./assets/buildings/house2.png",
-            "imageWidth": 1157,
-            "imageHeight": 799,
-            "tint": "#FFFFFF",
-            "layer": 0,
-            "xOffset": 0,
-            "yOffset": 0,
-            "angleOffset": 0,
-            "imageMode": "center",
-            "roof": {
-                "image": "./assets/buildings/roof2.png",
-                "width": 1157,
-                "height": 799,
-                "opacity": 255,
-                "roofHitbox": [
-                    {"x": -570, "y": -370},
-                    {"x": -570, "y": -300},
-                    {"x": -620, "y": -300},
-                    {"x": -620, "y": -160},
-                    {"x": -570, "y": -160},
-                    {"x": -570, "y": 340},
-                    {"x": -420, "y": 340},
-                    {"x": -420, "y": 390},
-                    {"x": -280, "y": 390},
-                    {"x": -280, "y": 340},
-                    {"x": -170, "y": 340},
-                    {"x": -170, "y": 390},
-                    {"x": 100, "y": 390},
-                    {"x": 100, "y": 340},
-                    {"x": 210, "y": 340},
-                    {"x": 210, "y": 390},
-                    {"x": 340, "y": 390},
-                    {"x": 340, "y": 340},
-                    {"x": 490, "y": 340},
-                    {"x": 490, "y": 190},
-                    {"x": 540, "y": 190},
-                    {"x": 540, "y": 40},
-                    {"x": 490, "y": 40},
-                    {"x": 490, "y": -370},
-                    {"x": -570, "y": -370}
-                ]
+        {
+            "type": "rectangle",
+            "x": 3000,
+            "y": 2580,
+            "width": 166,
+            "height": 166,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.3,
+                "angle": 100,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/crate2.png",
+                "imageWidth": 170,
+                "imageHeight": 170,
+                "tint": "#ae8b37",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 300
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 3155,
+            "y": 2630,
+            "width": 166,
+            "height": 166,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.3,
+                "angle": 10,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/crate2.png",
+                "imageWidth": 170,
+                "imageHeight": 170,
+                "tint": "#9b7831",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 300
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 3080,
+            "y": 2600,
+            "width": 166,
+            "height": 166,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.3,
+                "angle": 220,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/crate2.png",
+                "imageWidth": 170,
+                "imageHeight": 170,
+                "tint": "#ae8b37",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 300
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 1000,
+            "y": 85,
+            "width": 166,
+            "height": 166,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.3,
+                "angle": 180,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/crate2.png",
+                "imageWidth": 170,
+                "imageHeight": 170,
+                "tint": "#9b7831",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 300
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 865,
+            "y": 365,
+            "width": 166,
+            "height": 166,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.3,
+                "angle": 90,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/crate2.png",
+                "imageWidth": 170,
+                "imageHeight": 170,
+                "tint": "#9b7831",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 300
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 2200,
+            "y": 365,
+            "width": 166,
+            "height": 166,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.3,
+                "angle": 0,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/crate2.png",
+                "imageWidth": 170,
+                "imageHeight": 170,
+                "tint": "#ae8b37",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 300
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 2700,
+            "y": 85,
+            "width": 166,
+            "height": 166,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.3,
+                "angle": 90,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/crate2.png",
+                "imageWidth": 170,
+                "imageHeight": 170,
+                "tint": "#ae8b37",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 300
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 3250,
+            "y": 860,
+            "width": 166,
+            "height": 166,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.3,
+                "angle": 20,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/crate2.png",
+                "imageWidth": 170,
+                "imageHeight": 170,
+                "tint": "#9b7831",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 300
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 2750,
+            "y": 635,
+            "width": 166,
+            "height": 166,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.3,
+                "angle": 180,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/crate2.png",
+                "imageWidth": 170,
+                "imageHeight": 170,
+                "tint": "#ae8b37",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 300
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 2600,
+            "y": 3200,
+            "width": 190,
+            "height": 190,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.4,
+                "angle": 10,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/palette.png",
+                "imageWidth": 200,
+                "imageHeight": 200,
+                "tint": "#967638",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 350
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 3200,
+            "y": 3270,
+            "width": 190,
+            "height": 190,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.4,
+                "angle": 60,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/palette.png",
+                "imageWidth": 200,
+                "imageHeight": 200,
+                "tint": "#967638",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 350
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 1600,
+            "y": 220,
+            "width": 190,
+            "height": 190,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.4,
+                "angle": 20,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/palette.png",
+                "imageWidth": 200,
+                "imageHeight": 200,
+                "tint": "#967638",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 350
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 2330,
+            "y": 2840,
+            "width": 75,
+            "height": 310,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 180,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 180,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 2330,
+            "y": 3150,
+            "width": 75,
+            "height": 310,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 0,
+                "chamfer": true
+            },
+            "details": {
+                "image": "./assets/obstacles/concretewall2.png",
+                "imageWidth": 80,
+                "imageHeight": 320,
+                "tint": "#808080",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 180,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 2230,
+            "y": 3395,
+            "width": 190,
+            "height": 390,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 40,
+                "angle": 90
+            },
+            "details": {
+                "image": "./assets/obstacles/container2.png",
+                "imageWidth": 200,
+                "imageHeight": 400,
+                "tint": "#de514a",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 1330,
+            "y": 1520,
+            "width": 190,
+            "height": 390,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 40,
+                "angle": -3
+            },
+            "details": {
+                "image": "./assets/obstacles/container2.png",
+                "imageWidth": 200,
+                "imageHeight": 400,
+                "tint": "#de514a",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 1100,
+            "y": 1520,
+            "width": 190,
+            "height": 390,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 40,
+                "angle": 1
+            },
+            "details": {
+                "image": "./assets/obstacles/container2.png",
+                "imageWidth": 200,
+                "imageHeight": 400,
+                "tint": "#5c893e",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 1200,
+            "y": 1520,
+            "width": 190,
+            "height": 390,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 40,
+                "angle": 100
+            },
+            "details": {
+                "image": "./assets/obstacles/container2.png",
+                "imageWidth": 200,
+                "imageHeight": 400,
+                "tint": "#e57e2e",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "circle",
+            "x": 2150,
+            "y": 2920,
+            "radius": 100,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 80
+            },
+            "details": {
+                "image": "./assets/obstacles/tree2.png",
+                "imageWidth": 250,
+                "imageHeight": 250,
+                "tint": "#5c893e",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 300
+            }
+        },
+        {
+            "type": "circle",
+            "x": 3100,
+            "y": 2100,
+            "radius": 100,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 120
+            },
+            "details": {
+                "image": "./assets/obstacles/tree2.png",
+                "imageWidth": 250,
+                "imageHeight": 250,
+                "tint": "#2b7a35",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 300
+            }
+        },
+        {
+            "type": "circle",
+            "x": 3300,
+            "y": 1800,
+            "radius": 100,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 170
+            },
+            "details": {
+                "image": "./assets/obstacles/tree2.png",
+                "imageWidth": 250,
+                "imageHeight": 250,
+                "tint": "#2b7a35",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 300
+            }
+        },
+        {
+            "type": "circle",
+            "x": 2900,
+            "y": 1500,
+            "radius": 100,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 140
+            },
+            "details": {
+                "image": "./assets/obstacles/tree2.png",
+                "imageWidth": 250,
+                "imageHeight": 250,
+                "tint": "#2b7a35",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 300
+            }
+        },
+        {
+            "type": "circle",
+            "x": 1900,
+            "y": 1400,
+            "radius": 65,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 100
+            },
+            "details": {
+                "image": "./assets/obstacles/tree3.png",
+                "imageWidth": 180,
+                "imageHeight": 180,
+                "tint": "#886f2b",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 80
+            }
+        },
+        {
+            "type": "circle",
+            "x": 2900,
+            "y": 1800,
+            "radius": 65,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 100
+            },
+            "details": {
+                "image": "./assets/obstacles/tree3.png",
+                "imageWidth": 180,
+                "imageHeight": 180,
+                "tint": "#008000",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 80
+            }
+        },
+        {
+            "type": "circle",
+            "x": 2000,
+            "y": 1700,
+            "radius": 55,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 120
+            },
+            "details": {
+                "image": "./assets/obstacles/barrel.png",
+                "imageWidth": 130,
+                "imageHeight": 130,
+                "tint": "#61606b",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 60
+            }
+        },
+        {
+            "type": "circle",
+            "x": 2020,
+            "y": 360,
+            "radius": 55,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 90
+            },
+            "details": {
+                "image": "./assets/obstacles/barrel.png",
+                "imageWidth": 130,
+                "imageHeight": 130,
+                "tint": "#61606b",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 60
+            }
+        },
+        {
+            "type": "circle",
+            "x": 3030,
+            "y": 500,
+            "radius": 55,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 10,
+                "angle": 90
+            },
+            "details": {
+                "image": "./assets/obstacles/barrel.png",
+                "imageWidth": 130,
+                "imageHeight": 130,
+                "tint": "#61606b",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 60
+            }
+        },
+        {
+            "type": "fromVertices",
+            "x": 3220,
+            "y": 2350,
+            "vertexSets": [
+                {
+                    "x": -220,
+                    "y": -40
+                },
+                {
+                    "x": -220,
+                    "y": 40
+                },
+                {
+                    "x": -160,
+                    "y": 40
+                },
+                {
+                    "x": -160,
+                    "y": 25
+                },
+                {
+                    "x": 160,
+                    "y": 25
+                },
+                {
+                    "x": 160,
+                    "y": 40
+                },
+                {
+                    "x": 220,
+                    "y": 40
+                },
+                {
+                    "x": 220,
+                    "y": -40
+                },
+                {
+                    "x": 160,
+                    "y": -40
+                },
+                {
+                    "x": 160,
+                    "y": -25
+                },
+                {
+                    "x": -160,
+                    "y": -25
+                },
+                {
+                    "x": -160,
+                    "y": -40
+                }
+            ],
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.05,
+                "angle": 0,
+                "chamfer": true,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/terracotta_wall.png",
+                "imageWidth": 450,
+                "imageHeight": 80,
+                "tint": "#978da1",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+
+        {
+            "type": "fromVertices",
+            "x": 2710,
+            "y": 2117,
+            "vertexSets": [
+                {
+                    "x": -40,
+                    "y": -220
+                },
+                {
+                    "x": 40,
+                    "y": -220
+                },
+                {
+                    "x": 40,
+                    "y": -160
+                },
+                {
+                    "x": 25,
+                    "y": -160
+                },
+                {
+                    "x": 25,
+                    "y": 160
+                },
+                {
+                    "x": 40,
+                    "y": 160
+                },
+                {
+                    "x": 40,
+                    "y": 220
+                },
+                {
+                    "x": -40,
+                    "y": 220
+                },
+                {
+                    "x": -40,
+                    "y": 160
+                },
+                {
+                    "x": -25,
+                    "y": 160
+                },
+                {
+                    "x": -25,
+                    "y": -160
+                },
+                {
+                    "x": -40,
+                    "y": -160
+                }
+            ],
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.05,
+                "angle": 0,
+                "chamfer": true,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/terracotta_wall.png",
+                "imageWidth": 450,
+                "imageHeight": 80,
+                "tint": "#978da1",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 90,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "fromVertices",
+            "x": 2710,
+            "y": 1745,
+            "vertexSets": [
+                {
+                    "x": -40,
+                    "y": -220
+                },
+                {
+                    "x": 40,
+                    "y": -220
+                },
+                {
+                    "x": 40,
+                    "y": -160
+                },
+                {
+                    "x": 25,
+                    "y": -160
+                },
+                {
+                    "x": 25,
+                    "y": 160
+                },
+                {
+                    "x": 40,
+                    "y": 160
+                },
+                {
+                    "x": 40,
+                    "y": 220
+                },
+                {
+                    "x": -40,
+                    "y": 220
+                },
+                {
+                    "x": -40,
+                    "y": 160
+                },
+                {
+                    "x": -25,
+                    "y": 160
+                },
+                {
+                    "x": -25,
+                    "y": -160
+                },
+                {
+                    "x": -40,
+                    "y": -160
+                }
+            ],
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.05,
+                "angle": 0,
+                "chamfer": true,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/terracotta_wall.png",
+                "imageWidth": 450,
+                "imageHeight": 80,
+                "tint": "#978da1",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 90,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "fromVertices",
+            "x": 2710,
+            "y": 1375,
+            "vertexSets": [
+                {
+                    "x": -40,
+                    "y": -220
+                },
+                {
+                    "x": 40,
+                    "y": -220
+                },
+                {
+                    "x": 40,
+                    "y": -160
+                },
+                {
+                    "x": 25,
+                    "y": -160
+                },
+                {
+                    "x": 25,
+                    "y": 160
+                },
+                {
+                    "x": 40,
+                    "y": 160
+                },
+                {
+                    "x": 40,
+                    "y": 220
+                },
+                {
+                    "x": -40,
+                    "y": 220
+                },
+                {
+                    "x": -40,
+                    "y": 160
+                },
+                {
+                    "x": -25,
+                    "y": 160
+                },
+                {
+                    "x": -25,
+                    "y": -160
+                },
+                {
+                    "x": -40,
+                    "y": -160
+                }
+            ],
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.05,
+                "angle": 0,
+                "chamfer": true,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/terracotta_wall.png",
+                "imageWidth": 450,
+                "imageHeight": 80,
+                "tint": "#978da1",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 90,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "fromVertices",
+            "x": 2710,
+            "y": 1005,
+            "vertexSets": [
+                {
+                    "x": -40,
+                    "y": -220
+                },
+                {
+                    "x": 40,
+                    "y": -220
+                },
+                {
+                    "x": 40,
+                    "y": -160
+                },
+                {
+                    "x": 25,
+                    "y": -160
+                },
+                {
+                    "x": 25,
+                    "y": 160
+                },
+                {
+                    "x": 40,
+                    "y": 160
+                },
+                {
+                    "x": 40,
+                    "y": 220
+                },
+                {
+                    "x": -40,
+                    "y": 220
+                },
+                {
+                    "x": -40,
+                    "y": 160
+                },
+                {
+                    "x": -25,
+                    "y": 160
+                },
+                {
+                    "x": -25,
+                    "y": -160
+                },
+                {
+                    "x": -40,
+                    "y": -160
+                }
+            ],
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.05,
+                "angle": 0,
+                "chamfer": true,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/terracotta_wall.png",
+                "imageWidth": 450,
+                "imageHeight": 80,
+                "tint": "#978da1",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 90,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "fromVertices",
+            "x": 3452,
+            "y": 1005,
+            "vertexSets": [
+                {
+                    "x": -40,
+                    "y": -220
+                },
+                {
+                    "x": 40,
+                    "y": -220
+                },
+                {
+                    "x": 40,
+                    "y": -160
+                },
+                {
+                    "x": 25,
+                    "y": -160
+                },
+                {
+                    "x": 25,
+                    "y": 160
+                },
+                {
+                    "x": 40,
+                    "y": 160
+                },
+                {
+                    "x": 40,
+                    "y": 220
+                },
+                {
+                    "x": -40,
+                    "y": 220
+                },
+                {
+                    "x": -40,
+                    "y": 160
+                },
+                {
+                    "x": -25,
+                    "y": 160
+                },
+                {
+                    "x": -25,
+                    "y": -160
+                },
+                {
+                    "x": -40,
+                    "y": -160
+                }
+            ],
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.05,
+                "angle": 0,
+                "chamfer": true,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/terracotta_wall.png",
+                "imageWidth": 450,
+                "imageHeight": 80,
+                "tint": "#978da1",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 90,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "fromVertices",
+            "x": 3220,
+            "y": 1240,
+            "vertexSets": [
+                {
+                    "x": -220,
+                    "y": -40
+                },
+                {
+                    "x": -220,
+                    "y": 40
+                },
+                {
+                    "x": -160,
+                    "y": 40
+                },
+                {
+                    "x": -160,
+                    "y": 25
+                },
+                {
+                    "x": 160,
+                    "y": 25
+                },
+                {
+                    "x": 160,
+                    "y": 40
+                },
+                {
+                    "x": 220,
+                    "y": 40
+                },
+                {
+                    "x": 220,
+                    "y": -40
+                },
+                {
+                    "x": 160,
+                    "y": -40
+                },
+                {
+                    "x": 160,
+                    "y": -25
+                },
+                {
+                    "x": -160,
+                    "y": -25
+                },
+                {
+                    "x": -160,
+                    "y": -40
+                }
+            ],
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.05,
+                "angle": 0,
+                "chamfer": true,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/terracotta_wall.png",
+                "imageWidth": 450,
+                "imageHeight": 80,
+                "tint": "#978da1",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "fromVertices",
+            "x": 2850,
+            "y": 865,
+            "vertexSets": [
+                {
+                    "x": -220,
+                    "y": -40
+                },
+                {
+                    "x": -220,
+                    "y": 40
+                },
+                {
+                    "x": -160,
+                    "y": 40
+                },
+                {
+                    "x": -160,
+                    "y": 25
+                },
+                {
+                    "x": 160,
+                    "y": 25
+                },
+                {
+                    "x": 160,
+                    "y": 40
+                },
+                {
+                    "x": 220,
+                    "y": 40
+                },
+                {
+                    "x": 220,
+                    "y": -40
+                },
+                {
+                    "x": 160,
+                    "y": -40
+                },
+                {
+                    "x": 160,
+                    "y": -25
+                },
+                {
+                    "x": -160,
+                    "y": -25
+                },
+                {
+                    "x": -160,
+                    "y": -40
+                }
+            ],
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.05,
+                "angle": 0,
+                "chamfer": true,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/terracotta_wall.png",
+                "imageWidth": 450,
+                "imageHeight": 80,
+                "tint": "#978da1",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 2675,
+            "y": 500,
+            "width": 545,
+            "height": 115,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.3,
+                "angle": 0,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/brickwall.png",
+                "imageWidth": 550,
+                "imageHeight": 120,
+                "tint": "#785d3d",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 2135,
+            "y": 500,
+            "width": 545,
+            "height": 115,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.3,
+                "angle": 0,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/brickwall.png",
+                "imageWidth": 550,
+                "imageHeight": 120,
+                "tint": "#785d3d",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 1595,
+            "y": 500,
+            "width": 545,
+            "height": 115,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.3,
+                "angle": 0,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/brickwall.png",
+                "imageWidth": 550,
+                "imageHeight": 120,
+                "tint": "#785d3d",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 1055,
+            "y": 500,
+            "width": 545,
+            "height": 115,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.3,
+                "angle": 0,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/brickwall.png",
+                "imageWidth": 550,
+                "imageHeight": 120,
+                "tint": "#785d3d",
+                "layer": 1,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
             }
         }
-    },
-    {
-        "type": "circle",
-        "x": 1800,
-        "y": 300,
-        "radius": 100,
-        "options": {
-            "isStatic": true,
-            "friction": 1,
-            "restitution": 0,
-            "density": 50,
-            "angle": 80
-        },
-        "details": {
-            "image": "./assets/obstacles/tree2.png",
-            "imageWidth": 250,
-            "imageHeight": 250,
-            "tint": "#8d582d",
-            "layer": 1,
-            "xOffset": 0,
-            "yOffset": 0,
-            "angleOffset": 0,
-            "imageMode": "center",
-            "health": 300
-        }
-    }
     ],
     "players": [
         {
-            "x": 600,
-            "y": 3400,
+            "x": 3280,
+            "y": 3080,
             "angle": 180,
             "size": 40,
             "colour1": "#4b5320",
             "colour2": "#6c782e",
             "options": {
-                "friction": 1,
+                "friction": 0,
                 "restitution": 0,
                 "inertia": 0,
                 "density": 0.01
             },
             "highlightcolour": "#7d8a35",
+            "class": "player",
             "loadout": {
                 "guns": [
-                    "AUG",
-                    "Bayonet"
+                    "M4A1",
+                    "G19"
+                ],
+                "activeIndex": 0
+            },
+            "health": 100
+        },
+        {
+            "x": 3000,
+            "y": 100,
+            "angle": 180,
+            "size": 40,
+            "colour1": "#4b5320",
+            "colour2": "#6c782e",
+            "options": {
+                "friction": 0,
+                "restitution": 0,
+                "inertia": 0,
+                "density": 0.01
+            },
+            "highlightcolour": "#7d8a35",
+            "class": "runner",
+            "loadout": {
+                "guns": [
+                    "AK-102"
+                ],
+                "activeIndex": 0
+            },
+            "health": 100
+        },
+        {
+            "x": 800,
+            "y": 100,
+            "angle": 180,
+            "size": 40,
+            "colour1": "#4b5320",
+            "colour2": "#6c782e",
+            "options": {
+                "friction": 0,
+                "restitution": 0,
+                "inertia": 0,
+                "density": 0.01
+            },
+            "highlightcolour": "#7d8a35",
+            "class": "runner",
+            "loadout": {
+                "guns": [
+                    "AK-102"
                 ],
                 "activeIndex": 0
             },
             "health": 100
         }
     ],
+    "objects": [
+        
+    ],
     "ground": [
         {
             "vertices": [
-                {"x": 0, "y": 1400},
-                {"x": 0, "y": 1900},
-                {"x": 4000, "y": 1900},
-                {"x": 4000, "y": 1400}
+                {"x": 3500, "y": 2350},
+                {"x": 3500, "y": 3500},
+                {"x": 2340, "y": 3500},
+                {"x": 2340, "y": 2620},
+                {"x": 2350, "y": 2540},
+                {"x": 2370, "y": 2490},
+                {"x": 2450, "y": 2410},
+                {"x": 2540, "y": 2370},
+                {"x": 2630, "y": 2350},
+                {"x": 3500, "y": 2350}
             ],
-            "colour": "#8d582d"
-        }
-    ],
-    "missions": [
-        {
-            "name": "Kill 6 Enemies",
-            "type": "kill-enemies",
-            "quantity": 6,
-            "xp-reward": 250,
-            "id": null
+            "colour": "#00000010"
         },
         {
-            "name": "Destroy 3 Rifle Crates",
-            "type": "destroy-objects",
-            "quantity": 3,
-            "xp-reward": 150,
-            "id": "crate1.png"
+            "vertices": [
+                {"x": 2940, "y": 510},
+                {"x": 3030, "y": 500},
+                {"x": 3140, "y": 490},
+                {"x": 3250, "y": 510},
+                {"x": 3340, "y": 530},
+                {"x": 3410, "y": 530},
+                {"x": 3500, "y": 510},
+                {"x": 3500, "y": 0},
+                {"x": 920, "y": 0},
+                {"x": 910, "y": 60},
+                {"x": 890, "y": 100},
+                {"x": 880, "y": 140},
+                {"x": 890, "y": 200},
+                {"x": 890, "y": 230},
+                {"x": 930, "y": 280},
+                {"x": 940, "y": 330},
+                {"x": 930, "y": 420},
+                {"x": 920, "y": 500}
+            ],
+            "colour": "#00000022"
         },
         {
-            "name": "Kill 1 Enemy With a Bayonet",
-            "type": "weapon-kill",
-            "quantity": 1,
-            "xp-reward": 200,
-            "id": "Bayonet"
+            "vertices": [
+                {"x": 530, "y": 530},
+                {"x": 310, "y": 540},
+                {"x": 260, "y": 560},
+                {"x": 190, "y": 560},
+                {"x": 150, "y": 550},
+                {"x": 70, "y": 530},
+                {"x": 0, "y": 540},
+                {"x": -0, "y": -0},
+                {"x": 550, "y": -0}
+            ],
+            "colour": "#00000010"
+        },
+        {
+            "vertices": [
+                {"x": 2720, "y": 1230},
+                {"x": 2820, "y": 1200},
+                {"x": 2960, "y": 1210},
+                {"x": 3000, "y": 1210},
+                {"x": 3110, "y": 1230},
+                {"x": 3500, "y": 1230},
+                {"x": 3500, "y": 2350},
+                {"x": 2720, "y": 2350}
+            ],
+            "colour": "#73801e"
+        },
+        {
+            "vertices": [
+                {"x": 3500, "y": 1940},
+                {"x": 3440, "y": 1820},
+                {"x": 3400, "y": 1670},
+                {"x": 3390, "y": 1520},
+                {"x": 3410, "y": 1360},
+                {"x": 3500, "y": 1260}
+            ],
+            "colour": "#4078bd"
         }
     ]
 }

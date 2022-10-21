@@ -1776,7 +1776,7 @@
                 "density": 0.01
             },
             "highlightcolour": "#7d8a35",
-            "class": "runner",
+            "class": "gunner",
             "loadout": {
                 "guns": [
                     "AKS-74U"
@@ -1831,6 +1831,9 @@
             },
             "health": 100
         }
+    ],
+    "objects": [
+        
     ],
     "ground": [
         {
