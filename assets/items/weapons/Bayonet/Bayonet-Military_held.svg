@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1000"
+   height="1000"
+   viewBox="0 0 264.58333 264.58334"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="bayonet-military_held.svg"
+   inkscape:version="1.1.1 (c3084ef, 2021-09-22)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="0.31127478"
+     inkscape:cx="348.56663"
+     inkscape:cy="449.76339"
+     inkscape:window-width="1312"
+     inkscape:window-height="732"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1"
+     height="800px" />
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect2909"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#3f5836;fill-opacity:1;stroke:#000000;stroke-width:15;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 177.28893,244.29734 -1.97957,-3.47013 -0.42536,-5.58323 -6.5675,-8.82513 -6.20416,-8.72577 -11.5156,-18.57409 -7.22419,-14.27639 -5.80512,-12.32628 -5.50858,-11.26896 -8.98186,-4.99486 30.53707,-17.42008 -0.93166,9.11698 7.55648,11.63382 9.57021,13.55134 7.68845,11.86518 7.65427,13.4178 7.78467,15.7964 4.84874,10.11226 3.07107,1.62097 2.90334,5.08949 -4.79298,3.96069 -6.18101,4.7525 -4.39548,2.50744 -5.05535,1.35073 z"
+       id="path1053" />
+    <rect
+       style="fill:#303030;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:15;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       id="rect4302"
+       width="13.309443"
+       height="29.585567"
+       x="300.05261"
+       y="-62.519104"
+       transform="rotate(60.297097)" />
+    <path
+       style="fill:#3e3e3e;fill-opacity:1;stroke:#000000;stroke-width:15;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 149.17644,137.22133 -8.5548,-16.13332 0.47211,-5.40478 -33.24025,-56.884528 c 0,0 -10.921358,-22.607372 -28.233738,-35.643421 C 62.307385,10.119232 55.242364,10.199175 55.242364,10.199175 l 21.91659,60.578962 30.599666,52.710823 0.68658,1.41513 0.0251,1.31632 -0.30013,0.53411 -6.2e-4,0.84712 14.90744,28.65086 z"
+       id="path4621"
+       sodipodi:nodetypes="ccccsccccccccc" />
+    <rect
+       style="fill:#303030;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:15;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:markers fill stroke"
+       id="rect4586"
+       width="9.8296156"
+       height="80.821281"
+       x="190.62297"
+       y="-87.251625"
+       transform="rotate(60.297097)" />
+  </g>
+</svg>

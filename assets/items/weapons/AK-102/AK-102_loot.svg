@@ -24,17 +24,24 @@
      inkscape:document-units="mm"
      showgrid="false"
      units="px"
-     inkscape:zoom="0.57046838"
-     inkscape:cx="675.7605"
-     inkscape:cy="301.50663"
+     inkscape:zoom="0.35848151"
+     inkscape:cx="588.59382"
+     inkscape:cy="415.64208"
      inkscape:window-width="1312"
-     inkscape:window-height="732"
+     inkscape:window-height="726"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="0"
      inkscape:current-layer="layer1" />
   <defs
-     id="defs2" />
+     id="defs2">
+    <rect
+       x="152.26006"
+       y="-226.43803"
+       width="944.79321"
+       height="210.82162"
+       id="rect2306" />
+  </defs>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
