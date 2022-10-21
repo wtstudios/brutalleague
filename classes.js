@@ -31,7 +31,7 @@ class obstacle {
     tint;
     angle;
     layer;
-    offset = { x: 0, y: 0, angle: 0 };
+    offset;
     imageMode;
     health;
     roof;
@@ -85,7 +85,8 @@ class playerLike {
         fired: 0,
         lastBurst: 0,
         isReloading: false,
-        reloadProgress: 0
+        reloadProgress: 0,
+        layer: 0
     };
 
     constructor (body, angle, colour, options, loadout, health, view, isMoving, Class) {
@@ -183,6 +184,7 @@ class weaponPrototype {
     view;
     ballistics;
     caliber;
+    cartridgeType;
     delay; // Consider renaming to "firingDelay" or similar
     accuracy = {
         default: 0,
@@ -228,6 +230,7 @@ class weaponPrototype {
     reloadTime = 0;
     tags = "";
     mag = this.magSize;
+    sounds = {};
 
     constructor (
         name,
@@ -235,6 +238,7 @@ class weaponPrototype {
         view,
         ballistics,
         caliber,
+        cartridgeType,
         delay,
         accuracy,
         offset,
@@ -264,6 +268,7 @@ class weaponPrototype {
             // fixed
         };
         this.caliber = caliber;
+        this.cartridgeType = cartridgeType;
         this.delay = delay;
         this.accuracy = accuracy;
         this.offset = {
@@ -308,6 +313,7 @@ class weaponPrototype {
         this.reloadTime = reloadTime ?? 300;
         this.tags = tags;
         this.mag = magSize;
+        this.sounds.fire = loadSound("assets/items/weapons/" + this.name + "/Sounds/fire.mp3");
     }
 }
 
@@ -339,6 +345,7 @@ class bullet {
     timer; // Better to store the timestamp of the bullet's spawn, rather than how long it's existed for.
     squaredDistance = 0;
     trailcolour = "#000000";
+    damage;
     constructor (body, shooter, emitter, angle, start, index, trailcolor) {
         this.#body = body;
         this.#shooter = shooter;
@@ -348,6 +355,7 @@ class bullet {
         this.index = index;
         this.timer = 0;
         this.trailcolor = trailcolor;
+        this.damage = emitter.ballistics.damage;
     }
     destroy() { // Free up the memory by clearing references to objects, since we no longer need the references
         this.#body = this.#shooter = this.#emitter = void 0;
@@ -373,7 +381,8 @@ class particle {
     tint;  // Rather than force the color mode into RGB so that you can use a specific overload of p5's tint function, why not write a utility function to convert hex to RGB?
     angle;
     size;
-    constructor (image, opacity, unit, x, y, angle, tint, size) {
+    speed;
+    constructor (image, opacity, unit, x, y, angle, tint, size, speed) {
         this.x = x;
         this.y = y;
         this.image = image;
@@ -382,6 +391,7 @@ class particle {
         this.angle = angle;
         this.tint = tint;
         this.size = size;
+        this.speed = speed ?? 5;
     }
 }
 /**
@@ -430,17 +440,18 @@ const gamespace = {
             "AUG",
             { loot: "assets/items/weapons/AUG/AUG_loot.svg", held: loadImg("assets/items/weapons/AUG/AUG_topdown.svg") },
             2500,
-            { damage: 25, velocity: 200, range: 1900, timeout: Infinity },
+            { damage: 25, velocity: 180, range: 1900, timeout: Infinity },
             "5.56x45mm",
-            RPMToMSDelay(680),
+            "rifle",
+            RPMToMSDelay(400),
             { default: 1 * Math.PI / 180, moving: 5 * Math.PI / 180 },
             { x: 0, y: -1 },
-            { width: 0.9, height: 4.6 },
-            { lefthand: { x: -0.2, y: -0.2 }, righthand: { x: 0.2, y: -1 } },
-            { x: 0, y: 40 },
+            { width: 1.1, height: 4.9 },
+            { lefthand: { x: 0.2, y: -0.2 }, righthand: { x: -0.2, y: -1 } },
+            { x: 0, y: 0 },
             40,
             { left: { x: 0, y: -15, duration: 80 }, right: { x: 0, y: -15, duration: 80 }, weapon: { x: 0, y: -15, duration: 80 } },
-            [/* "automatic", */"burst-3", "semi"],
+            ["automatic"],
             { shotDelay: RPMToMSDelay(1000), burstDelay: RPMToMSDelay(130) },
             1,
             30,
@@ -453,12 +464,13 @@ const gamespace = {
             2000,
             { damage: 12, velocity: 140, range: 1200, timeout: Infinity },
             "5.45x39mm",
+            "rifle",
             RPMToMSDelay(700),
             { default: 3 * Math.PI / 180, moving: 8 * Math.PI / 180 },
             { x: 0, y: -1.7 },
             { width: 1.1, height: 3.3 },
             { lefthand: { x: -0.15, y: -0.4 }, righthand: { x: 0.25, y: 0.5 } },
-            { x: 0, y: 40 },
+            { x: 0, y: 00 },
             40,
             { left: { x: 0, y: -6, duration: 70 }, right: { x: 0, y: -6, duration: 70 }, weapon: { x: 0, y: -6, duration: 70 } },
             ["automatic"],
@@ -469,59 +481,18 @@ const gamespace = {
             "-main-assaultrifle-auto-midrange-5.45-"
         ),
         new weaponPrototype(
-            "MAC-10",
-            { loot: "assets/items/weapons/MAC-10/MAC-10_loot.svg", held: loadImg("assets/items/weapons/MAC-10/MAC-10_topdown.svg") },
-            2000,
-            { damage: 8, velocity: 140, range: 800, timeout: Infinity },
-            "9x19mm",
-            RPMToMSDelay(800),
-            { default: 6 * Math.PI / 180, moving: 12 * Math.PI / 180 },
-            { x: 0.1, y: -1.7 },
-            { width: 1.9, height: 3.7 },
-            { lefthand: { x: -0.15, y: -0.6 }, righthand: { x: 0.25, y: 0.5 } },
-            { x: 0.1, y: 40 },
-            40,
-            { left: { x: 0, y: -20, duration: 130 }, right: { x: 0, y: -12, duration: 130 }, weapon: { x: 0, y: -12, duration: 130 } },
-            ["automatic"],
-            { shotDelay: RPMToMSDelay(1400), burstDelay: RPMToMSDelay(130) },
-            1,
-            32,
-            100,
-            "-secondary-pistol-machinepistol-smg-auto-closerange-9mm-modern-"
-        ),
-        new weaponPrototype(
-            "G19",
-            { loot: "assets/items/weapons/G19/G19_loot.svg", held: loadImg("assets/items/weapons/G19/G19_topdown.svg") },
-            2000,
-            { damage: 16, velocity: 140, range: 1600, timeout: Infinity },
-            "9x19mm",
-            RPMToMSDelay(600),
-            { default: 2 * Math.PI / 180, moving: 6 * Math.PI / 180 },
-            { x: 0.15, y: -1.4 },
-            { width: 2, height: 2.4 },
-            { lefthand: { x: -0.1, y: 0.3 }, righthand: { x: 0.2, y: 0.5 } },
-            { x: 0, y: 40 },
-            40,
-            { left: { x: 0, y: -10, duration: 70 }, right: { x: 0, y: -10, duration: 70 }, weapon: { x: 0, y: -10, duration: 70 } },
-            ["semi"],
-            { shotDelay: RPMToMSDelay(800), burstDelay: RPMToMSDelay(130) },
-            1,
-            17,
-            60,
-            "-secondary-pistol-auto-closerange-9mm-modern-"
-        ),
-        new weaponPrototype(
             "P90",
             { loot: "assets/items/weapons/P90/P90_loot.svg", held: loadImg("assets/items/weapons/P90/P90_topdown.svg") },
             2000,
-            { damage: 16, velocity: 140, range: 1200, timeout: Infinity },
+            { damage: 9, velocity: 140, range: 1200, timeout: Infinity },
             "5.7x28mm",
-            RPMToMSDelay(800),
+            "pistol",
+            RPMToMSDelay(900),
             { default: 4 * Math.PI / 180, moving: 8 * Math.PI / 180 },
             { x: 0, y: -1.7 },
             { width: 2.3, height: 4 },
             { lefthand: { x: -0.15, y: -0.3 }, righthand: { x: 0.25, y: 0.5 } },
-            { x: 0, y: 40 },
+            { x: 0, y: 0 },
             40,
             { left: { x: 0, y: -12, duration: 130 }, right: { x: 0, y: -12, duration: 130 }, weapon: { x: 0, y: -12, duration: 130 } },
             ["automatic"],
@@ -537,12 +508,13 @@ const gamespace = {
             2000,
             { damage: 18, velocity: 160, range: 1500, timeout: Infinity },
             "5.56x45mm",
+            "rifle",
             RPMToMSDelay(550),
             { default: 1.5 * Math.PI / 180, moving: 5 * Math.PI / 180 },
             { x: 0, y: -1.8 },
             { width: 1.1, height: 3.4 },
             { lefthand: { x: -0.15, y: -0.4 }, righthand: { x: 0.25, y: 0.5 } },
-            { x: 0, y: 40 },
+            { x: 0, y: 00 },
             40,
             { left: { x: 0, y: -14, duration: 70 }, right: { x: 0, y: -14, duration: 70 }, weapon: { x: 0, y: -14, duration: 70 } },
             ["automatic"],
@@ -558,12 +530,13 @@ const gamespace = {
             2000,
             { damage: 15, velocity: 180, range: 1700, timeout: Infinity },
             "5.56x45mm",
-            RPMToMSDelay(600),
-            { default: 1 * Math.PI / 180, moving: 4 * Math.PI / 180 },
+            "rifle",
+            RPMToMSDelay(500),
+            { default: 2 * Math.PI / 180, moving: 7 * Math.PI / 180 },
             { x: 0, y: -1.2 },
             { width: 1, height: 4.3 },
             { lefthand: { x: -0.2, y: -0.8 }, righthand: { x: 0.2, y: 0 } },
-            { x: 100, y: 40 },
+            { x: 0, y: 0 },
             40,
             { left: { x: 0, y: -10, duration: 90 }, right: { x: 0, y: -10, duration: 90 }, weapon: { x: 0, y: -10, duration: 90 } },
             ["automatic"],
@@ -575,37 +548,61 @@ const gamespace = {
         ),
         new weaponPrototype(
             "MSG90",
-            { loot: "assets/items/weapons/MSG90A1/MSG90A1_loot.svg", held: loadImg("assets/items/weapons/MSG90A1/MSG90A1_topdown.svg") },
-            2600,
-            { damage: 40, velocity: 200, range: 2000, timeout: Infinity },
+            { loot: "assets/items/weapons/MSG90/MSG90A1_loot.svg", held: loadImg("assets/items/weapons/MSG90/MSG90A1_topdown.svg") },
+            2300,
+            { damage: 50, velocity: 200, range: 2000, timeout: Infinity },
             "7.62x39mm",
-            RPMToMSDelay(200),
-            { default: 0.5 * Math.PI / 180, moving: 1 * Math.PI / 180 },
+            "rifle",
+            RPMToMSDelay(210),
+            { default: 0.5 * Math.PI / 180, moving: 7 * Math.PI / 180 },
             { x: 0.2, y: -2.4 },
             { width: 2, height: 3.8 },
-            { lefthand: { x: -0.15, y: -0.5 }, righthand: { x: 0.2, y: 1 } },
-            { x: 100, y: 40 },
+            { lefthand: { x: -0.15, y: 0.2 }, righthand: { x: 0.2, y: 1.4 } },
+            { x: 0, y: 0 },
             40,
-            { left: { x: 0, y: -35, duration: 140 }, right: { x: 0, y: -35, duration: 140 }, weapon: { x: 0, y: -35, duration: 140 } },
+            { left: { x: 0, y: -20, duration: 140 }, right: { x: 0, y: -20, duration: 140 }, weapon: { x: 0, y: -20, duration: 140 } },
             ["semi"],
             { shotDelay: RPMToMSDelay(300), burstDelay: RPMToMSDelay(130) },
             1,
-            10,
+            20,
             180,
+            "-main-sniper-longrange-semi-762-notrussian-modern-"
+        ),
+        new weaponPrototype(
+            "L96A1",
+            { loot: "assets/items/weapons/L96A1/L96A1_loot.svg", held: loadImg("assets/items/weapons/L96A1/L96A1_topdown.svg") },
+            2600,
+            { damage: 250, velocity: 200, range: 2000, timeout: Infinity },
+            "7.62x39mm",
+            "rifle",
+            RPMToMSDelay(50),
+            { default: 0.1 * Math.PI / 180, moving: 10 * Math.PI / 180 },
+            { x: 0.2, y: -2 },
+            { width: 2, height: 5 },
+            { lefthand: { x: -0.15, y: -0.5 }, righthand: { x: 0.2, y: 1 } },
+            { x: 0, y: 0 },
+            40,
+            { left: { x: 0, y: -25, duration: 140 }, right: { x: 0, y: -25, duration: 140 }, weapon: { x: 0, y: -25, duration: 140 } },
+            ["semi"],
+            { shotDelay: RPMToMSDelay(300), burstDelay: RPMToMSDelay(130) },
+            1,
+            5,
+            250,
             "-main-sniper-longrange-semi-762-notrussian-modern-"
         ),
         new weaponPrototype(
             "KSG",
             { loot: "assets/items/weapons/KSG/KSG_loot.svg", held: loadImg("assets/items/weapons/KSG/KSG_topdown.svg") },
             2000,
-            { damage: 9, velocity: 140, range: 900, timeout: Infinity },
+            { damage: 15, velocity: 140, range: 1000, timeout: Infinity },
             "12G",
-            RPMToMSDelay(210),
-            { default: 9 * Math.PI / 180, moving: 11 * Math.PI / 180 },
+            "shotgun",
+            RPMToMSDelay(160),
+            { default: 7 * Math.PI / 180, moving: 7 * Math.PI / 180 },
             { x: 0, y: -1.2 },
             { width: 1.2, height: 4.3 },
             { lefthand: { x: -0.2, y: -1.2 }, righthand: { x: 0.2, y: 0 } },
-            { x: 100, y: 40 },
+            { x: 0, y: 0 },
             40,
             { left: { x: 0, y: -22, duration: 140 }, right: { x: 0, y: -22, duration: 140 }, weapon: { x: 0, y: -22, duration: 140 } },
             ["semi"],
@@ -617,16 +614,17 @@ const gamespace = {
         ),
         new weaponPrototype(
             "Bayonet",
-            { loot: "assets/items/weapons/Bayonet-Military/Bayonet-Military_loot.svg", held: loadImg("assets/items/weapons/Bayonet-Military/Bayonet-Military_held.svg") },
+            { loot: "assets/items/weapons/Bayonet/Bayonet-Military_loot.svg", held: loadImg("assets/items/weapons/Bayonet/Bayonet-Military_held.svg") },
             2000,
-            { damage: 100 / 3, velocity: 40, range: 100, timeout: 3 },
+            { damage: 25, velocity: 50, range: 100, timeout: 3 },
             "melee",
-            RPMToMSDelay(10000),
+            "melee",
+            RPMToMSDelay(300),
             { default: 0 * Math.PI / 180, moving: 0 * Math.PI / 180 },
             { x: 0.4, y: -1.6 },
             { width: 2.4, height: 2.4 },
             { lefthand: { x: -1, y: 0.6 }, righthand: { x: 0.3, y: 0.6 } },
-            { x: 100, y: 40 },
+            { x: 0, y: 0 },
             40,
             { left: { x: 0, y: -10, duration: 100 }, right: { x: -10, y: 30, duration: 100 }, weapon: { x: -10, y: 30, duration: 100 } },
             ["semi"],
@@ -635,6 +633,94 @@ const gamespace = {
             Infinity,
             0,
             "-secondary-melee-knife-closerange-modern-"
+        ),
+        new weaponPrototype(
+            "G19",
+            { loot: "assets/items/weapons/G19/G19_loot.svg", held: loadImg("assets/items/weapons/G19/G19_topdown.svg") },
+            2000,
+            { damage: 20, velocity: 140, range: 1600, timeout: Infinity },
+            "9x19mm",
+            "pistol",
+            RPMToMSDelay(600),
+            { default: 1.5 * Math.PI / 180, moving: 5 * Math.PI / 180 },
+            { x: 0.15, y: -1.4 },
+            { width: 2, height: 2.4 },
+            { lefthand: { x: -0.1, y: 0.3 }, righthand: { x: 0.2, y: 0.5 } },
+            { x: 0, y: 0 },
+            40,
+            { left: { x: 0, y: -10, duration: 70 }, right: { x: 0, y: -10, duration: 70 }, weapon: { x: 0, y: -10, duration: 70 } },
+            ["semi"],
+            { shotDelay: RPMToMSDelay(900), burstDelay: RPMToMSDelay(130) },
+            1,
+            17,
+            60,
+            "-secondary-pistol-auto-closerange-9mm-modern-"
+        ),
+        new weaponPrototype(
+            "TEC-9",
+            { loot: "assets/items/weapons/TEC-9/TEC-9_loot.svg", held: loadImg("assets/items/weapons/TEC-9/TEC-9_topdown.svg") },
+            2000,
+            { damage: 16, velocity: 140, range: 1600, timeout: Infinity },
+            "9x19mm",
+            "pistol",
+            RPMToMSDelay(500),
+            { default: 3 * Math.PI / 180, moving: 8 * Math.PI / 180 },
+            { x: 0.15, y: -1.4 },
+            { width: 2, height: 2.8 },
+            { lefthand: { x: -0.2, y: -0.3 }, righthand: { x: 0.2, y: 0.5 } },
+            { x: 0, y: 0 },
+            40,
+            { left: { x: 0, y: -10, duration: 70 }, right: { x: 0, y: -10, duration: 70 }, weapon: { x: 0, y: -10, duration: 70 } },
+            ["automatic"],
+            { shotDelay: RPMToMSDelay(900), burstDelay: RPMToMSDelay(130) },
+            1,
+            20,
+            90,
+            "-secondary-pistol-auto-midrange-9mm-modern-"
+        ),
+        new weaponPrototype(
+            "MAC-10",
+            { loot: "assets/items/weapons/MAC-10/MAC-10_loot.svg", held: loadImg("assets/items/weapons/MAC-10/MAC-10_topdown.svg") },
+            2000,
+            { damage: 10, velocity: 140, range: 800, timeout: Infinity },
+            "9x19mm",
+            "pistol",
+            RPMToMSDelay(800),
+            { default: 6 * Math.PI / 180, moving: 12 * Math.PI / 180 },
+            { x: 0.1, y: -1.7 },
+            { width: 1.9, height: 3.7 },    
+            { lefthand: { x: -0.15, y: -0.6 }, righthand: { x: 0.25, y: 0.5 } },
+            { x: 0, y: 0 },
+            40,
+            { left: { x: 0, y: -20, duration: 130 }, right: { x: 0, y: -12, duration: 130 }, weapon: { x: 0, y: -12, duration: 130 } },
+            ["automatic"],
+            { shotDelay: RPMToMSDelay(1400), burstDelay: RPMToMSDelay(130) },
+            1,
+            32,
+            100,
+            "-secondary-pistol-machinepistol-smg-auto-closerange-9mm-modern-"
+        ),
+        new weaponPrototype(
+            "Sawed-Off",
+            { loot: "assets/items/weapons/Sawed-Off/Sawed Off_loot.svg", held: loadImg("assets/items/weapons/Sawed-Off/Sawed Off_topdown.svg") },
+            2000,
+            { damage: 12, velocity: 120, range: 700, timeout: Infinity },
+            "12G",
+            "shotgun",
+            RPMToMSDelay(500),
+            { default: 11 * Math.PI / 180, moving: 13 * Math.PI / 180 },
+            { x: 0, y: -1.7 },
+            { width: 1.4, height: 3.2 },
+            { lefthand: { x: -0.2, y: -0.7 }, righthand: { x: 0.2, y: 0.7 } },
+            { x: 0, y: 0 },
+            40,
+            { left: { x: 0, y: -22, duration: 140 }, right: { x: 0, y: -22, duration: 140 }, weapon: { x: 0, y: -22, duration: 140 } },
+            ["semi"],
+            { shotDelay: RPMToMSDelay(300), burstDelay: RPMToMSDelay(80) },
+            6,
+            2,
+            160,
+            "-secondary-shotgun-closerange-semi-12G-handgun-"
         ),
     ]
 };
