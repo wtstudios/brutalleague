@@ -313,7 +313,7 @@ class weaponPrototype {
         this.reloadTime = reloadTime ?? 300;
         this.tags = tags;
         this.mag = magSize;
-        this.sounds.fire = loadSound("assets/items/weapons/" + this.name + "/Sounds/fire.mp3");
+        this.sounds.fire = ("assets/items/weapons/" + this.name + "/Sounds/fire.mp3");
     }
 }
 
@@ -398,7 +398,7 @@ class particle {
  * @type {{readonly version: string, levelsRaw: { name: string; world: { width: number; height: number; colour: string; gridColour: any; }; initializer: () => void; }[], levels: level[], settings: { graphicsQuality: number, debug: boolean }, guns: weaponPrototype[]}}
  */
 const gamespace = {
-    get version() { return "1-web_beta-pre_release"; },
+    get version() { return "1-web_beta-pre_release_update-3"; },
     levelsRaw: [],
     levels: [],
     settings: {
@@ -481,6 +481,28 @@ const gamespace = {
             "-main-assaultrifle-auto-midrange-5.45-"
         ),
         new weaponPrototype(
+            "AK-47",
+            { loot: "assets/items/weapons/AK-47/AK-47_loot.svg", held: loadImg("assets/items/weapons/AK-47/AK-47_topdown.svg") },
+            2000,
+            { damage: 20, velocity: 140, range: 2000, timeout: Infinity },
+            "7.62x39mm",
+            "rifle",
+            RPMToMSDelay(450),
+            { default: 4 * Math.PI / 180, moving: 12 * Math.PI / 180 },
+            { x: 0, y: -1.7 },
+            { width: 1.1, height: 3.3 },
+            { lefthand: { x: -0.15, y: -0.4 }, righthand: { x: 0.25, y: 0.5 } },
+            { x: 0, y: 00 },
+            40,
+            { left: { x: 0, y: -14, duration: 100 }, right: { x: 0, y: -14, duration: 100 }, weapon: { x: 0, y: -14, duration: 100 } },
+            ["automatic"],
+            { shotDelay: RPMToMSDelay(1400), burstDelay: RPMToMSDelay(130) },
+            1,
+            30,
+            200,
+            "-main-assaultrifle-auto-midrange-5.45-notrussian-modern"
+        ),
+        new weaponPrototype(
             "P90",
             { loot: "assets/items/weapons/P90/P90_loot.svg", held: loadImg("assets/items/weapons/P90/P90_topdown.svg") },
             2000,
@@ -528,7 +550,7 @@ const gamespace = {
             "M4A1",
             { loot: "assets/items/weapons/M4A1/M4A1_loot.svg", held: loadImg("assets/items/weapons/M4A1/M4A1_topdown.svg") },
             2000,
-            { damage: 15, velocity: 180, range: 1700, timeout: Infinity },
+            { damage: 18, velocity: 180, range: 1700, timeout: Infinity },
             "5.56x45mm",
             "rifle",
             RPMToMSDelay(500),
@@ -542,7 +564,7 @@ const gamespace = {
             ["automatic"],
             { shotDelay: RPMToMSDelay(1400), burstDelay: RPMToMSDelay(130) },
             1,
-            30,
+            20,
             120,
             "-main-assaultrifle-auto-midrange-556-notrussian-"
         ),
@@ -575,8 +597,8 @@ const gamespace = {
             { damage: 250, velocity: 200, range: 2000, timeout: Infinity },
             "7.62x39mm",
             "rifle",
-            RPMToMSDelay(50),
-            { default: 0.1 * Math.PI / 180, moving: 10 * Math.PI / 180 },
+            RPMToMSDelay(40),
+            { default: 1 * Math.PI / 180, moving: 10 * Math.PI / 180 },
             { x: 0.2, y: -2 },
             { width: 2, height: 5 },
             { lefthand: { x: -0.15, y: -0.5 }, righthand: { x: 0.2, y: 1 } },
@@ -594,7 +616,7 @@ const gamespace = {
             "KSG",
             { loot: "assets/items/weapons/KSG/KSG_loot.svg", held: loadImg("assets/items/weapons/KSG/KSG_topdown.svg") },
             2000,
-            { damage: 15, velocity: 140, range: 1000, timeout: Infinity },
+            { damage: 19, velocity: 140, range: 1000, timeout: Infinity },
             "12G",
             "shotgun",
             RPMToMSDelay(160),
@@ -616,7 +638,7 @@ const gamespace = {
             "Bayonet",
             { loot: "assets/items/weapons/Bayonet/Bayonet-Military_loot.svg", held: loadImg("assets/items/weapons/Bayonet/Bayonet-Military_held.svg") },
             2000,
-            { damage: 25, velocity: 50, range: 100, timeout: 3 },
+            { damage: 99, velocity: 50, range: 100, timeout: 5 },
             "melee",
             "melee",
             RPMToMSDelay(300),
