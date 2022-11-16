@@ -2011,6 +2011,54 @@
                 "activeIndex": 0
             },
             "health": 100
+        },
+        {
+            "x": 1400,
+            "y": 900,
+            "angle": 180,
+            "size": 40,
+            "colour1": "#4b5320",
+            "colour2": "#6c782e",
+            "options": {
+                "friction": 0,
+                "restitution": 0,
+                "inertia": 0,
+                "density": 0.01
+            },
+            "highlightcolour": "#7d8a35",
+            "class": "runner",
+            "loadout": {
+                "guns": [
+                    "AUG",
+                    "G19"
+                ],
+                "activeIndex": 0
+            },
+            "health": 100
+        },
+        {
+            "x": 3200,
+            "y": 1200,
+            "angle": 180,
+            "size": 40,
+            "colour1": "#4b5320",
+            "colour2": "#6c782e",
+            "options": {
+                "friction": 0,
+                "restitution": 0,
+                "inertia": 0,
+                "density": 0.01
+            },
+            "highlightcolour": "#7d8a35",
+            "class": "runner",
+            "loadout": {
+                "guns": [
+                    "TEC-9",
+                    "G19"
+                ],
+                "activeIndex": 0
+            },
+            "health": 100
         }
     ],
     "objects": [
