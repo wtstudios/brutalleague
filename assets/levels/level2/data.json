@@ -78,7 +78,7 @@
         {
             "type": "fromVertices",
             "x": 1650,
-            "y": 3110,
+            "y": 2910,
             "width": 1,
             "height": 1,
             "vertexSets": [
@@ -116,7 +116,7 @@
 
             "type": "fromVertices",
             "x": 2098,
-            "y": 3077.5,
+            "y": 2877.5,
             "width": 1,
             "height": 1,
             "vertexSets": [
@@ -152,63 +152,7 @@
         },
         {
             "type": "fromVertices",
-            "x": 1000,
-            "y": 1072,
-            "width": 1045,
-            "height": 695,
-            "vertexSets": [
-                {"x": 522, "y": -348},
-                {"x": 522, "y": 348},
-                {"x": -522, "y": 348},
-                {"x": -522, "y": -348},
-                {"x": 256, "y": -348},
-                {"x": 256, "y": 51},
-                {"x": 207, "y": 51},
-                {"x": 207, "y": -298},
-                {"x": -477, "y": -298},
-                {"x": -477, "y": 300},
-                {"x": 480, "y": 297},
-                {"x": 477, "y": -350}
-            ],
-            "options": {
-                "isStatic": true,
-                "friction": 1,
-                "restitution": 0,
-                "density": 0.3,
-                "angle": 0,
-                "inertia": 0
-            },
-            "details": {
-                "image": "./assets/buildings/lofthome1.png",
-                "imageWidth": 1050,
-                "imageHeight": 700,
-                "tint": "#FFFFFF",
-                "layer": 0,
-                "xOffset": 0,
-                "yOffset": 0,
-                "angleOffset": 0,
-                "imageMode": "center",
-                "roof": {
-                    "image": "./assets/buildings/lofthome1roof.png",
-                    "width": 1050,
-                    "height": 700,
-                    "opacity": 255,
-                    "aboveGround": true,
-                    "deck": true,
-                    "roofHitbox": [
-                        {"x": -510, "y": -292},
-                        {"x": 210, "y": -292},
-                        {"x": 210, "y": 78},
-                        {"x": 480, "y": 78},
-                        {"x": 480, "y": 348},
-                        {"x": -520, "y": 348}
-                    ]
-                }
-            }
-        },
-        {
-            "type": "fromVertices",
-            "x": 2793,
+            "x": 2787,
             "y": 2580,
             "width": 1,
             "height": 1,
@@ -271,6 +215,86 @@
             }
         },
         {
+            "type": "circle",
+            "x": 3000,
+            "y": 2500,
+            "radius": 55,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 50,
+                "angle": 120
+            },
+            "details": {
+                "image": "./assets/obstacles/satellite-dish.svg",
+                "imageWidth": 350,
+                "imageHeight": 175,
+                "tint": "#ffffff",
+                "layer": 2,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "fromVertices",
+            "x": 1030,
+            "y": 515,
+            "width": 1045,
+            "height": 695,
+            "vertexSets": [
+                {"x": 522, "y": -348},
+                {"x": 522, "y": 348},
+                {"x": -522, "y": 348},
+                {"x": -522, "y": -348},
+                {"x": 256, "y": -348},
+                {"x": 256, "y": 51},
+                {"x": 207, "y": 51},
+                {"x": 207, "y": -298},
+                {"x": -477, "y": -298},
+                {"x": -477, "y": 300},
+                {"x": 480, "y": 297},
+                {"x": 477, "y": -350}
+            ],
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.3,
+                "angle": 0,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/buildings/lofthome1.png",
+                "imageWidth": 1050,
+                "imageHeight": 700,
+                "tint": "#FFFFFF",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "roof": {
+                    "image": "./assets/buildings/lofthome1roof.png",
+                    "width": 1050,
+                    "height": 700,
+                    "opacity": 255,
+                    "aboveGround": true,
+                    "deck": true,
+                    "roofHitbox": [
+                        {"x": -510, "y": -292},
+                        {"x": 210, "y": -292},
+                        {"x": 210, "y": 78},
+                        {"x": 480, "y": 78},
+                        {"x": 480, "y": 348},
+                        {"x": -520, "y": 348}
+                    ]
+                }
+            }
+        },
+        {
             "type": "fromVertices",
             "x": 3224,
             "y": 1460,
@@ -315,6 +339,76 @@
                 "xOffset": 0,
                 "yOffset": 0,
                 "angleOffset": 0,
+                "imageMode": "center",
+                "roof": {
+                    "image": "./assets/buildings/hallway1roof.png",
+                    "width": 700,
+                    "height": 1750,
+                    "opacity": 255,
+                    "aboveGround": false,
+                    "deck": false,
+                    "roofHitbox": [
+                        {"x": 282, "y": 360},
+                        {"x": 282, "y": 630},
+                        {"x": 222, "y": 630},
+                        {"x": 212, "y": 680},
+                        {"x": -208, "y": 680},
+                        {"x": -218, "y": -360},
+                        {"x": -278, "y": -360},
+                        {"x": -278, "y": -630},
+                        {"x": -218, "y": -630},
+                        {"x": -208, "y": -680},
+                        {"x": 212, "y": -680},
+                        {"x": 212, "y": 360}
+                    ]
+                }
+            }
+        },
+        {
+            "type": "fromVertices",
+            "x": 1290,
+            "y": 2223,
+            "width": 1,
+            "height": 1,
+            "vertexSets": [
+                [
+                    {"x": 240, "y": 630},
+                    {"x": 240, "y": 700},
+                    {"x": -238, "y": 700},
+                    {"x": -238, "y": -370},
+                    {"x": -190, "y": -370},
+                    {"x": -190, "y": 660},
+                    {"x": 202, "y": 660},
+                    {"x": 202, "y": 630}
+                ],
+                [
+                    {"x": 242, "y": 360},
+                    {"x": 192, "y": 360},
+                    {"x": 192, "y": -660},
+                    {"x": -198, "y": -660},
+                    {"x": -198, "y": -630},
+                    {"x": -238, "y": -630},
+                    {"x": -238, "y": -700},
+                    {"x": 242, "y": -700}
+                ]
+            ],
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.3,
+                "angle": 0,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/buildings/hallway1.png",
+                "imageWidth": 700,
+                "imageHeight": 1750,
+                "tint": "#FFFFFF",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 180,
                 "imageMode": "center",
                 "roof": {
                     "image": "./assets/buildings/hallway1roof.png",
@@ -417,60 +511,6 @@
                 "angleOffset": 0,
                 "imageMode": "center",
                 "health": 800
-            }
-        },
-        {
-            "type": "rectangle",
-            "x": 1350,
-            "y": 1550,
-            "width": 166,
-            "height": 166,
-            "options": {
-                "isStatic": true,
-                "friction": 1,
-                "restitution": 0,
-                "density": 0.3,
-                "angle": 2,
-                "inertia": 0
-            },
-            "details": {
-                "image": "./assets/obstacles/crate2.png",
-                "imageWidth": 170,
-                "imageHeight": 170,
-                "tint": "#ae8b37",
-                "layer": 0,
-                "xOffset": 0,
-                "yOffset": 0,
-                "angleOffset": 0,
-                "imageMode": "center",
-                "health": 1000
-            }
-        },
-        {
-            "type": "rectangle",
-            "x": 1550,
-            "y": 1600,
-            "width": 166,
-            "height": 166,
-            "options": {
-                "isStatic": true,
-                "friction": 1,
-                "restitution": 0,
-                "density": 0.3,
-                "angle": -4,
-                "inertia": 0
-            },
-            "details": {
-                "image": "./assets/obstacles/crate2.png",
-                "imageWidth": 170,
-                "imageHeight": 170,
-                "tint": "#ae8b37",
-                "layer": 0,
-                "xOffset": 0,
-                "yOffset": 0,
-                "angleOffset": 0,
-                "imageMode": "center",
-                "health": 1000
             }
         },
         {
@@ -687,31 +727,6 @@
                 "angleOffset": 0,
                 "imageMode": "center",
                 "health": 1000
-            }
-        },
-        {
-            "type": "circle",
-            "x": 1180,
-            "y": 1560,
-            "radius": 55,
-            "options": {
-                "isStatic": true,
-                "friction": 1,
-                "restitution": 0,
-                "density": 50,
-                "angle": 120
-            },
-            "details": {
-                "image": "./assets/obstacles/barrel.png",
-                "imageWidth": 130,
-                "imageHeight": 130,
-                "tint": "#4a4a4a",
-                "layer": 0,
-                "xOffset": 0,
-                "yOffset": 0,
-                "angleOffset": 0,
-                "imageMode": "center",
-                "health": 60
             }
         },
         {
@@ -1009,6 +1024,31 @@
                 "tint": "#de514a",
                 "layer": 1,
                 "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center"
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 1850,
+            "y": 3650,
+            "width": 280,
+            "height": 120,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 40,
+                "angle": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/redcar.svg",
+                "imageWidth": 600,
+                "imageHeight": 300,
+                "tint": "#ffffff",
+                "layer": 0,
+                "xOffset": -70,
                 "yOffset": 0,
                 "angleOffset": 0,
                 "imageMode": "center"
@@ -1935,7 +1975,7 @@
                 "friction": 0,
                 "restitution": 0,
                 "inertia": 0,
-                "density": 0.01
+                "density": 0.02
             },
             "highlightcolour": "#7d8a35",
             "class": "player",
@@ -1987,6 +2027,22 @@
                 "density": 0.4,
                 "angle": 0,
                 "inertia": 0
+            }
+        },
+        {
+            "type": "rectangle",
+            "x": 1780,
+            "y": 3650,
+            "width": 480,
+            "height": 195,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.4,
+                "angle": 0,
+                "inertia": 0,
+                "chamfer": {"radius": 20}
             }
         }
     ],

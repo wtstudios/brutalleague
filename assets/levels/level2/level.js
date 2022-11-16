@@ -83,6 +83,7 @@ export const level = await (async () => {
                         }
                     }),
                     world = engine.world;
+                    const runner14832948 = Matter.Runner.run(engine);
 
                 let shouldCall = 2;
                 let levelStarted = false;
@@ -588,7 +589,7 @@ export const level = await (async () => {
                                 const p = levelData.players[i],
                                 q = p.inventory.activeItem,
                                 ip = q.proto;
-
+                                
                                 // Intense NPC stare
                                 if (i != playerNum && sqauredDist(a[playerNum].body.position, player.body.position) <= 1600 ** 2 && !(Math.round(p5.degrees(player.angle) / 10) == Math.round(p5.degrees(Math.atan2(a[playerNum].body.position.y - player.body.position.y, a[playerNum].body.position.x - player.body.position.x) + Math.PI / 2) / 10))) {
                                     p5.fill("red");
@@ -765,9 +766,9 @@ export const level = await (async () => {
                             p5.rotate(b.angle + o.offset.angle);
                             p5.tint(o.tint);
                             p5.image(o.image, 0, 0, o.imageWidth, o.imageHeight);
-                            /*p5.rotate(-(b.angle + o.offset.angle));
+                            p5.rotate(-(b.angle + o.offset.angle));
                             p5.fill('red');
-                            p5.text(o.health, 0, 0);*/
+                            //p5.text("skrim asset #" + b.id, 0, 0);
                             p5.noTint();
                             p5.pop();
                         }
@@ -819,7 +820,7 @@ export const level = await (async () => {
                                 details.aboveGround = o.roof.aboveGround;
                             } else {
                                 if (o.roof.opacity < 255 || o.roof.deck && levelData.players[playerNum].state.layer > 0) {
-                                    if(o.roof.deck) {
+                                    if(o.roof.deck && details.inside != true) {
                                         levelData.players[playerNum].state.layer = 0;
                                     } else {
                                         o.roof.opacity = Math.min(o.roof.opacity + Math.round(30 * (dt * 2)), 255);
@@ -976,7 +977,7 @@ export const level = await (async () => {
                                 p5.translate(bd.position.x, bd.position.y);
                                 p5.rotate(bd.angle);
                                 p5.tint(b.trailcolor);
-                                p5.image(images.bullettrail, 0, b.emitter.ballistics.velocity * dt * 0.2, 12, b.emitter.ballistics.velocity * dt * 6);
+                                p5.image(images.bullettrail, 0, b.emitter.ballistics.velocity * dt * 1.5, 12, b.emitter.ballistics.velocity * dt * 8);
                                 p5.tint("#FFFFFF");
                                 p5.pop();
                                 if(gamespace.settings.debug) {
@@ -1103,7 +1104,7 @@ export const level = await (async () => {
 
                 p5.mousePressed = function () {/*
                     if (p5.mouseButton == p5.LEFT) {
-                        sightArray.push({ x: p5.round((levelData.players[playerNum].body.position.x + (p5.mouseX - p5.width / 2) * 2.2) / 3) * 3 - 2760, y: p5.round((levelData.players[playerNum].body.position.y + (p5.mouseY - p5.height / 2) * 2.2) / 3) * 3 - 2620});
+                        sightArray.push({ x: p5.round((levelData.players[playerNum].body.position.x + (p5.mouseX - p5.width / 2) * 2.2) / 3) * 3 - 0, y: p5.round((levelData.players[playerNum].body.position.y + (p5.mouseY - p5.height / 2) * 2.2) / 3) * 3 - 0});
                     }*/
                 };
 
@@ -1170,6 +1171,8 @@ export const level = await (async () => {
                     dt = 0.2 /*/ (now - lastTime)*/;
                     p5.clear();
 
+                    levelData.obstacles[5].offset.angle+=0.001;
+
                     const p = levelData.players[playerNum],
                         b = p.body,
                         i = p.inventory.activeItem,
@@ -1210,22 +1213,26 @@ export const level = await (async () => {
                         if (shouldCall > 1 && levelData.players[playerNum].health > 0) {
                             playerMove();
                         }
-                    }
+                        /*p5.noStroke();
+                        p5.fill(39, 39, 39, 150);
+                        p5.arc(p.body.position.x - Math.cos(p.angle - Math.PI / 2) * 90, p.body.position.y - Math.sin(p.angle - Math.PI / 2) * 90, (p5.width + p5.height) * 3, (p5.width + p5.height) * 3, (p.angle - Math.PI / 2) + 0.5, (p.angle - Math.PI / 2) - 0.5, p5.PIE);
+                    */}
                     drawParticles();
                     drawObjects(1);
                     drawRoofs(0);
                     if(levelStarted) {
                         drawPlayers(1);
                     }
+                    drawObjects(2);
                     /*
                     p5.fill(255, 0, 0, 100);
                     p5.stroke(255, 0, 0, 100);
                     p5.strokeWeight(10);
                     p5.ellipse(p5.round((levelData.players[playerNum].body.position.x + (p5.mouseX - p5.width / 2) * 2.2) / 3) * 3, p5.round((levelData.players[playerNum].body.position.y + (p5.mouseY - p5.height / 2) * 2.2) / 3) * 3, 10, 10);
                     for (let m = 0; m < sightArray.length; m++) {
-                        p5.ellipse(sightArray[m].x + 2760, sightArray[m].y + 2620, 60, 60);
+                        p5.ellipse(sightArray[m].x + 0, sightArray[m].y + 0, 60, 60);
                         if (m > 0) {
-                            p5.line(sightArray[m].x + 2760, sightArray[m].y + 2620, sightArray[m - 1].x + 2760, sightArray[m - 1].y + 2620);
+                            p5.line(sightArray[m].x + 0, sightArray[m].y + 0, sightArray[m - 1].x + 0, sightArray[m - 1].y + 0);
                         }
                     }
                     */
@@ -1280,7 +1287,8 @@ export const level = await (async () => {
                         $("reload-progress").style.width = "0px";
                         $("reload-progress").style.display = "none";
                         $("reload-progress-outline").style.display = "none";
-                        ip.sounds.fire.play();
+                        var shot = new Audio(ip.sounds.fire);
+                        shot.play();
                     }
 
                     if (p5.mouseX != p5.pmouseX || p5.mouseY != p5.pmouseY) {
@@ -1298,6 +1306,11 @@ export const level = await (async () => {
                     }
                     lastTime = Date.now();
                 };
+                let String = "";
+                for(let i = 0; i < gamespace.guns.length; i++) {
+                    String = String + gamespace.guns[i].name + ":\n\nDamage: " + gamespace.guns[i].ballistics.damage + "\nShot delay: " + gamespace.guns[i].delay + "\nScope zoom: " + gamespace.guns[i].view + "\nCaliber: " + gamespace.guns[i].caliber + "\n\n";
+                }
+                console.log(String);
             };
 
             new p5(s);
