@@ -240,8 +240,8 @@
         },
         {
             "type": "fromVertices",
-            "x": 1030,
-            "y": 515,
+            "x": 2050,
+            "y": 800,
             "width": 1045,
             "height": 695,
             "vertexSets": [
@@ -730,6 +730,33 @@
             }
         },
         {
+            "type": "rectangle",
+            "x": 1900,
+            "y": 1600,
+            "width": 166,
+            "height": 166,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 0.3,
+                "angle": 30,
+                "inertia": 0
+            },
+            "details": {
+                "image": "./assets/obstacles/crate2.png",
+                "imageWidth": 170,
+                "imageHeight": 170,
+                "tint": "#9b7831",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 1000
+            }
+        },
+        {
             "type": "circle",
             "x": 3020,
             "y": 3760,
@@ -758,6 +785,31 @@
             "type": "circle",
             "x": 4135,
             "y": 1370,
+            "radius": 55,
+            "options": {
+                "isStatic": true,
+                "friction": 1,
+                "restitution": 0,
+                "density": 1,
+                "angle": 40
+            },
+            "details": {
+                "image": "./assets/obstacles/barrel.png",
+                "imageWidth": 130,
+                "imageHeight": 130,
+                "tint": "#4a4a4a",
+                "layer": 0,
+                "xOffset": 0,
+                "yOffset": 0,
+                "angleOffset": 0,
+                "imageMode": "center",
+                "health": 60
+            }
+        },
+        {
+            "type": "circle",
+            "x": 2500,
+            "y": 1700,
             "radius": 55,
             "options": {
                 "isStatic": true,
@@ -2013,8 +2065,8 @@
             "health": 100
         },
         {
-            "x": 1400,
-            "y": 900,
+            "x": 1700,
+            "y": 600,
             "angle": 180,
             "size": 40,
             "colour1": "#4b5320",
