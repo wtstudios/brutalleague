@@ -1171,7 +1171,7 @@ export const level = await (async () => {
                     dt = 0.2 /*/ (now - lastTime)*/;
                     p5.clear();
 
-                    levelData.obstacles[5].offset.angle+=0.001;
+                    levelData.obstacles[5].offset.angle+=0.1;
 
                     const p = levelData.players[playerNum],
                         b = p.body,
